@@ -124,7 +124,6 @@ export default {
             this.setSource();
         },
         visibilityChange: function() {
-            console.log('test');
             if (document.mozHidden) {
                 this.stopPreview();
             } else {
@@ -144,7 +143,6 @@ export default {
             this.viewfinder.mozSrcObject = null;
         },
         deInit () {
-            console.log('camera page');
             this.stopPreview();
             if (this._cameraObj) {
                 this._cameraObj.release().then(() => {

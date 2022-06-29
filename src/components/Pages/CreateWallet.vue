@@ -30,28 +30,26 @@
                       <kaiui-radiobutton value="BITCOIN" primaryText="BITCOIN"/>
                       <kaiui-radiobutton value="ETHEREUM" primaryText="ETHEREUM"/>
                       <kaiui-radiobutton value="MATIC" primaryText="MATIC"/>
-                      <kaiui-radiobutton value="USDC" primaryText="USDC"/>
                   </kaiui-radiogroup>
               </kaiui-dialog>
 
               <kaiui-input
-                  label="Pin Code (The pin that will encrypt and decrypt the wallet. Importrant for transaction between wallets.)"
+                  label="Pin Code"
                   type="text"
                   v-model="wallet.pincode"
                   class="kaiui-p_btn kaiui-input-input"
                   placeholder="Pin Code"/>
-
+              <kaiui-text text="(The pin that will encrypt and decrypt the wallet. Important for transaction between wallets.)"/>
               <kaiui-input
                   label="Description"
                   type="text"
                   v-model="wallet.description"
-                  class="kaiui-p_btn kaiui-input-input"
-                  placeholder="description"/>
+                  class="kaiui-p_btn kaiui-input-input"/>
 
                 <kaiui-button 
                   title="Create Wallet" 
                   v-bind:softkeys="softkeysPhone"
-                  v-on:softCenter="createWallet"/>
+                  v-on:softCenter="Createnewwallet"/>
             </form>
           </div>
           <SoftKey :softkeys.sync="softkeys" />
@@ -91,7 +89,7 @@ export default {
         }
     },
     methods: {
-      createWallet: function () {
+      Createnewwallet () {
         if (!this.wallet.secretType) {
           this.$toastr.e("Secret type Required")
           return false

@@ -7,7 +7,7 @@
                 Loading...
             </div>
             <div v-else>
-                <kaiui-text />
+                <kaiui-text text=""/>
                 <ul class="demo">
                     <li>Wallet Type : <b>{{ singlewallet ? singlewallet.secretType : "" }}</b></li>
                     <li>Description : <b>{{ singlewallet ? singlewallet.description : "" }}</b></li>
@@ -19,7 +19,6 @@
                     <kaiui-button
                         title="Wallet QR Code" 
                         v-bind:softkeys="softkeysPhone"
-                        v-on:softLeft="softkeysLeftBack"
                         v-on:softCenter="phoneButtonSoftCenterClicked"
                     />
                     <div class="managestuff">
@@ -29,7 +28,6 @@
                     <kaiui-button 
                         title="Transaction Records"
                         v-bind:softkeys="softkeysPhone"
-                        v-on:softLeft="softkeysLeftBack"
                         v-on:softCenter="softkeysRightBack"
                     />
                     <kaiui-button 
@@ -82,10 +80,16 @@
                             <kaiui-button
                                 title="Submit" 
                                 v-bind:softkeys="softkeysPhoneTwo"
-                                v-on:softCenter="submittransaction"
-                                v-on:softLeft="phoneButtonSoftleftClicked"/>
+                                v-on:softCenter="submittransaction"/>
                         </form>
                     </div>
+
+                    <kaiui-button 
+                        title="Back"
+                        v-bind:softkeys="softkeysLeft"
+                        v-on:softCenter="softkeysLeftBack"
+                    />
+
                     <SoftKey :softkeys.sync="softkeys" />
                 </div>
             </div>
@@ -107,8 +111,9 @@ export default {
             singlewallet: null,
             isShow: false,
             isForm: false,
-            softkeysPhone: { left: "Back", center: "View" },
-            softkeysPhoneTwo: { left: "Back", center: "Select"},
+            softkeysPhone: { center: "View" },
+            softkeysPhoneTwo: { center: "Select"},
+            softkeysLeft: {center: "ok"},
             qraddress: "",
             loading:true,
             transaction: {
@@ -140,7 +145,7 @@ export default {
             this.fetchWalletIds();
             var num = this.items.findIndex(element => element.id === this.urlId);
             const indexPrevnum = num+1;
-            if(indexPrevnum <= this.items.length){+
+            if(indexPrevnum <= this.items.length){
                 this.$router.push({ name: "wallet", params: { id:this.items[indexPrevnum].id }})
                 this.$router.go();
             }
@@ -152,9 +157,6 @@ export default {
         phoneButtonShowTransaction (){
             this.isForm = true
             this.isShow = false
-        },
-        phoneButtonSoftleftClicked() {
-            this.$router.push({ name: "wallets" });
         },
         submittransaction () {
             if(this.transaction.amount === "" && !isNaN(this.transaction.amount)){
