@@ -7,7 +7,7 @@
                 Loading...
             </div>
             <div v-else>
-                <kaiui-text />
+                <kaiui-text text=""/>
                 <ul class="demo">
                     <li>Wallet Type : <b>{{ singlewallet ? singlewallet.secretType : "" }}</b></li>
                     <li>Description : <b>{{ singlewallet ? singlewallet.description : "" }}</b></li>
@@ -19,7 +19,6 @@
                     <kaiui-button
                         title="Wallet QR Code" 
                         v-bind:softkeys="softkeysPhone"
-                        v-on:softLeft="softkeysLeftBack"
                         v-on:softCenter="phoneButtonSoftCenterClicked"
                     />
                     <div class="managestuff">
@@ -29,7 +28,6 @@
                     <kaiui-button 
                         title="Transaction Records"
                         v-bind:softkeys="softkeysPhone"
-                        v-on:softLeft="softkeysLeftBack"
                         v-on:softCenter="softkeysRightBack"
                     />
                     <kaiui-button 
@@ -82,10 +80,16 @@
                             <kaiui-button
                                 title="Submit" 
                                 v-bind:softkeys="softkeysPhoneTwo"
-                                v-on:softCenter="submittransaction"
-                                v-on:softLeft="phoneButtonSoftleftClicked"/>
+                                v-on:softCenter="submittransaction"/>
                         </form>
                     </div>
+
+                    <kaiui-button 
+                        title="Back"
+                        v-bind:softkeys="softkeysLeft"
+                        v-on:softCenter="softkeysLeftBack"
+                    />
+
                     <SoftKey :softkeys.sync="softkeys" />
                 </div>
             </div>
@@ -107,8 +111,9 @@ export default {
             singlewallet: null,
             isShow: false,
             isForm: false,
-            softkeysPhone: { left: "Back", center: "View" },
-            softkeysPhoneTwo: { left: "Back", center: "Select"},
+            softkeysPhone: { center: "View" },
+            softkeysPhoneTwo: { center: "Select"},
+            softkeysLeft: {center: "ok"},
             qraddress: "",
             loading:true,
             transaction: {
@@ -140,7 +145,7 @@ export default {
             this.fetchWalletIds();
             var num = this.items.findIndex(element => element.id === this.urlId);
             const indexPrevnum = num+1;
-            if(indexPrevnum <= this.items.length){+
+            if(indexPrevnum <= this.items.length){
                 this.$router.push({ name: "wallet", params: { id:this.items[indexPrevnum].id }})
                 this.$router.go();
             }
@@ -153,40 +158,45 @@ export default {
             this.isForm = true
             this.isShow = false
         },
-        phoneButtonSoftleftClicked() {
-            this.$router.push({ name: "wallets" });
-        },
         submittransaction () {
-            if(this.transaction.amount === "" && !isNaN(this.transaction.amount)){
-                this.$toastr.e('Amount Field Required')
-                return false;
-            }
-            const pinCode = this.transaction.pincode;
-            const pinCodeLenght = pinCode.length;
-            if(!isNaN(pinCode) && pinCodeLenght === 0){
-                this.$toastr.e('Pincode Field Required. Lenght between 4 to 6')
-                return false;
+            if(Number.isInteger(parseInt(this.transaction.amount)) !== true){
+                this.$toastr.e('Amount Need to be Numeric')
+                return false
             }
             if(this.transaction.toAddress === ""){
                 this.$toastr.e('To Address Field Required')
-                return false;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                return false
+            }
+            if(Number.isInteger(parseInt(this.transaction.pincode)) !== true){
+                this.$toastr.e('Numeric Pincode Field Required.')
+                return false
+            }
+
+            const pincode = this.transaction.pincode.length
+            if(pincode > 6){
+                this.$toastr.e('Length shound be less than 6')
+                return false
+            } else if(pincode < 4){
+                this.$toastr.e('Length shound be greater than 4')
+                return false
             }
 
             var userId = localStorage.getItem('user_id').toString();
             let arr1 = this.transaction? this.transaction : '';
             let arr2 = this.singlewallet;
             this.$http.post(process.env.VUE_APP_URL+'executetransaction', [arr1, arr2]).then(response => {
-                if (response.data.result.transactionHash !== '' && response.data.result.transactionHash !== undefined) {
+                if (response.data.success === true) {
                     this.loading = false;
                     const params = {'userid': userId, 'transHash': response.data.result.transactionHash, 'secrettype': this.singlewallet.secretType, 'address': this.singlewallet.address};
                     this.$http.post(process.env.VUE_APP_URL+'createtransaction', params).then(response => {console.log(response)});
                     this.isForm = false;
                     this.$toastr.s('Transfer Sucessfully!')
                 } else{
-                    this.$toastr.e('Entered Data is Wrong')
+                    const errors = response.data.errors
+                    this.receiveValue(errors)
                 }
             }).catch(error => {
-                this.$toastr.e('Something Went Wrong!')
+                this.receiveValue(error)
             }).finally(() => this.loading = false);
         },
         softkeysLeftBack () {
@@ -223,10 +233,13 @@ export default {
               break;
           }
         },
+        receiveValue(val){
+            this.$toastr.e(val[0].message)
+            return false
+        },
     },
     mounted() {
         this.fetchWalletIds();
-
         const qrdata = this.$route.query.qrData;
         if(qrdata){
             this.isForm = true;

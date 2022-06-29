@@ -6,8 +6,8 @@
             Loading...
         </div>
         <div v-else>
-             <kaiui-text />
-             <kaiui-text />
+             <kaiui-text text=""/>
+             <kaiui-text text=""/>
             <div class="row lead border mb-3" v-for="item in items" :key="item.id">
                 <div class="col-sm-5 col-md-6">Wallet: {{ item.secretType }}</div>
                 <div class="col-sm-5 col-md-6">Description: {{ item.description }}</div>
@@ -54,7 +54,6 @@ export default {
             this.$router.push({ name: "wallet", params: { id:e }})
         },
         onKeyDown(event) {
-            console.log(event.key)
           switch (event.key) {
             case "SoftLeft":
               return this.sendBack();

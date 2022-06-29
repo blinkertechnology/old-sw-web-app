@@ -1,4 +1,5 @@
 <template>
+  <div>
   <kaiui-content>
     <kaiui-header title="Welcome to Sorted Wallet" />
     <kaiui-text text=""/>
@@ -557,26 +558,42 @@ SORS is not liable for any losses of your Cryptocurrencies and will not assist y
 <kaiui-text text="22.2	Any dispute, controversy, difference or claim (including non-contractual disputes or claims) arising out of or relating to these Terms of Use, including the existence, validity, interpretation, performance, breach or termination thereof or any dispute regarding non-contractual obligations arising out of or relating to it shall be referred to and finally resolved by arbitration administered by the Hong Kong International Arbitration Centre (HKIAC) under the HKIAC Administered Arbitration Rules in force when the Notice of Arbitration is submitted. The law of this arbitration clause shall be Hong Kong law). The seat of arbitration shall be Hong Kong. The number of arbitrators shall be one. The arbitration proceedings shall be conducted in English."/>
 <kaiui-text text="Please email. if you have any questions or concerns about these Terms of Use or our Website."/>
         
-  <kaiui-checkbox
-    primaryText="I have read and agreed to the Terms and Conditions"
-    v-on:softCenter="showDialogs" 
-  />
+    <kaiui-checkbox
+      primaryText="I have read and agreed"
+      secondaryText="on Terms & Coditions"
+      class="tandc"
+      v-on:softCenter="showDialogs" 
+    />
 
-  <kaiui-button
-    v-bind:softkeys="softkeysPhone"
-    v-on:softRight="phoneButtonSoftRightClicked"
-    v-on:softCenter="phoneButtonSoftCenterClicked"
-    v-on:softLeft="phoneButtonSoftleftClicked"
-    title="Agree/Connect"
-  />
-  </kaiui-content>
+    <kaiui-button
+      v-bind:softkeys="softkeysPhone"
+      v-on:softRight="phoneButtonSoftRightClicked"
+      v-on:softCenter="phoneButtonSoftCenterClicked"
+      v-on:softLeft="phoneButtonSoftleftClicked"
+      title="Agree/Connect"
+      id="myCheck"
+    />
+    <SoftKey :softkeys.sync="softkeys" />
+    <div class="exacthere"></div>
+    </kaiui-content>
+  </div>
 </template>
 
 <script>
+import SoftKey from "./SoftKey";
+
 export default {
+  components: {
+    SoftKey
+  },
   data: () => ({
     softkeysPhone: { left: "FAQ", center: "Agree", right: "Details" },
-    agree: false
+    agree: false,
+    softkeys: {
+        left: "",
+        center: "",
+        right: "Scroll Down"
+    }
   }),
   methods: {
     phoneButtonSoftleftClicked()  {     
@@ -599,12 +616,38 @@ export default {
       } else {
         this.agree = true;
       }
+    },
+    sendBottom() {
+      let pageBottom = document.querySelector(".exacthere")
+      pageBottom.scrollIntoView({behavior: "smooth"})
+      document.getElementById("myCheck").click();
+    },
+    onKeyDown(event) {
+      console.log(event)
+      switch (event.key) {
+        case "SoftRight":
+          return this.sendBottom();
+        default:
+          break;
+      }
     }
   },
   created() {
       if (this.$cookie.get("TANDC") === 'hide') {
         this.$router.push({ name: "homepage" });
       }
+  },
+  mounted() {
+      document.addEventListener('keydown', this.onKeyDown);
+  },
+  beforeDestroy() {
+      window.removeEventListener('keydown', this.onKeyDown);
   }
 };
 </script>
+
+<style scoped>
+.tandc span{
+  font-size: 12px;
+}
+</style>
