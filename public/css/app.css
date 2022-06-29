@@ -1,0 +1,22 @@
+:root {
+  --primary-color: #6339FE;
+  --primary-dark-color: #0d1833;
+}
+
+.toast-error{
+    background-color: #FF3BFB !important;
+    font-weight: 900;
+}
+
+.toast-success{
+    background-color: #1DED9D !important;
+    font-weight: 900;
+}
+
+.toast-container>div{
+  opacity: 1.8 !important;
+}
+
+.kaiui-separator .kaiui-separator-text{
+  margin: auto !important;
+}

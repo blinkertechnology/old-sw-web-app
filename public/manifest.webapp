@@ -1,0 +1,30 @@
+{
+	"version": "1.0.3",
+	"name": "Sorted Wallet",
+	"description": "Sorted Wallet powered by Sors",
+	"type": "privileged",
+	"launch_path": "/index.html",
+	"icons": {
+		"56": "/assets/icons/kaios_56.png",
+		"112": "/assets/icons/kaios_112.png"
+	},
+	"developer": {
+		"name": "The Coding Machine",
+		"url": "https://thecodingmachine.com/en/"
+	},
+	"locales": {
+		"en-US": {
+			"name": "Sorted Wallet",
+			"subtitle": "Sorted Wallet powered by Sors",
+			"description": "Sorted Wallet powered by Sors"
+		}
+	},
+	"default_locale": "en-US",
+	"permissions": {
+		"camera": {
+			"app": "DENY_ACTION",
+			"privileged": "PROMPT_ACTION",
+			"certified": "ALLOW_ACTION"
+		}
+	}
+}

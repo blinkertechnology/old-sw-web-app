@@ -1,0 +1,74 @@
+{
+  "name": "babi2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@nuintun/qrcode": "^3.3.0",
+    "@venly/connect": "^1.33.0",
+    "@vuelidate/core": "^2.0.0-alpha.41",
+    "@vuelidate/validators": "^2.0.0-alpha.29",
+    "axios": "^0.27.2",
+    "barcode-detector": "^1.0.0",
+    "core-js": "^3.6.5",
+    "crypto-js": "^4.1.1",
+    "crypto-md5": "^1.0.0",
+    "jquery": "^3.6.0",
+    "js-base64": "^3.7.2",
+    "js-md5": "^0.7.3",
+    "jsqr": "^1.4.0",
+    "lodash": "^4.17.21",
+    "md5": "^2.3.0",
+    "qrcode-decoder": "^0.2.1",
+    "simple-camera-service": "^1.0.2",
+    "vue": "^2.6.11",
+    "vue-axios": "^3.4.1",
+    "vue-axios-cors": "^1.0.1",
+    "vue-cookie": "^1.1.4",
+    "vue-kaiui": "^0.1.1",
+    "vue-qrcode-component": "^2.1.1",
+    "vue-qrcode-reader": "^3.1.0",
+    "vue-router": "^3.5.3",
+    "vue-session": "^1.0.0",
+    "vue-toastr": "^2.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@types/js-md5": "^0.4.3",
+    "@types/node": "^17.0.38",
+    "@vue/cli-plugin-babel": "~5.0.4",
+    "@vue/cli-plugin-eslint": "~5.0.4",
+    "@vue/cli-service": "~5.0.4",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "http-server": "^0.12.3",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {
+      "no-unused-vars": "off"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "typings": "dist/index"
+}
