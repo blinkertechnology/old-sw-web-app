@@ -90,28 +90,40 @@ export default {
     },
     methods: {
       Createnewwallet () {
-        if (!this.wallet.secretType) {
+        if (this.wallet.secretType === null) {
           this.$toastr.e("Secret type Required")
           return false
         }
-        if (!this.wallet.pincode) {
-          this.$toastr.e("Pin Code Required")
-          return false
+        if(Number.isInteger(parseInt(this.wallet.pincode)) !== true){
+            this.$toastr.e('Numeric Pincode Field Required.')
+            return false
         }
-        if (Number.isInteger(this.wallet.pincode)) {
-          this.$toastr.e("Can only contain digits")
+        const pincode = this.wallet.pincode.length
+        if(pincode > 6){
+            this.$toastr.e('Length shound be less than 6')
+            return false
+        } else if(pincode < 4){
+            this.$toastr.e('Length shound be greater than 4')
+            return false
+        }
+
+        if (this.wallet.description === null) {
+          this.$toastr.e("Description Required")
           return false
         }
 
         this.loading = true
-        this.$http.post(process.env.VUE_APP_URL+'createwallet', this.wallet).then(response => {    
-          if (response.data.result.id !== '' && response.data.result.id !== undefined) {
+        this.$http.post(process.env.VUE_APP_URL+'createwallet', this.wallet).then(response => {  
+          if (response.data.success === true) {
               this.$router.push({ name: "wallets" });
               this.$toastr.s('Walllet Created!')
               this.loading = false
+          } else {
+            const errors = response.data.errors
+            this.receiveValue(errors)
           }
         }).catch(error => {
-          this.$toastr.s('Something went wrong! Please try again later.')
+            this.receiveValue(error)
         }).then(() => this.loading = false);
       },
       phoneButtonSoftleftClicked() {
@@ -136,6 +148,10 @@ export default {
       },
       sendBack() {
         this.$router.push({ name: "dashboard" });
+      },
+      receiveValue(val){
+          this.$toastr.e(val[0].message)
+          return false
       }
     },
     beforeDestroy() {

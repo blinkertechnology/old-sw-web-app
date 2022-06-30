@@ -1,7 +1,7 @@
 {
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"name": "Sorted Wallet",
-	"description": "Sorted Wallet powered by Sors",
+	"description": "Sorted Wallet",
 	"type": "privileged",
 	"launch_path": "/index.html",
 	"icons": {
@@ -15,8 +15,8 @@
 	"locales": {
 		"en-US": {
 			"name": "Sorted Wallet",
-			"subtitle": "Sorted Wallet powered by Sors",
-			"description": "Sorted Wallet powered by Sors"
+			"subtitle": "Sorted Wallet",
+			"description": "Sorted Wallet"
 		}
 	},
 	"default_locale": "en-US",

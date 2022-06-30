@@ -12,7 +12,8 @@
                     <li>Wallet Type : <b>{{ singlewallet ? singlewallet.secretType : "" }}</b></li>
                     <li>Description : <b>{{ singlewallet ? singlewallet.description : "" }}</b></li>
                     <li>Balance : <b>{{ singlewallet ? singlewallet.balance.balance : "" }}</b></li>
-                    <li>Address :<b class="address">{{ singlewallet ? singlewallet.address : "" }}</b></li>
+                    <li>Address :</li>
+                    <li class="address"><b>{{ singlewallet ? singlewallet.address : "" }}</b></li>
                 </ul>
 
                 <div class="card-body">
@@ -89,7 +90,6 @@
                         v-bind:softkeys="softkeysLeft"
                         v-on:softCenter="softkeysLeftBack"
                     />
-
                     <SoftKey :softkeys.sync="softkeys" />
                 </div>
             </div>
@@ -326,6 +326,8 @@ ul.demo {
 }
 
 .demo .address{
-    word-break: break-word
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 }
 </style>
