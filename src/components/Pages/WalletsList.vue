@@ -1,19 +1,16 @@
 <template>
     <kaiui-content>
-      <kaiui-header title="Sorted Wallet" />
-      <kaiui-separator title="Wallet List" />
+        <kaiui-header title="Sorted Wallet" />
         <div v-if="loading" class="loader">
-            Loading...
+            <img src="/assets/loader.gif"/>
         </div>
         <div v-else>
-             <kaiui-text text=""/>
-             <kaiui-text text=""/>
-            <div class="row lead border mb-3" v-for="item in items" :key="item.id">
-                <div class="col-sm-5 col-md-6">Wallet: {{ item.secretType }}</div>
-                <div class="col-sm-5 col-md-6">Description: {{ item.description }}</div>
+            <div class="row lead border mb-3" v-for="item in items" :key="item.id" nav-selectable="true" id="singlewalletbutton">
+                <div class="col-sm-5 col-md-6 tokentype">Token: {{ item.secretType.charAt(0).toUpperCase() + item.secretType.slice(1).toLowerCase() }}</div>
                 <div class="col-sm-5 col-md-6">Balance: {{ item.balance.balance }}</div>
                 <div class="col-sm-5 col-md-6">
                     <kaiui-button 
+                        nav-selectable="false"
                         title="View Wallet" 
                         v-bind:softkeys="softkeysPhone"
                         v-on:softLeft="phoneButtonSoftleftClicked"
@@ -21,6 +18,7 @@
                     />
                 </div>
             </div>
+            <kaiui-text text=""/>
         </div>
         <SoftKey :softkeys.sync="softkeys" />
     </kaiui-content>
@@ -56,7 +54,7 @@ export default {
         onKeyDown(event) {
           switch (event.key) {
             case "SoftLeft":
-              return this.sendBack();
+              return this.sendBack()
             default:
               break;
           }
@@ -85,6 +83,9 @@ export default {
     },
     beforeDestroy() {
         window.removeEventListener('keydown', this.onKeyDown);
+    },
+    updated() {
+        document.getElementById("singlewalletbutton").click();
     }
 }
 </script>
@@ -93,6 +94,7 @@ export default {
 .mb-3{
   padding-left: 10px;
   margin: 5px;
+  border-bottom: 1px solid #cccaca;
 }
 .loader{
     text-align: center;

@@ -3,18 +3,21 @@
       <kaiui-header title="Sorted Wallet" />
       <kaiui-separator title="Transaction Records" />
         <div v-if="loading" class="loader">
-            Loading...
+            <img src="/assets/loader.gif"/>
         </div>
         <div v-else>
-            <div class="row lead border mb-3" v-for="item in items" :key="item['hash']">
-                <div class="col-sm-5 col-md-6">Secret Type: {{ item['secret_type'] }}</div>
-                <div class="col-sm-5 col-md-6">Status: {{ item['status'] }}</div>
-                <div class="col-sm-5 col-md-6">Transaction From: {{ item['from'] }}</div>
-                <div class="col-sm-5 col-md-6">Transaction To: {{ item['to'] }}</div>
-                <div class="col-sm-5 col-md-6">Transaction At: {{ item['created_at'] }}</div>
+            <div v-for="item in items" :key="item['hash']" class="customclass row lead border mb-3" nav-selectable="true">
+                <div class="col-sm-5 col-md-6">Secret Type: <b>{{ item['secret_type'] }}</b></div>
+                <div class="col-sm-5 col-md-6">Status: <b>{{ item['status'] }}</b></div>
+                <div class="col-sm-5 col-md-6">Amount: <b>{{ item['amount'] }}</b></div>
+                <div class="col-sm-5 col-md-6">Transaction From: </div>
+                <div class="address"><b>{{ item['from']}}</b></div>
+                <div class="col-sm-5 col-md-6">Transaction To: </div>
+                <div class="address"><b>{{ item['to'] }}</b></div>
+                <div class="col-sm-5 col-md-6">Transaction At: </div>
+                <div class="address"><b>{{ item['created_at'] }}</b></div>
             </div>
         </div>
-        <hr>
         <SoftKey :softkeys.sync="softkeys" />
     </kaiui-content>
 </template>
@@ -35,31 +38,34 @@ export default {
                 left: "Back",
                 center: "",
                 right: ""
-            }
+            },
+            walletaddress:null
         }
     },
     methods: {
-        phoneButtonSoftleftClicked() {
-            this.$router.push({ name: "wallets" })
-        },    
         onKeyDown(event) {
             switch (event.key) {
             case "SoftLeft":
-                return this.sendBack();
+                return this.sendBacknow()
             default:
                 break;
             }
         },
-        sendBack() {
-            this.$router.push({ name: "wallet", params: { id:this.$route.query.walletId}});
-            //this.$router.push({ name: "dashboard" });
+        sendBacknow(){
+            this.$router.push({ name: "wallet", params: { id:this.$route.query.walletId}})
+            this.$router.go()
         }
     },
     mounted() {
-        var userId = localStorage.getItem('user_id').toString();
-        var identifierData = Base64.encode(userId);
-
-        this.$http.get(process.env.VUE_APP_URL+'transactionhistory', {params: {walletId: identifierData, secretType: this.$route.params.secretType}}).then((response) => {
+        this.walletaddress = this.$route.query.walletId;
+        var userId = localStorage.getItem('user_id').toString()
+        var identifierData = Base64.encode(userId)
+        this.$http.get(process.env.VUE_APP_URL+'transactionhistory', {
+            params: {
+                walletId: identifierData,
+                address: this.$route.params.secretType
+            }
+        }).then((response) => {
             if (response.data) {
                 this.loading = false
                 this.items = response.data
@@ -70,11 +76,11 @@ export default {
         }).catch((error) => {
             this.errors = error.data?.errors || error
         }).then(() => this.loading = false);
-
-        window.removeEventListener('keydown', this.onKeyDown);
+        
+        document.addEventListener('keydown', this.onKeyDown);
     },
     beforeDestroy() {
-        document.addEventListener('keydown', this.onKeyDown);
+        window.removeEventListener('keydown', this.onKeyDown);
     }
 }
 </script>
@@ -83,8 +89,17 @@ export default {
 .mb-3{
   padding-left: 14px;
   margin: 15px;
+  border-bottom: 1px solid grey;
 }
 .loader{
+    text-align: center;
+}
+.address{
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+.customclass{
     text-align: center;
 }
 </style>

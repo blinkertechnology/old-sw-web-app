@@ -1,6 +1,6 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet App" />
+    <kaiui-header title="Sorted Wallet" />
       <kaiui-tab-item name="Register" selected>
         <div v-if="loading" class="loader">
           <kaiui-separator title="Creating Wallet" />
@@ -8,13 +8,12 @@
         <div v-else>
           <kaiui-separator title="Create Wallet" />
         </div>
-        <kaiui-header title="Sorted Wallet" />
-          <div v-if="loading" class="loader">
-            Creating Wallet. Please wait for a moment...
-          </div>
-          <div v-else>
-            <kaiui-text text=""/>
-            <kaiui-text text=""/>
+        <div v-if="loading" class="loader">
+          <img src="/assets/loader.gif"/>
+          Creating Wallet. Please wait for a moment...
+        </div>
+        <div v-else>
+          <div class="card-body">
             <form method="POST">
               <kaiui-button 
                 title="Select Wallet Type" 
@@ -39,7 +38,7 @@
                   v-model="wallet.pincode"
                   class="kaiui-p_btn kaiui-input-input"
                   placeholder="Pin Code"/>
-              <kaiui-text text="(The pin that will encrypt and decrypt the wallet. Important for transaction between wallets.)"/>
+              <div nav-selectable="true">(The pin that will encrypt and decrypt the wallet. Important for transaction between wallets.)</div>
               <kaiui-input
                   label="Description"
                   type="text"
@@ -49,11 +48,15 @@
                 <kaiui-button 
                   title="Create Wallet" 
                   v-bind:softkeys="softkeysPhone"
-                  v-on:softCenter="Createnewwallet"/>
+                  v-on:softCenter="Createnewwallet"
+                  v-on:softLeft="sendBack"/>
             </form>
           </div>
-          <SoftKey :softkeys.sync="softkeys" />
-          </kaiui-tab-item>
+          <kaiui-text text=""/>
+          <kaiui-text text=""/>
+        </div>
+      </kaiui-tab-item>
+      <SoftKey :softkeys.sync="softkeys" />
   </kaiui-content>
 </template>
  
@@ -119,6 +122,7 @@ export default {
               this.$toastr.s('Walllet Created!')
               this.loading = false
           } else {
+            this.loading = false
             const errors = response.data.errors
             this.receiveValue(errors)
           }
@@ -139,14 +143,14 @@ export default {
         this.$toastr.e('Cancel')
       },
       onKeyDown(event) {
-        switch (event.key) {
+          switch (event.key) {
           case "SoftLeft":
-            return this.sendBack();
+              return this.sendBacktodashboard()
           default:
-            break;
-        }
+              break;
+          }
       },
-      sendBack() {
+      sendBacktodashboard() {
         this.$router.push({ name: "dashboard" });
       },
       receiveValue(val){
@@ -154,11 +158,11 @@ export default {
           return false
       }
     },
-    beforeDestroy() {
-        document.addEventListener('keydown', this.onKeyDown);
-    },
     mounted() {
-        window.removeEventListener('keydown', this.onKeyDown);
+      document.addEventListener('keydown', this.onKeyDown);
+    },
+    beforeDestroy() {
+      window.removeEventListener('keydown', this.onKeyDown);
     }
 }
 </script>

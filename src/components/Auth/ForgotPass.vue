@@ -4,7 +4,7 @@
         <kaiui-tab-item name="Forgot Password" selected>
             <kaiui-separator title="Forgot Password" /> 
             <div v-if="loading" class="loader">
-                Loading...
+                <img src="/assets/loader.gif"/>
             </div>
             <div v-else>
                 <form 
@@ -25,11 +25,17 @@
                 </form>
             </div>
         </kaiui-tab-item>
+        <SoftKey :softkeys.sync="softkeys" />
     </kaiui-content>
 </template>
 
 <script>
+import SoftKey from "../SoftKey";
+
 export default {
+    components: {
+      SoftKey
+    },
     data() {
         return {
             userPass: {
@@ -37,6 +43,11 @@ export default {
             },
             softkeysPhone: { left: "Back", center: "Select" },
             loading: false,
+            softkeys: {
+                left: "Back",
+                center: "",
+                right: ""
+            },
         }
     },
     methods: {
@@ -61,7 +72,21 @@ export default {
         },
         sendBack: function (){
             this.$router.push({ name: "homepage" })
+        },
+        onKeyDown(event) {
+          switch (event.key) {
+            case "SoftLeft":
+              return this.sendBack();
+            default:
+              break;
+          }
         }
+    },    
+    mounted() {
+        document.addEventListener('keydown', this.onKeyDown);
+    },
+    beforeDestroy() {
+        window.removeEventListener('keydown', this.onKeyDown);
     }
 }
 </script>

@@ -15,7 +15,13 @@ import wallets from '@/components/Pages/WalletsList'
 import wallet from '@/components/Pages/SingleWallet'
 import transactionslist from '@/components/Pages/TransactionsList'
 import camerapage from '@/components/Pages/CameraPage'
+import maketransaction from '@/components/Pages/MakeTransaction'
 
+
+const includPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+    return includPush.call(this, location).catch(err => err)
+}
 Vue.use(Router)
 
 export default new Router({
@@ -73,7 +79,8 @@ export default new Router({
     {
         path: '/wallet/:id',
         name: 'wallet',
-        component: wallet
+        component: wallet,
+        props: true
     },
     {
         path: '/transactions/:secretType',
@@ -95,5 +102,11 @@ export default new Router({
         name: 'forgotPass',
         component: forgotpass
     },
+    {
+        path: '/maketransaction',
+        name: 'maketransaction',
+        component: maketransaction,
+        props: true
+    }
   ]
 })
