@@ -1,14 +1,20 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet - Home" />
-        <kaiui-button
-          v-on:softCenter="phoneButtonSoftCenterClickedLogin"
-          title="Login"
-        />        
-        <kaiui-button
-          v-on:softCenter="phoneButtonSoftCenterClickedRegister"
-          title="Register"
-        />
+        <kaiui-header title="Sorted Wallet - Home" />
+        <div v-if="loader" class="loader">
+            <img src="/assets/loader.gif"/>
+        </div>
+        <div v-else>
+            <kaiui-button
+            v-on:softCenter="phoneButtonSoftCenterClickedLogin"
+            title="Login"
+            id="loginbutton"
+            />        
+            <kaiui-button
+            v-on:softCenter="phoneButtonSoftCenterClickedRegister"
+            title="Register"
+            />
+        </div>
     </kaiui-content>
 </template>
 
@@ -16,7 +22,7 @@
 
 export default {
     data: () => ({
-
+        loader: true,
     }),
     methods: {
         phoneButtonSoftCenterClickedLogin()  {  
@@ -27,10 +33,14 @@ export default {
         }
     },
     created(){
+        setTimeout(() => this.loader = false, 1200);
         var userId = localStorage.getItem('user_id');
         if(userId !== null){
             this.$router.push({ name: "dashboard" });
         }
+    },
+    updated() {
+        document.getElementById("loginbutton").click();
     }
 };
 </script>

@@ -1,12 +1,11 @@
 <template>
     <kaiui-content>
-        <video id="viewfinder" autoplay></video>
-        <span id="message"></span>
-        <kaiui-button 
-            title="Camera view"
-            v-bind:softkeys="softkeysPhone"
-            v-on:softLeft="phoneButtonSoftleftClicked"
-        />
+        <kaiui-header title="Sorted Wallet" />
+            <div id="camera-wapper">
+                <span id="message"></span>
+                <video id="viewfinder" autoplay></video>
+            </div>
+            <SoftKey :softkeys.sync="softkeys" />
     </kaiui-content>
 </template>
 
@@ -14,11 +13,19 @@
 import _ from 'lodash';
 import QrcodeDecoder from 'qrcode-decoder';
 var qr = new QrcodeDecoder();
+import SoftKey from "../SoftKey";
 
 export default {
+    components: {
+      SoftKey
+    },
     data() {
         return {
-            softkeysPhone: { left: "BACK"},
+            softkeys: {
+                left: "Back",
+                center: "",
+                right: ""
+            },
             loading:true,
             cameraOptions:"",
             qrcodeData:""
@@ -27,7 +34,7 @@ export default {
     methods : {
         phoneButtonSoftleftClicked (){
             this.deInit();
-            this.$router.push({ name: "wallet", params: { id:this.$route.query.walletId}});
+            this.$router.push({ name: "maketransaction", query: { walletId: this.$route.query.walletId }});
         },
         async createCameraElement() {
             this._cameras = null;
@@ -64,8 +71,9 @@ export default {
             transform += 'rotate(' + angle + 'deg)';
 
             style.MozTransform = transform;
-            var width = '400';
-            var height = '350';
+            var width = document.body.clientWidth;
+            var height = document.body.clientHeight;
+
             if (angle % 180 === 0) {
                 style.top = 0;
                 style.left = 0;
@@ -86,7 +94,7 @@ export default {
                 this.qrcodeData = code.data;
                 this.$toastr.s("Data Found:"+code.data)
                 this.deInit();
-                this.$router.push({ name: "wallet", params: { id:this.$route.query.walletId}, query: { qrData: code.data }});
+                this.$router.push({ name: "maketransaction", query: { qrData: code.data, walletId: this.$route.query.walletId }});
             }
             this.cameraOptions = camera;
         },
@@ -151,10 +159,40 @@ export default {
                     console('fail to release camera');
                 });
             }
+        },
+        onKeyDown(event) {
+          switch (event.key) {
+            case "SoftLeft":
+              return this.sendBack()
+            default:
+              break;
+          }
+        },
+        sendBack() {
+            this.$router.push({ name: "maketransaction", query: { walletId: this.$route.query.walletId }});
         }
     },
     mounted(){
         this.createCameraElement();
+        document.addEventListener('keydown', this.onKeyDown);
+    },
+    beforeDestroy() {
+        window.removeEventListener('keydown', this.onKeyDown);
     }
 }
 </script>
+
+<style scoped>
+#camera-wapper{
+    height: 100%;
+    width: 100%;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#viewfinder {
+    position: absolute;
+}
+</style>
