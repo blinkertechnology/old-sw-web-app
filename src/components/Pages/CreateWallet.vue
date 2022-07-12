@@ -119,7 +119,7 @@ export default {
         this.$http.post(process.env.VUE_APP_URL+'createwallet', this.wallet).then(response => {  
           if (response.data.success === true) {
               this.$router.push({ name: "wallets" });
-              this.$toastr.s('Walllet Created!')
+              this.$toastr.s('Wallet Created!')
               this.loading = false
           } else {
             this.loading = false

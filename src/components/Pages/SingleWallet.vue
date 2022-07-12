@@ -153,8 +153,10 @@ export default {
                 this.loading = false
                 this.singlewallet = response ? response.data : '';
                 this.qraddress = response.data.address;
-            } else {
-                this.$toastr.e("Enterd Data is Wrong!")
+            } 
+            if(response.data.error) {
+                this.loading = false
+                this.$toastr.e(response.data.error)
             }
         }).catch((error) => {
             this.errors = error.data?.errors || error

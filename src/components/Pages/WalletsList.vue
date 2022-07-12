@@ -71,9 +71,10 @@ export default {
             if (response.status === 200) {
                 this.loading = false
                 this.items = response.data
-            } else {
+            }
+            if(response.data.error){
                 this.loading = false
-                this.$toastr.e("An error has occurred. Please try again.")
+                this.$toastr.e(response.data.error)
             }
         }).catch((error) => {
             this.errors = error.data?.errors || error

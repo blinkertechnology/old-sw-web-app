@@ -114,7 +114,7 @@ export default {
                     }
                     this.$http.post(process.env.VUE_APP_URL+'createtransaction', params).then(response => {console.log(response)})
                     this.isForm = false
-                    this.$toastr.s('Transfer Sucessfully!')
+                    this.$toastr.s('Your transaction was successful.')
                     localStorage.removeItem('singlewalletdata')
                     this.$router.push({ name: "wallet", params: { id:this.$route.query.walletId}})
                 } else{
