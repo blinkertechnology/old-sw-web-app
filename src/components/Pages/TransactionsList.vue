@@ -7,15 +7,15 @@
         </div>
         <div v-else>
             <div v-for="item in items" :key="item['hash']" class="customclass row lead border mb-3" nav-selectable="true">
-                <div class="col-sm-5 col-md-6">Secret Type: <b>{{ item['secret_type'] }}</b></div>
-                <div class="col-sm-5 col-md-6">Status: <b>{{ item['status'] }}</b></div>
-                <div class="col-sm-5 col-md-6">Amount: <b>{{ item['amount'] }}</b></div>
+                <div class="col-sm-5 col-md-6">Secret Type: <b>Ethereum</b></div>
+                <div class="col-sm-5 col-md-6">Status: <b>{{ item['txreceipt_status'] === '1' ? 'Success' : 'Fail' }}</b></div>
+                <div class="col-sm-5 col-md-6">Amount: <b>{{ item['value']  / 1000000000000000000 }}</b></div>
                 <div class="col-sm-5 col-md-6">Transaction From: </div>
-                <div class="address"><b>{{ item['from']}}</b></div>
+                <div class="address"><b>{{ item['from'] }}</b></div>
                 <div class="col-sm-5 col-md-6">Transaction To: </div>
                 <div class="address"><b>{{ item['to'] }}</b></div>
                 <div class="col-sm-5 col-md-6">Transaction At: </div>
-                <div class="address"><b>{{ item['created_at'] }}</b></div>
+                <div class="address"><b>{{ new Date(item['timeStamp'] * 1000).toLocaleString() }}</b></div>
             </div>
         </div>
         <SoftKey :softkeys.sync="softkeys" />
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-const {Base64} = require('js-base64');
 import SoftKey from "../SoftKey";
 
 export default {
@@ -54,29 +53,26 @@ export default {
         sendBacknow(){
             this.$router.push({ name: "wallet", params: { id:this.$route.query.walletId}})
             this.$router.go()
+        },
+        onFulfilled(transRecords){
+            if (transRecords) {
+                this.loading = false
+                this.items = transRecords
+            } else {
+                this.loading = false
+                this.$toastr.e("Something wrong happen. Please try again after sometime.")
+            }
         }
     },
     mounted() {
-        this.walletaddress = this.$route.query.walletId;
-        var userId = localStorage.getItem('user_id').toString()
-        var identifierData = Base64.encode(userId)
-        this.$http.get(process.env.VUE_APP_URL+'transactionhistory', {
-            params: {
-                walletId: identifierData,
-                address: this.$route.params.secretType
-            }
-        }).then((response) => {
-            if (response.data) {
-                this.loading = false
-                this.items = response.data
-            } else {
-                this.loading = false
-                this.$toastr.e("An error has occurred. Please try again.")
-            }
-        }).catch((error) => {
-            this.errors = error.data?.errors || error
-        }).then(() => this.loading = false);
-        
+        this.walletaddress = this.$route.params.secretType;
+        var api = require('etherscan-api').init(process.env.ETHER_SCAN_API_ONE, 'rinkeby')
+        var txlist = api.account.txlist(this.walletaddress, 1, 'latest', 1, 5, 'desc')
+
+        const p = Promise.resolve(txlist)
+        p.then((v) => {
+            this.onFulfilled(v.result)
+        })
         document.addEventListener('keydown', this.onKeyDown);
     },
     beforeDestroy() {

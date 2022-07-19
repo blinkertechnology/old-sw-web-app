@@ -7,7 +7,7 @@
         <div v-else>
             <div class="row lead border mb-3" v-for="item in items" :key="item.id" nav-selectable="true" id="singlewalletbutton">
                 <div class="col-sm-5 col-md-6 tokentype">Token: {{ item.secretType.charAt(0).toUpperCase() + item.secretType.slice(1).toLowerCase() }}</div>
-                <div class="col-sm-5 col-md-6">Balance: {{ item.balance.balance }}</div>
+                <div class="col-sm-5 col-md-6">Balance: {{ item.balance.balance}}</div>
                 <div class="col-sm-5 col-md-6">
                     <kaiui-button 
                         nav-selectable="false"

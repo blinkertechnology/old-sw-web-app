@@ -563,7 +563,7 @@
           
       <kaiui-checkbox
         primaryText="I have read and agreed"
-        secondaryText="on Terms & Coditions"
+        secondaryText="on the Terms & Coditions"
         class="tandc"
         v-on:softCenter="showDialogs"
         id="myCheck"

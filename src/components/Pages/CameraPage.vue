@@ -91,8 +91,9 @@ export default {
 
             const code = await this.scanQRCode();
             if(code.data){
+                console.log(code.data)
                 this.qrcodeData = code.data;
-                this.$toastr.s("Data Found:"+code.data)
+                this.$toastr.s("The QR code is scanned successfully.")
                 this.deInit();
                 this.$router.push({ name: "maketransaction", query: { qrData: code.data, walletId: this.$route.query.walletId }});
             }

@@ -15,13 +15,13 @@
                     <li class="address"><b>{{ singlewallet ? singlewallet.address : "" }}</b></li>
                 </ul>
                 <div class="card-body">
-                    <kaiui-button 
+                    <kaiui-button
                         title="Transaction Records"
                         v-bind:softkeys="softkeysPhone"
                         v-on:softCenter="softkeysRightBack"
                         id="singlewalletbutton"
                     />
-                    <kaiui-button 
+                    <kaiui-button
                         title="Make Transaction" 
                         v-bind:softkeys="softkeysPhoneTransaction"
                         v-on:softCenter="phoneButtonShowTransaction"
