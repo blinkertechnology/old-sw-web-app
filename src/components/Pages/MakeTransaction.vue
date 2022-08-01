@@ -44,6 +44,7 @@
                         v-bind:softkeys="softkeysPhoneTwo"
                         v-on:softCenter="submittransaction"/>
                 </form>
+            <kaiui-text text=""/>
         </kaiui-tab-item>
         <SoftKey :softkeys.sync="softkeys" />
     </kaiui-content>
@@ -72,6 +73,7 @@ export default {
             recordExist:true,
             softkeysPhoneTwo: { center: "Select"},
             singlewallet: null,
+            singlewalletId: null,
         }
     },
     methods: {
@@ -141,10 +143,11 @@ export default {
           }
         },
         leftNext (){
-            this.$router.push({ name: "wallet", params: { id:this.$route.query.walletId}})
+            this.$router.push({ name: "wallet", params: { id:this.singlewalletId}})
         }
     },
     mounted() {
+        this.singlewalletId = this.$route.query.walletId
         const x = localStorage.getItem('singlewalletdata')
         const data = JSON.parse(x)
         this.singlewallet = data

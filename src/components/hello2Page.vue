@@ -38,7 +38,7 @@ h1 {
 }
 section {
   text-align: center;
-  font-family: Times, serif;
+  font-family: "Poppins";
   font-size: 1.3em;
   line-height: 1.5em;
   border: 3px;

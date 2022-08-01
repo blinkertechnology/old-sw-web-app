@@ -3,15 +3,14 @@
 </template>
 
 <script>
-
-export default {
-  name: "app",
-};
+  export default {
+    name: "app",
+  }
 </script>
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Poppins";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

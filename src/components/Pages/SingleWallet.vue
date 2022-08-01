@@ -1,4 +1,5 @@
 <template>
+    <div>
     <kaiui-content>
       <kaiui-header title="Sorted Wallet" />
         <kaiui-tab-item name="Wallet Details" selected>
@@ -26,14 +27,14 @@
                         v-bind:softkeys="softkeysPhoneTransaction"
                         v-on:softCenter="phoneButtonShowTransaction"
                     />
-
                     <kaiui-button
                         title="Wallet QR Code" 
                         v-bind:softkeys="softkeysPhone"
                         v-on:softCenter="phoneButtonSoftCenterClicked"
+                        id="clickhere"
                     />
-                    <div class="managestuff">
-                        <qr-code :size="180" :text="qraddress" style="display:block" class="m-auto" v-show="isShow"></qr-code>
+                    <div class="managestuff" v-show="isShow">
+                        <qr-code :size="180" :text="qraddress" style="display:block" class="qraddressclass m-auto"></qr-code>
                     </div>
 
                     <kaiui-button
@@ -43,11 +44,10 @@
                     />
                     <SoftKey :softkeys.sync="softkeys" />
                 </div>
-                <kaiui-text text=""/>
-                <kaiui-text text=""/>
             </div>
         </kaiui-tab-item>
     </kaiui-content>
+    </div>
 </template>
 
 <script>
@@ -101,6 +101,9 @@ export default {
         },
         phoneButtonSoftCenterClicked (){
             this.isShow = true
+            setTimeout(() => {
+                document.getElementById("clickhere").click();
+            }, 200)
         },
         phoneButtonShowTransaction (){
             this.$router.push({ 
@@ -144,29 +147,24 @@ export default {
     },
     mounted() {
         this.loading = true
-        this.fetchWalletIds();
-        document.addEventListener('keydown', this.onKeyDown);
-    },
-    created() {
         this.$http.get(process.env.VUE_APP_URL+"wallet/"+this.$route.params.id).then((response) => {
            if (response.status === 200) {
                 this.loading = false
-                this.singlewallet = response ? response.data : '';
+                this.singlewallet = response ? response.data : null;
                 this.qraddress = response.data.address;
-            } 
+            }
             if(response.data.error) {
                 this.loading = false
                 this.$toastr.e(response.data.error)
             }
         }).catch((error) => {
-            this.errors = error.data?.errors || error
         }).then(() => this.loading = false);
+
+        this.fetchWalletIds();
+        document.addEventListener('keydown', this.onKeyDown);
     },
     beforeDestroy() {
         window.removeEventListener('keydown', this.onKeyDown);
-    },
-    updated() {
-        document.getElementById("singlewalletbutton").click();
     }
 }
 </script>

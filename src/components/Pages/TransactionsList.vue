@@ -38,7 +38,8 @@ export default {
                 center: "",
                 right: ""
             },
-            walletaddress:null
+            walletaddress:null,
+            walletaddressId:null
         }
     },
     methods: {
@@ -51,8 +52,7 @@ export default {
             }
         },
         sendBacknow(){
-            this.$router.push({ name: "wallet", params: { id:this.$route.query.walletId}})
-            this.$router.go()
+            this.$router.push({ name: "wallet", params: { id:this.walletaddressId}})
         },
         onFulfilled(transRecords){
             if (transRecords) {
@@ -66,6 +66,7 @@ export default {
     },
     mounted() {
         this.walletaddress = this.$route.params.secretType;
+        this.walletaddressId = this.$route.query.walletId;
         var api = require('etherscan-api').init(process.env.ETHER_SCAN_API_ONE, 'rinkeby')
         var txlist = api.account.txlist(this.walletaddress, 1, 'latest', 1, 5, 'desc')
 

@@ -39,7 +39,7 @@
               />
             </form>
           </div>
-
+          <kaiui-text text=""/>
           <SoftKey :softkeys.sync="softkeys" />
         </kaiui-tab-item>
     </kaiui-content>

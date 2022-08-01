@@ -28,13 +28,14 @@ export default {
             },
             loading:true,
             cameraOptions:"",
-            qrcodeData:""
+            qrcodeData:"",
+            curruntwalletId: ""
         }
     },
     methods : {
         phoneButtonSoftleftClicked (){
             this.deInit();
-            this.$router.push({ name: "maketransaction", query: { walletId: this.$route.query.walletId }});
+            this.$router.push({ name: "maketransaction", query: { walletId: this.curruntwalletId }});
         },
         async createCameraElement() {
             this._cameras = null;
@@ -91,11 +92,10 @@ export default {
 
             const code = await this.scanQRCode();
             if(code.data){
-                console.log(code.data)
                 this.qrcodeData = code.data;
                 this.$toastr.s("The QR code is scanned successfully.")
                 this.deInit();
-                this.$router.push({ name: "maketransaction", query: { qrData: code.data, walletId: this.$route.query.walletId }});
+                this.$router.push({ name: "maketransaction", query: { qrData: code.data, walletId: this.curruntwalletId }});
             }
             this.cameraOptions = camera;
         },
@@ -170,10 +170,11 @@ export default {
           }
         },
         sendBack() {
-            this.$router.push({ name: "maketransaction", query: { walletId: this.$route.query.walletId }});
+            this.$router.push({ name: "maketransaction", query: { walletId: this.curruntwalletId }});
         }
     },
     mounted(){
+        this.curruntwalletId = this.$route.query.walletId;
         this.createCameraElement();
         document.addEventListener('keydown', this.onKeyDown);
     },

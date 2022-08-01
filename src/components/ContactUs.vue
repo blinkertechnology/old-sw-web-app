@@ -26,7 +26,7 @@ h1 {
   color: #42b983;
 }
 section {
-  font-family: Times, serif;
+  font-family: 'Poppins';
   font-size: 1.3em;
   line-height: 1.5em;
   border: 3px;
