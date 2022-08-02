@@ -1,23 +1,21 @@
 <template>
-    <kaiui-content>
-      <kaiui-header title="Welcome to Sorted Wallet" />
-      <kaiui-text text="Please read Terms & Policy." />
-      <kaiui-text text="Please cehck our website for Terms & Policy" />
-      <kaiui-button
-            v-bind:softkeys="softkeysPhone"
-            v-on:softRight="phoneButtonSoftRightClicked"
-            v-on:softLeft="phoneButtonSoftleftClicked"
-            title="connect.."
-          />
-      
-    </kaiui-content>
+  <kaiui-content>
+    <kaiui-header title="Welcome to Sorted Wallet" />
+    <kaiui-text text="Please read Terms & Policy." />
+    <kaiui-text text="Please cehck our website for Terms & Policy" />
+    <kaiui-button
+      v-bind:softkeys="softkeysPhone"
+      v-on:softRight="phoneButtonSoftRightClicked"
+      v-on:softLeft="phoneButtonSoftleftClicked"
+      title="connect.."
+    />
+  </kaiui-content>
 </template>
 
 <script>
-
 export default {
   data: () => ({
-    softkeysPhone: { left: "contact us", right: "Connect/Create Wallet" },
+    softkeysPhone: { left: "contact us", right: "Connect/Create Wallet" }
   }),
   methods: {
     phoneButtonSoftleftClicked() {

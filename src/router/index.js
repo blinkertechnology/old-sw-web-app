@@ -1,112 +1,111 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import hello2 from '@/components/hello2Page'
-import faq from '@/components/faqPage'
-import contactus from '@/components/ContactUs'
-import HomePage from '@/components/HomePage'
-import forgotpass from '@/components/Auth/ForgotPass'
-import details from '@/components/Pages/DetailsPage'
-import login from '@/components/Auth/UserLogin'
-import register from '@/components/Auth/RegisterUser'
-import dashboard from '@/components/Pages/HomeDashboard'
-import createwallet from '@/components/Pages/CreateWallet'
-import wallets from '@/components/Pages/WalletsList'
-import wallet from '@/components/Pages/SingleWallet'
-import transactionslist from '@/components/Pages/TransactionsList'
-import camerapage from '@/components/Pages/CameraPage'
-import maketransaction from '@/components/Pages/MakeTransaction'
+import Vue from "vue";
+import Router from "vue-router";
+import HelloWorld from "@/components/HelloWorld";
+import hello2 from "@/components/hello2Page";
+import faq from "@/components/faqPage";
+import contactus from "@/components/ContactUs";
+import HomePage from "@/components/HomePage";
+import forgotpass from "@/components/Auth/ForgotPass";
+import details from "@/components/Pages/DetailsPage";
+import login from "@/components/Auth/UserLogin";
+import register from "@/components/Auth/RegisterUser";
+import dashboard from "@/components/Pages/HomeDashboard";
+import createwallet from "@/components/Pages/CreateWallet";
+import wallets from "@/components/Pages/WalletsList";
+import wallet from "@/components/Pages/SingleWallet";
+import transactionslist from "@/components/Pages/TransactionsList";
+import camerapage from "@/components/Pages/CameraPage";
+import maketransaction from "@/components/Pages/MakeTransaction";
 
-
-const includPush = Router.prototype.push
+const includPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
-    return includPush.call(this, location).catch(err => err)
-}
-Vue.use(Router)
+  return includPush.call(this, location).catch((err) => err);
+};
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-        path: '/',
-        name: 'HelloWorld',
-        component: HelloWorld
+      path: "/",
+      name: "HelloWorld",
+      component: HelloWorld
     },
     {
-        path: '/',
-        name: 'hello2',
-        component: hello2
+      path: "/",
+      name: "hello2",
+      component: hello2
     },
     {
-        path: '/',
-        name: 'faq',
-        component: faq
+      path: "/",
+      name: "faq",
+      component: faq
     },
     {
-        path: '/',
-        name: 'contactus',
-        component: contactus
+      path: "/",
+      name: "contactus",
+      component: contactus
     },
     {
-        path: '/',
-        name: 'details',
-        component: details
-    },
-     {
-        path: '/login',
-        name: 'login',
-        component: login
+      path: "/",
+      name: "details",
+      component: details
     },
     {
-        path: '/',
-        name: 'dashboard',
-        component: dashboard
+      path: "/login",
+      name: "login",
+      component: login
     },
     {
-        path: '/',
-        name: 'register',
-        component: register
+      path: "/",
+      name: "dashboard",
+      component: dashboard
     },
     {
-        path: '/cwallet',
-        name: 'createwallet',
-        component: createwallet
+      path: "/",
+      name: "register",
+      component: register
     },
     {
-        path: '/walletlist',
-        name: 'wallets',
-        component: wallets
+      path: "/cwallet",
+      name: "createwallet",
+      component: createwallet
     },
     {
-        path: '/wallet/:id',
-        name: 'wallet',
-        component: wallet,
-        props: true
+      path: "/walletlist",
+      name: "wallets",
+      component: wallets
     },
     {
-        path: '/transactions/:secretType',
-        name: 'transactionslist',
-        component: transactionslist
+      path: "/wallet/:id",
+      name: "wallet",
+      component: wallet,
+      props: true
     },
     {
-        path: '/camerapage',
-        name: 'camera',
-        component: camerapage
+      path: "/transactions/:secretType",
+      name: "transactionslist",
+      component: transactionslist
     },
     {
-        path: '/homepage',
-        name: 'homepage',
-        component: HomePage
+      path: "/camerapage",
+      name: "camera",
+      component: camerapage
     },
     {
-        path: '/forgotPass',
-        name: 'forgotPass',
-        component: forgotpass
+      path: "/homepage",
+      name: "homepage",
+      component: HomePage
     },
     {
-        path: '/maketransaction',
-        name: 'maketransaction',
-        component: maketransaction,
-        props: true
+      path: "/forgotPass",
+      name: "forgotPass",
+      component: forgotpass
+    },
+    {
+      path: "/maketransaction",
+      name: "maketransaction",
+      component: maketransaction,
+      props: true
     }
   ]
-})
+});
