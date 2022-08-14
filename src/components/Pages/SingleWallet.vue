@@ -21,13 +21,18 @@
             <b>{{ singlewallet ? singlewallet.description : "" }}</b>
           </li>
           <li>
-            Balance :
+            Wallet Balance :
             <b>{{ singlewallet ? singlewallet.balance.balance : "" }}</b>
+          </li>
+          <li>
+            USD Balance:
+            <b>{{ this.usdValueTotal ? this.usdValueTotal : 0  }}</b>
           </li>
           <li>Address :</li>
           <li class="address">
             <b>{{ singlewallet ? singlewallet.address : "" }}</b>
           </li>
+         
         </ul>
         <div class="card-body">
           <kaiui-button
@@ -71,6 +76,8 @@
 import _ from "lodash";
 const { Base64 } = require("js-base64");
 import SoftKey from "../SoftKey";
+const cc = require('cryptocompare');
+cc.setApiKey(process.env.CRYPTOCOMPARE_TRANSACTION_API)
 
 export default {
   components: {
@@ -92,7 +99,10 @@ export default {
       },
       softkeysPhoneTransaction: {
         center: "Proceed"
-      }
+      },
+      usdValue: null,
+      usdValueTotal: null,
+      walletBalance: null
     };
   },
   methods: {
@@ -139,7 +149,7 @@ export default {
     phoneButtonShowTransaction() {
       this.$router.push({
         name: "maketransaction",
-        query: { walletId: this.$route.params.id },
+        query: { walletId: this.$route.params.id},
         params: { walletdata: this.singlewallet }
       });
     },
@@ -149,8 +159,8 @@ export default {
     softkeysRightBack() {
       this.$router.push({
         name: "transactionslist",
-        params: { secretType: this.singlewallet.address },
-        query: { walletId: this.$route.params.id }
+        params: { secretType: this.singlewallet.address},
+        query: { walletId: this.$route.params.id, walletType: this.singlewallet.secretType }
       });
     },
     fetchWalletIds() {
@@ -187,22 +197,34 @@ export default {
     }
   },
   mounted() {
+    this.usdValue = this.$route.query.secretType;
     this.loading = true;
-    this.$http
-      .get(process.env.VUE_APP_URL + "wallet/" + this.$route.params.id)
-      .then((response) => {
-        if (response.status === 200) {
-          this.loading = false;
-          this.singlewallet = response ? response.data : null;
-          this.qraddress = response.data.address;
-        }
-        if (response.data.error) {
-          this.loading = false;
-          this.$toastr.e(response.data.error);
-        }
-      })
-      .catch((error) => {})
-      .then(() => (this.loading = false));
+    this.$http.get(process.env.VUE_APP_URL + "wallet/" + this.$route.params.id)
+    .then((response) => {
+      if (response.status === 200) {
+        this.loading = false;
+        this.singlewallet = response ? response.data : null;
+        this.qraddress = response.data.address;
+        this.walletBalance = response.data.balance.balance;
+      }
+      if (response.data.error) {
+        this.loading = false;
+        this.$toastr.e(response.data.error);
+      }
+    })
+    .catch((error) => {})
+    .then(() => (this.loading = false));
+
+    setTimeout(() => {
+      // Passing a single pair of currencies:
+      if(this.usdValue === "MATIC" || this.usdValue === "BITCOIN")  {
+        let result = this.usdValue === 'BITCOIN' ? 'BTC' : 'MATIC';
+        cc.price(result, "USD").then(prices => {
+          const calculatedValue = (prices.USD/1) * this.walletBalance
+          this.usdValueTotal = calculatedValue.toFixed(5)
+        }).catch(console.error)
+      }
+    }, 2000)
 
     document.addEventListener("keydown", this.onKeyDown);
   },

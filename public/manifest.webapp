@@ -25,6 +25,10 @@
       "app": "DENY_ACTION",
       "privileged": "PROMPT_ACTION",
       "certified": "ALLOW_ACTION"
-    }
+    },
+    "device-storage:videos":{ "access": "readonly" },
+    "device-storage:pictures":{ "access": "readwrite" },
+    "device-storage:apps":{ "access": "readwrite" },
+    "device-storage:sdcard":{ "access": "readwrite" }
   }
 }

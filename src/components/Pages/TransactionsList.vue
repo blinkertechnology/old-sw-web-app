@@ -55,7 +55,8 @@ export default {
         right: ""
       },
       walletaddress: null,
-      walletaddressId: null
+      walletaddressId: null,
+      walletType: null
     };
   },
   methods: {
@@ -88,23 +89,30 @@ export default {
   mounted() {
     this.walletaddress = this.$route.params.secretType;
     this.walletaddressId = this.$route.query.walletId;
-    var api = require("etherscan-api").init(
-      process.env.ETHER_SCAN_API_ONE,
-      "rinkeby"
-    );
-    var txlist = api.account.txlist(
-      this.walletaddress,
-      1,
-      "latest",
-      1,
-      5,
-      "desc"
-    );
+    this.walletType = this.$route.query.walletType;
 
-    const p = Promise.resolve(txlist);
-    p.then((v) => {
-      this.onFulfilled(v.result);
-    }).catch((err) => this.$toastr.e(err));
+    if(this.walletType === 'MATIC'){
+        var api = require("polygonscan-api").init(process.env.POLYGON_TRANSACTION_API);
+        var balance = api.account.txlist(this.walletaddress);    
+        const p = Promise.resolve(balance);
+        p.then((v) => {
+          this.onFulfilled(v.result);
+        }).catch((err) => this.$toastr.e(
+          "No transaction found."
+        ));
+    }
+
+    if(this.walletType === 'BITCOIN'){
+        var bitcoinapi = require("bscscan-api").init(process.env.BSCSCAN_TRANSACTION_API, 'rinkeby');
+        var bitcpingBalance = bitcoinapi.account.txlist(this.walletaddress);    
+        const p = Promise.resolve(bitcpingBalance);
+        p.then((v) => {
+          this.onFulfilled(v.result);
+        }).catch((err) => this.$toastr.e(
+          "No transaction found."
+        ));
+    }
+
     document.addEventListener("keydown", this.onKeyDown);
   },
   beforeDestroy() {

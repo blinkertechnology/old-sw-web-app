@@ -7,12 +7,7 @@
     <div v-else>
       <kaiui-tab-item name="Create Wallet" selected>
         <kaiui-separator title="Dashboard" />
-        <kaiui-button
-          title="Create New Wallet"
-          v-on:softCenter="createWallet"
-          id="cwallet"
-        />
-        <kaiui-button title="My Wallet(s)" v-on:softCenter="myWallets" />
+        <kaiui-button id="wallets" title="My Wallet(s)" v-on:softCenter="myWallets" />
         <kaiui-button title="Logout" v-on:softCenter="logout" />
       </kaiui-tab-item>
     </div>
@@ -21,15 +16,14 @@
 
 <script>
 export default {
-  props: ["totalwallets"],
   data: () => ({
     loader: true
   }),
   methods: {
-    createWallet() {
-      this.$router.push({ name: "createwallet" });
-      this.$router.go();
-    },
+    // createWallet() {
+    //   this.$router.push({ name: "createwallet" });
+    //   this.$router.go();
+    // },
     myWallets() {
       this.$router.push({ name: "wallets" });
     },
@@ -46,8 +40,28 @@ export default {
       this.$router.push({ name: "homepage" });
     }
   },
+  mounted() {
+      var userId = localStorage.getItem("user_id");
+      this.$http.get(process.env.VUE_APP_URL + "getpin", {
+        params: { userid: userId }
+      }).then((response) => {
+        if (response.data[0].walletpin) {
+          this.loader = false;
+        } else {
+          this.$toastr.e("Pin not available. Please generated.")
+          this.$router.push({ name: "generatepin" })
+          this.loader = false;
+        }
+      })
+      .catch((error) => {
+        this.$toastr.e("Something went wrong. Please try again later.")
+        this.$router.push({ name: "generatepin" })
+        return false
+      })
+      .then(() => (this.loader = false));
+  },
   updated() {
-    document.getElementById("cwallet").click();
+    document.getElementById("wallets").click();
   }
 };
 </script>

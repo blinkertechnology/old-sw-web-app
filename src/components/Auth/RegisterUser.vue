@@ -78,6 +78,11 @@ export default {
         this.$toastr.e("Password Required!");
         return false;
       }
+      const pass = this.user.password.length;
+      if (pass < 5) {
+        this.$toastr.e("Password Lenght should not be less than 5.");
+        return false;
+      } 
 
       this.loading = true;
       this.$http
@@ -85,8 +90,8 @@ export default {
         .then((response) => {
           if (response.data == "success") {
             this.$toastr.s("Register Successfully!");
+            this.$router.push({ name: "homepage" });
             this.loading = false;
-            this.$router.push({ name: "dashboard" });
           } else {
             this.$router.push({ name: "Register" });
             this.receiveValue(response);
@@ -111,7 +116,8 @@ export default {
       this.$router.push({ name: "homepage" });
     },
     receiveValue(val) {
-      if (val.response.data.errors.email[0] == "validation.unique") {
+      this.loading = false;
+      if (val.response.data.errors.email[0] != '' && val.response.data.errors.email[0] == "validation.unique") {
         this.$toastr.e("Email Exist!");
         return false;
       } else {
