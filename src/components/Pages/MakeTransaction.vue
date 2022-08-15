@@ -3,55 +3,59 @@
     <kaiui-header title="Sorted Wallet" />
     <kaiui-tab-item name="Make Transaction" selected>
       <kaiui-separator title="Make Transaction" />
-      <form method="POST">
-        <kaiui-button
-          title="Scan QR (Wallet Address)"
-          v-on:softCenter="openCam"
-        />
-
-        <div
-          data-v-6860e009=""
-          data-v-f9ff9db6=""
-          class="kaiui-input kaiui-p_btn kaiui-input-input form-control"
-          value=""
-        >
-          <label data-v-6860e009="" class="kaiui-p_sec kaiui-input-label"
-            >To Wallet</label
-          >
-          <input
-            data-v-6860e009=""
-            type="text"
-            placeholder="To Address (try scan)"
-            nav-selectable="true"
-            class="kaiui-p_btn kaiui-input-input"
-            nav-selected="true"
-            id="nameofid"
-            value=""
-            v-model="transaction.toAddress"
+      <div v-if="loading" class="loader">
+        <img src="/assets/loader.gif" />
+      </div>
+      <div v-else>
+        <form method="POST">
+          <kaiui-button
+            title="Upload Image (QR Code)"
+            v-on:softCenter="pickImage"
           />
-        </div>
-
-        <kaiui-input
-          type="number"
-          label="Amount"
-          class="kaiui-p_btn kaiui-input-input form-control"
-          placeholder="Amount"
-          v-model="transaction.amount"
-        />
-
-        <kaiui-input
-          label="Pin Code"
-          v-model="transaction.pincode"
-          class="kaiui-p_btn kaiui-input-input form-control"
-          placeholder="Pin Code"
-        />
-
-        <kaiui-button
-          title="Submit"
-          v-bind:softkeys="softkeysPhoneTwo"
-          v-on:softCenter="submittransaction"
-        />
-      </form>
+          <kaiui-button
+            title="Scan QR (Wallet Address)"
+            v-on:softCenter="openCam"
+          />
+          <div
+            data-v-6860e009=""
+            data-v-f9ff9db6=""
+            class="kaiui-input kaiui-p_btn kaiui-input-input form-control"
+            value=""
+          >
+          <label data-v-6860e009="" class="kaiui-p_sec kaiui-input-label">To Wallet</label>
+            <input
+              data-v-6860e009=""
+              type="text"
+              placeholder="To Address (try scan)"
+              nav-selectable="true"
+              class="kaiui-p_btn kaiui-input-input"
+              nav-selected="true"
+              id="nameofid"
+              value=""
+              v-model="transaction.toAddress"
+            />
+          </div>
+          <kaiui-input
+            type="number"
+            label="Amount"
+            class="kaiui-p_btn kaiui-input-input form-control"
+            placeholder="Amount"
+            v-model="transaction.amount"
+          />
+          <kaiui-input
+            label="Pin Code"
+            v-model="transaction.pincode"
+            class="kaiui-p_btn kaiui-input-input form-control"
+            placeholder="Pin Code"
+          />
+          <kaiui-button
+            title="Submit"
+            v-bind:softkeys="softkeysPhoneTwo"
+            v-on:softCenter="submittransaction"
+          />
+          <img id="img1" src="" style="display:none" alt="qr code" />
+        </form>
+      </div>
       <kaiui-text text="" />
     </kaiui-tab-item>
     <SoftKey :softkeys.sync="softkeys" />
@@ -60,6 +64,7 @@
 
 <script>
 import SoftKey from "../SoftKey";
+import QrcodeDecoder from 'qrcode-decoder';
 
 export default {
   props: ["walletdata"],
@@ -71,7 +76,8 @@ export default {
       transaction: {
         amount: "",
         toAddress: "",
-        pincode: ""
+        pincode: "",
+        image: ""
       },
       softkeys: {
         left: "Back",
@@ -81,7 +87,8 @@ export default {
       recordExist: true,
       softkeysPhoneTwo: { center: "Select" },
       singlewallet: null,
-      singlewalletId: null
+      singlewalletId: null,
+      loading: false
     };
   },
   methods: {
@@ -126,9 +133,7 @@ export default {
             };
             this.$http
               .post(process.env.VUE_APP_URL + "createtransaction", params)
-              .then((response) => {
-                console.log(response);
-              });
+              .then((response) => {});
             this.isForm = false;
             this.$toastr.s("Your transaction was successful.");
             localStorage.removeItem("singlewalletdata");
@@ -169,6 +174,62 @@ export default {
         name: "wallet",
         params: { id: this.singlewalletId }
       });
+    },
+    pickImage() {
+      const qr = new QrcodeDecoder(); 
+      let activity = new window.MozActivity({
+        name: 'pick',
+        data: {
+          type: 'image/jpeg' // The type could be image/*, image/jpeg, image/png, dongle/image
+        }
+      });
+
+      this.launchActivity = true;
+      let self = this;
+
+      activity.onsuccess = function success() {
+        this.loading = true;
+        self.launchActivity = false;
+        let blob = this.result.blob;
+        if (blob) {
+          // Scan QR Code
+          const reader = new FileReader();
+          reader.onloadend = function () {
+            document.getElementById("img1").src = reader.result;
+          }
+          reader.readAsDataURL(blob);
+
+          setTimeout(() => {
+            const img1 = document.querySelector('#img1');
+            (async () => {
+              try {
+                await qr.decodeFromImage(img1).then((res) => {
+                  if(res.data === undefined) {
+                    alert("No QR code found. Please upload again.");
+                    this.loading = false;
+                  } else {
+                    document.getElementById("nameofid").value = res.data
+                    alert("QR Data readed successfully.")
+                    this.loading = false
+                  }
+                }).catch((err) => {
+                  alert("Something went wrong. Please try again later.");
+                  this.loading = false;
+                })
+              } catch (error) {
+                return error;
+              }    
+            })();
+          }, 1500);
+
+        } else {
+          this.$toastr.s("Error scanning file.");
+          this.loading = false;
+        }
+      };
+      activity.onerror = () => {
+      // TODO
+      };
     }
   },
   mounted() {

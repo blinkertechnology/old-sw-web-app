@@ -26,7 +26,7 @@
             title="View Wallet"
             v-bind:softkeys="softkeysPhone"
             v-on:softLeft="phoneButtonSoftleftClicked"
-            v-on:softCenter="phoneButtonSoftRightClicked(item.id)"
+            v-on:softCenter="phoneButtonSoftRightClicked(item.id, item.secretType)"
           />
         </div>
       </div>
@@ -60,8 +60,8 @@ export default {
     phoneButtonSoftleftClicked() {
       this.$router.push({ name: "dashboard" });
     },
-    phoneButtonSoftRightClicked(e) {
-      this.$router.push({ name: "wallet", params: { id: e } });
+    phoneButtonSoftRightClicked(e, sType) {
+      this.$router.push({ name: "wallet", params: { id: e }, query:{secretType: sType} });
       this.$router.go();
     },
     onKeyDown(event) {

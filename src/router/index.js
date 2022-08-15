@@ -16,6 +16,7 @@ import wallet from "@/components/Pages/SingleWallet";
 import transactionslist from "@/components/Pages/TransactionsList";
 import camerapage from "@/components/Pages/CameraPage";
 import maketransaction from "@/components/Pages/MakeTransaction";
+import generatepin from "@/components/Pages/GeneratePin";
 
 const includPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
@@ -106,6 +107,12 @@ export default new Router({
       name: "maketransaction",
       component: maketransaction,
       props: true
-    }
+    },
+    {
+      path: "/generatepin",
+      name: "generatepin",
+      component: generatepin,
+      props: true
+    },
   ]
 });
