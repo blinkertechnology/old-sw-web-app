@@ -80,7 +80,7 @@ export default {
       }
       const pass = this.user.password.length;
       if (pass < 5) {
-        this.$toastr.e("Password Lenght should not be less than 5.");
+        this.$toastr.e("Password length should not be less than 5.");
         return false;
       } 
 
