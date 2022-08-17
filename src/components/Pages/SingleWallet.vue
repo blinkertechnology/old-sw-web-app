@@ -77,7 +77,7 @@ import _ from "lodash";
 const { Base64 } = require("js-base64");
 import SoftKey from "../SoftKey";
 const cc = require('cryptocompare');
-cc.setApiKey(process.env.CRYPTOCOMPARE_TRANSACTION_API)
+cc.setApiKey("b80d76883a17f28a0120e6a53b2090e1742ac08ad6244c450c2c8897314774cc")
 
 export default {
   components: {

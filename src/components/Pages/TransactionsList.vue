@@ -92,7 +92,7 @@ export default {
     this.walletType = this.$route.query.walletType;
 
     if(this.walletType === 'MATIC'){
-        var api = require("polygonscan-api").init(process.env.POLYGON_TRANSACTION_API);
+        var api = require("polygonscan-api").init("UDMIEP9QACKBHIAMWYH4GEY5C6UP7EBYPT");
         var balance = api.account.txlist(this.walletaddress);    
         const p = Promise.resolve(balance);
         p.then((v) => {
@@ -103,7 +103,7 @@ export default {
     }
 
     if(this.walletType === 'BITCOIN'){
-        var bitcoinapi = require("bscscan-api").init(process.env.BSCSCAN_TRANSACTION_API, 'rinkeby');
+        var bitcoinapi = require("bscscan-api").init("MX4ESFKVY29D9SZ81ZJQI66Z2H2ZMMM8PZ");
         var bitcpingBalance = bitcoinapi.account.txlist(this.walletaddress);    
         const p = Promise.resolve(bitcpingBalance);
         p.then((v) => {

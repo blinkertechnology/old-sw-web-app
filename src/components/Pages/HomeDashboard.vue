@@ -20,17 +20,13 @@ export default {
     loader: true
   }),
   methods: {
-    // createWallet() {
-    //   this.$router.push({ name: "createwallet" });
-    //   this.$router.go();
-    // },
     myWallets() {
       this.$router.push({ name: "wallets" });
     },
     logout() {
       localStorage.removeItem("user_id");
       this.$router.push({ name: "login" });
-      this.$toastr.s("Loged Out.");
+      this.$toastr.s("Logout Successfully.");
     }
   },
   created() {
