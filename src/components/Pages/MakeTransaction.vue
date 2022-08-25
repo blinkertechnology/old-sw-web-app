@@ -118,22 +118,30 @@ export default {
       var userId = localStorage.getItem("user_id").toString();
       let arr1 = this.transaction ? this.transaction : "";
       let arr2 = this.singlewallet;
-      this.$http
-        .post(process.env.VUE_APP_URL + "executetransaction", [arr1, arr2])
-        .then((response) => {
-          if (response.data.success === true) {
-            this.loading = false;
-            const params = {
-              userid: userId,
-              transHash: response.data.result.transactionHash,
-              secrettype: this.singlewallet.secretType,
-              address: this.singlewallet.address,
-              amount: this.transaction.amount,
-              wallet_to: this.transaction.toAddress
-            };
-            this.$http
-              .post(process.env.VUE_APP_URL + "createtransaction", params)
-              .then((response) => {});
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", process.env.VUE_APP_URL + "executetransaction", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange  = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          const status = xhr.status;
+          if (status === 0 || (status >= 200 && status < 400)) {
+            // The request has been completed successfully
+            const response = JSON.parse(xhr.responseText);
+              //create Transaction Records
+              this.loading = false;
+              const params = {
+                userid: userId,
+                transHash: response.result.transactionHash,
+                secrettype: this.singlewallet.secretType,
+                address: this.singlewallet.address,
+                amount: this.transaction.amount,
+                wallet_to: this.transaction.toAddress
+              };
+              xhr.open("POST", process.env.VUE_APP_URL + "createtransaction", true);
+              xhr.setRequestHeader("Content-Type", "application/json");
+              xhr.send(JSON.stringify(params));
+
             this.isForm = false;
             this.$toastr.s("Your transaction was successful.");
             localStorage.removeItem("singlewalletdata");
@@ -141,15 +149,23 @@ export default {
               name: "wallet",
               params: { id: this.$route.query.walletId }
             });
-          } else {
-            const errors = response.data.errors;
-            this.receiveValue(errors);
           }
-        })
-        .catch((error) => {
-          this.receiveValue(error);
-        })
-        .then(() => (this.loading = false));
+        }
+      }
+      // Error Handling:
+      xhr.onerror = function(error){
+        this.receiveValue(error);
+      }
+
+      const obj1 = {
+        "amount": this.transaction.amount,
+        "toAddress": this.transaction.toAddress,
+        "pincode": this.transaction.pincode,
+      };
+      const obj2 = {
+        arr2
+      };
+      xhr.send(JSON.stringify([obj1, obj2.arr2]));
     },
     openCam() {
       this.$router.push({

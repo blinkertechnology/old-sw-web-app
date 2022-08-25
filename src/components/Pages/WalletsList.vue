@@ -80,24 +80,27 @@ export default {
     var userId = localStorage.getItem("user_id").toString();
     var identifierData = Base64.encode(userId + "_wallet");
 
-    this.$http
-      .get(process.env.VUE_APP_URL + "wallets", {
-        params: { walletId: identifierData }
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          this.loading = false;
-          this.items = response.data;
+    let xhr = new XMLHttpRequest();
+    var params = "walletId="+identifierData;
+    xhr.open("GET", process.env.VUE_APP_URL + "wallets?"+params, true);
+    xhr.onreadystatechange  = () => {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        const status = xhr.status;
+        if (status === 0 || (status >= 200 && status < 400)) {
+            const response = JSON.parse(xhr.responseText);
+            this.loading = false;
+            this.items = response;
+        } else {
+            this.loading = false
+            this.$toastr.e("Something went wrong. Please try again later.")
+            return false
         }
-        if (response.data.error) {
-          this.loading = false;
-          this.$toastr.e(response.data.error);
-        }
-      })
-      .catch((error) => {
-        this.errors = error.data?.errors || error;
-      })
-      .then(() => (this.loading = false));
+      }
+    }
+    xhr.onerror = function(error){
+        console.error( error );
+    }
+    xhr.send();
 
     document.addEventListener("keydown", this.onKeyDown);
   },

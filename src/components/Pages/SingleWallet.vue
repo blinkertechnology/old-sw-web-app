@@ -26,7 +26,7 @@
           </li>
           <li>
             USD Balance:
-            <b>{{ this.usdValueTotal ? this.usdValueTotal : 0  }}</b>
+            <b>{{ singlewallet && singlewallet.secretType === "MATIC" ? singlewallet.calculatedMatic : singlewallet.calculatedBtc  }}</b>
           </li>
           <li>Address :</li>
           <li class="address">
@@ -76,8 +76,6 @@
 import _ from "lodash";
 const { Base64 } = require("js-base64");
 import SoftKey from "../SoftKey";
-const cc = require('cryptocompare');
-cc.setApiKey("b80d76883a17f28a0120e6a53b2090e1742ac08ad6244c450c2c8897314774cc")
 
 export default {
   components: {
@@ -101,8 +99,7 @@ export default {
         center: "Proceed"
       },
       usdValue: null,
-      usdValueTotal: null,
-      walletBalance: null
+      walletBalance: null,
     };
   },
   methods: {
@@ -167,23 +164,29 @@ export default {
       this.loading = true;
       var userId = localStorage.getItem("user_id").toString();
       var identifierData = Base64.encode(userId + "_wallet");
-      this.$http
-        .get(process.env.VUE_APP_URL + "wallets", {
-          params: { walletId: identifierData }
-        })
-        .then((response) => {
-          if (response.status === 200) {
+
+      let xhr = new XMLHttpRequest();
+      var params = "walletId="+identifierData;
+      xhr.open("GET", process.env.VUE_APP_URL + "wallets?"+params, true);
+      xhr.onreadystatechange  = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          const status = xhr.status;
+          if (status === 0 || (status >= 200 && status < 400)) {
+            const response = JSON.parse(xhr.responseText);
             this.loading = false;
-            this.items = response.data;
+            this.items = response;
           } else {
             this.loading = false;
             return this.$toastr.e("An error has occurred. Please try again.");
           }
-        })
-        .catch((error) => {
-          return (this.errors = error.data?.errors || error);
-        })
-        .then(() => (this.loading = false));
+        }
+      }
+      // Error Handling:
+      xhr.onerror = function(error){
+          this.loading = false;
+          this.$toastr.e(error);
+      }
+      xhr.send();
     },
     onKeyDown(event) {
       switch (event.key) {
@@ -199,32 +202,31 @@ export default {
   mounted() {
     this.usdValue = this.$route.query.secretType;
     this.loading = true;
-    this.$http.get(process.env.VUE_APP_URL + "wallet/" + this.$route.params.id)
-    .then((response) => {
-      if (response.status === 200) {
-        this.loading = false;
-        this.singlewallet = response ? response.data : null;
-        this.qraddress = response.data.address;
-        this.walletBalance = response.data.balance.balance;
-      }
-      if (response.data.error) {
-        this.loading = false;
-        this.$toastr.e(response.data.error);
-      }
-    })
-    .catch((error) => {})
-    .then(() => (this.loading = false));
 
-    setTimeout(() => {
-      // Passing a single pair of currencies:
-      if(this.usdValue === "MATIC" || this.usdValue === "BITCOIN")  {
-        let result = this.usdValue === 'BITCOIN' ? 'BTC' : 'MATIC';
-        cc.price(result, "USD").then(prices => {
-          const calculatedValue = (prices.USD/1) * this.walletBalance
-          this.usdValueTotal = calculatedValue.toFixed(5)
-        }).catch(console.error)
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", process.env.VUE_APP_URL + "wallet/" + this.$route.params.id, true);
+    xhr.onreadystatechange  = () => {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        const status = xhr.status;
+        if (status === 0 || (status >= 200 && status < 400)) {
+          const response = JSON.parse(xhr.responseText);
+          this.loading = false;
+          this.singlewallet = response;
+          this.qraddress = response.address;
+          this.walletBalance = response.balance.balance;
+        } else {
+          this.loading = false
+          this.$toastr.e("Something went wrong. Please try again later.")
+          return false
+        }
       }
-    }, 2000)
+    }
+    // Error Handling:
+    xhr.onerror = function(error){
+        this.loading = false;
+        this.$toastr.e(error);
+    }
+    xhr.send();
 
     document.addEventListener("keydown", this.onKeyDown);
   },

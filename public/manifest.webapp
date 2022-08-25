@@ -1,5 +1,5 @@
 {
-  "version": "1.6.0",
+  "version": "1.8.0",
   "name": "Sorted Wallet",
   "description": "Sorted Wallet",
   "type": "privileged",
@@ -29,6 +29,9 @@
     "device-storage:videos":{ "access": "readonly" },
     "device-storage:pictures":{ "access": "readwrite" },
     "device-storage:apps":{ "access": "readwrite" },
-    "device-storage:sdcard":{ "access": "readwrite" }
+    "device-storage:sdcard":{ "access": "readwrite" },
+    "systemXHR": {
+      "description": "Required to download podcasts."
+    }
   }
 }

@@ -26,7 +26,7 @@ export default {
     logout() {
       localStorage.removeItem("user_id");
       this.$router.push({ name: "login" });
-      this.$toastr.s("Logout Successfully.");
+      this.$toastr.s("Logged Out Successfully");
     }
   },
   created() {
@@ -37,24 +37,34 @@ export default {
     }
   },
   mounted() {
-      var userId = localStorage.getItem("user_id");
-      this.$http.get(process.env.VUE_APP_URL + "getpin", {
-        params: { userid: userId }
-      }).then((response) => {
-        if (response.data[0].walletpin) {
-          this.loader = false;
-        } else {
-          this.$toastr.e("Pin not available. Please generated.")
-          this.$router.push({ name: "generatepin" })
-          this.loader = false;
+    var userId = localStorage.getItem("user_id");
+    let xhr = new XMLHttpRequest();
+
+    var params = "userid="+userId;
+    xhr.open("GET", process.env.VUE_APP_URL + "getpin?"+params, true);
+      xhr.onreadystatechange  = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          const status = xhr.status;
+          if (status === 0 || (status >= 200 && status < 400)) {
+            const response = JSON.parse(xhr.responseText);
+            if (response[0].walletpin) {
+              this.loader = false;
+            } else {
+              this.$toastr.e("Pin not available. Please generated.")
+              this.$router.push({ name: "generatepin" })
+              this.loader = false;
+            }
+          } else {
+            this.$toastr.e("Something went wrong. Please try again later.")
+            this.$router.push({ name: "generatepin" })
+            return false
+          }
         }
-      })
-      .catch((error) => {
-        this.$toastr.e("Something went wrong. Please try again later.")
-        this.$router.push({ name: "generatepin" })
-        return false
-      })
-      .then(() => (this.loader = false));
+      }
+      xhr.onerror = function(error){
+          console.error( error );
+      }
+      xhr.send();
   },
   updated() {
     document.getElementById("wallets").click();

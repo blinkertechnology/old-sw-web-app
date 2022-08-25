@@ -56,27 +56,39 @@ export default {
         this.$toastr.e("Email Required");
         return false;
       }
+
       this.loading = true;
-      this.$http
-        .post(process.env.VUE_APP_URL + "forget-password", this.userPass)
-        .then((response) => {
-          if (response.data === "success") {
-            this.loading = false;
-            this.$toastr.s("We have e-mailed your password reset link!");
-            this.$router.push({ name: "login" });
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", process.env.VUE_APP_URL + "forget-password", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange  = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          const status = xhr.status;
+          if (status === 0 || (status >= 200 && status < 400)) {
+            // The request has been completed successfully
+            const response = xhr.responseText;
+            if (response === "success") {
+              this.loading = false;
+              this.$toastr.s("We have e-mailed your password reset link!");
+              this.$router.push({ name: "login" });
+            } else {
+              this.loading = false;
+              this.$toastr.e(
+                "Something went wrong. Please try again after some time"
+              );
+            }
           } else {
-            this.loading = false;
-            this.$toastr.e(
-              "Something went wrong. Please try again after some time"
-            );
+            this.$toastr.e("Something went wrong. Please try again after some time");
           }
-        })
-        .catch((error) => {
-          this.$toastr.e(
-            "Something went wrong. Please try again after some time"
-          );
-        })
-        .then(() => (this.loading = false));
+        }
+      }
+      xhr.onerror = function(error){
+        console.error( error );
+      }
+      const obj = {
+          "email": this.userPass.email
+      };
+      xhr.send(JSON.stringify(obj));
     },
     sendBack: function () {
       this.$router.push({ name: "homepage" });

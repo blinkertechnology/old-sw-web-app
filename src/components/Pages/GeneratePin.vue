@@ -46,7 +46,7 @@ export default {
                 confirmpin: "",
                 user: walletUserEncryption
             },
-            loading: true,
+            loading: false,
             softkeysPhone: { center: "Select" },
         }
     },
@@ -79,19 +79,38 @@ export default {
             }
             
             this.loading = true
-            this.$http.post(process.env.VUE_APP_URL + "savepin", this.user).then((response) => {
-                if (response.data == "success") {
-                    this.loading = false
-                    this.$toastr.s("Pin saved successfully!")
-                    this.$router.push({ name: "dashboard" })
-                } else {
-                    this.$toastr.s("Something went wrong! Please try again later")
-                    this.loading = false;
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", process.env.VUE_APP_URL + "savepin", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange  = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    const status = xhr.status;
+                    if (status === 0 || (status >= 200 && status < 400)) {
+                        // The request has been completed successfully
+                        const response = xhr.responseText;
+                        if (response == "success") {
+                            this.loading = false
+                            this.$toastr.s("Pin saved successfully!")
+                            this.$router.push({ name: "dashboard" })
+                        } else {
+                            this.$toastr.s("Something went wrong! Please try again later")
+                            this.loading = false;
+                        }
+                    } else {
+                        this.$toastr.s("Something went wrong! Please try again later")
+                        this.loading = false;
+                    }
                 }
-            })
-            .catch((error) => {
-                this.$toastr.s("Something went wrong! Please try again later")
-            }).then(() => (this.loading = false));
+            }
+            xhr.onerror = function(error){
+                console.error( error );
+            }
+            const obj = {
+                "pin": this.user.pin,
+                "confirmpin": this.user.confirmpin,
+                "user": this.user.user
+            };
+            xhr.send(JSON.stringify(obj));
         }
     },
     mounted() {
@@ -99,20 +118,31 @@ export default {
         if(userId === null) {
             this.$router.push({ name: "homepage" })
         }
-        this.$http.get(process.env.VUE_APP_URL + "getpin", {
-            params: { userid: userId }
-        })
-        .then((response) => {
-            if (response.data[0].walletpin) {
-            this.loading = false;
-            this.$router.push({ name: "homepage" })
+
+        let xhr = new XMLHttpRequest();
+        var params = "userid="+userId;
+        xhr.open("GET", process.env.VUE_APP_URL + "getpin?"+params, true);
+        xhr.onreadystatechange  = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                const status = xhr.status;
+                if (status === 0 || (status >= 200 && status < 400)) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response[0].walletpin) {
+                        this.loading = false;
+                        this.$router.push({ name: "homepage" })
+                    }
+                } else {
+                    this.loading = false
+                    this.$toastr.e("Something went wrong. Please try again later.")
+                    return false
+                }
             }
-        })
-        .catch((error) => {
-            this.$toastr.e("Something went wrong. Please try again later.")
-            return false
-        })
-        .then(() => (this.loading = false));
+        }
+        // Error Handling:
+        xhr.onerror = function(error){
+            console.error( error );
+        }
+        xhr.send();
     }
 };
 </script>
