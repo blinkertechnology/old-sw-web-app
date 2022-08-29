@@ -26,7 +26,10 @@
           </li>
           <li>
             USD Balance:
-            <b>{{ singlewallet && singlewallet.secretType === "MATIC" ? singlewallet.calculatedMatic : singlewallet.calculatedBtc  }}</b>
+            <b>
+              {{ singlewallet && singlewallet.secretType === "MATIC" ? singlewallet.calculatedMatic : "" }}
+              {{ singlewallet && singlewallet.secretType === "BITCOIN" ? singlewallet.calculatedBtc : "" }}
+            </b>
           </li>
           <li>Address :</li>
           <li class="address">
