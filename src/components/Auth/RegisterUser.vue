@@ -56,6 +56,7 @@ export default {
   data() {
     return {
       user: {
+        username:null,
         email: null,
         password: null
       },
@@ -85,24 +86,39 @@ export default {
       } 
 
       this.loading = true;
-      this.$http
-        .post(process.env.VUE_APP_URL + "register", this.user)
-        .then((response) => {
-          if (response.data == "success") {
-            this.$toastr.s("Register Successfully!");
-            this.$router.push({ name: "homepage" });
-            this.loading = false;
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", process.env.VUE_APP_URL + "register", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange  = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          const status = xhr.status;
+          if (status === 0 || (status >= 200 && status < 400)) {
+            // The request has been completed successfully
+            const response = xhr.responseText;
+
+            if (response == "success") {
+              this.$toastr.s("Register Successfully!");
+              this.$router.push({ name: "homepage" });
+              this.loading = false;
+            } else {
+              this.$router.push({ name: "Register" });
+              this.receiveValue(response);
+              this.loading = false;
+            }
           } else {
-            this.$router.push({ name: "Register" });
-            this.receiveValue(response);
-            this.loading = false;
+            this.$toastr.e("Something went wrong. Please try again after some time");
           }
-        })
-        .catch((error) => {
-          this.receiveValue(error);
-          this.loading = false;
-        })
-        .then(() => (this.loading = false));
+        }
+      }
+      xhr.onerror = function(error){
+        console.error( error );
+      }
+      const obj = {
+        "username": this.user.username,
+        "email": this.user.email,
+        "password": this.user.password
+      };
+      xhr.send(JSON.stringify(obj));
     },
     onKeyDown(event) {
       switch (event.key) {

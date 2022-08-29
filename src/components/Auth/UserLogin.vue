@@ -58,7 +58,7 @@ export default {
     };
   },
   methods: {
-    logUser: function () {
+    logUser () {
       this.errors = {};
       if (!this.user.email) {
         this.$toastr.e("Email Required!");
@@ -69,20 +69,36 @@ export default {
         return false;
       }
 
-      this.$http
-        .post(process.env.VUE_APP_URL + "login", this.user)
-        .then((response) => {
-          if (response.data.id !== "" && response.data.id !== undefined) {
-            this.$toastr.s("Login Successfully!");
-            localStorage.setItem("user_id", response.data.id);
-            this.$router.push({ name: "dashboard" });
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", process.env.VUE_APP_URL + "login", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange  = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          const status = xhr.status;
+          if (status === 0 || (status >= 200 && status < 400)) {
+            // The request has been completed successfully
+            const response = JSON.parse(xhr.responseText);
+            if (response.id !== "" && response.id !== undefined) {
+              this.$toastr.s("Login Successfully!");
+              localStorage.setItem("user_id", response.id);
+              this.$router.push({ name: "dashboard" });
+            } else {
+              this.$toastr.e("Wrong Credentials");
+            }
           } else {
             this.$toastr.e("Wrong Credentials");
           }
-        })
-        .catch((error) => {
-          this.$toastr.e("Wrong Credentials");
-        });
+        }
+      }
+      xhr.onerror = function(error){
+        console.error( error );
+      }
+
+      const obj = {
+          "email": this.user.email,
+          "password": this.user.password
+      };
+      xhr.send(JSON.stringify(obj));
     },
     onKeyDown(event) {
       switch (event.key) {
