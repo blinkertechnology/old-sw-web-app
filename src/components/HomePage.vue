@@ -1,27 +1,34 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet - Home" />
+    <kaiui-header :title="$t('homepage.title')" />
     <div v-if="loader" class="loader">
       <img src="/assets/loader.gif" />
     </div>
     <div v-else>
       <kaiui-button
+        :softkeys="btnSoftKeys"
         v-on:softCenter="phoneButtonSoftCenterClickedLogin"
-        title="Login"
+        :title="$t('homepage.login')"
         id="loginbutton"
       />
       <kaiui-button
+        :softkeys="btnSoftKeys"
         v-on:softCenter="phoneButtonSoftCenterClickedRegister"
-        title="Register"
+        :title="$t('homepage.register')"
       />
     </div>
   </kaiui-content>
 </template>
 
 <script>
+import i18n from '@/lang/setup';
+
 export default {
   data: () => ({
-    loader: true
+    loader: true,
+    btnSoftKeys: {
+      center: i18n.t('select'),
+    }
   }),
   methods: {
     phoneButtonSoftCenterClickedLogin() {

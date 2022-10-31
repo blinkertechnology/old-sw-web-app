@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import HelloWorld from "@/components/HelloWorld";
+import TermsAndConditions from '../components/TermsAndConditions';
 import hello2 from "@/components/hello2Page";
 import faq from "@/components/faqPage";
 import contactus from "@/components/ContactUs";
@@ -28,8 +28,8 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "HelloWorld",
-      component: HelloWorld
+      name: "TermsAndConditions",
+      component: TermsAndConditions
     },
     {
       path: "/",
