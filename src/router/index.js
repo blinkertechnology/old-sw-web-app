@@ -39,7 +39,10 @@ export default new Router({
     {
       path: "/",
       name: "faq",
-      component: faq
+      component: faq,
+      meta: {
+        prev: 'TermsAndConditions'
+      }
     },
     {
       path: "/",
@@ -54,7 +57,10 @@ export default new Router({
     {
       path: "/login",
       name: "login",
-      component: login
+      component: login,
+      meta: {
+        prev: 'homepage'
+      }
     },
     {
       path: "/",
@@ -62,9 +68,12 @@ export default new Router({
       component: dashboard
     },
     {
-      path: "/",
+      path: "/register",
       name: "register",
-      component: register
+      component: register,
+      meta: {
+        prev: 'homepage'
+      }
     },
     {
       path: "/cwallet",
@@ -74,13 +83,19 @@ export default new Router({
     {
       path: "/walletlist",
       name: "wallets",
-      component: wallets
+      component: wallets,
+      meta: {
+        prev: 'dashboard'
+      }
     },
     {
       path: "/wallet/:id",
       name: "wallet",
       component: wallet,
-      props: true
+      props: true,
+      meta: {
+        prev: 'wallets'
+      }
     },
     {
       path: "/transactions/:secretType",
@@ -100,7 +115,10 @@ export default new Router({
     {
       path: "/forgotPass",
       name: "forgotPass",
-      component: forgotpass
+      component: forgotpass,
+      meta: {
+        prev: 'login'
+      }
     },
     {
       path: "/maketransaction",
@@ -112,7 +130,10 @@ export default new Router({
       path: "/generatepin",
       name: "generatepin",
       component: generatepin,
-      props: true
+      props: true,
+      meta: {
+        prev: 'login'
+      }
     },
   ]
 });
