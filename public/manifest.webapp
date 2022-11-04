@@ -1,5 +1,5 @@
 {
-  "version": "1.8.0",
+  "version": "2.2.4",
   "name": "Sorted Wallet",
   "description": "Sorted Wallet",
   "type": "privileged",
@@ -9,8 +9,8 @@
     "112": "/assets/icons/kaios_112.png"
   },
   "developer": {
-    "name": "The Coding Machine",
-    "url": "https://thecodingmachine.com/en/"
+    "name": "Sorted",
+    "url": "https://sorted.finance"
   },
   "locales": {
     "en-US": {
