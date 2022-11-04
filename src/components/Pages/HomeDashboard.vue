@@ -1,23 +1,38 @@
 <template>
   <kaiui-content>
     <kaiui-header title="Sorted Wallet" />
+    
     <div v-if="loader" class="loader">
       <img src="/assets/loader.gif" />
     </div>
-    <div v-else>
-      <kaiui-tab-item name="Create Wallet" selected>
-        <kaiui-separator title="Dashboard" />
-        <kaiui-button id="wallets" title="My Wallet(s)" v-on:softCenter="myWallets" />
-        <kaiui-button title="Logout" v-on:softCenter="logout" />
+    <kaiui-tabs v-else>
+      <kaiui-tab-item :name="$t('dashboard.myWallets')" selected>
+        <kaiui-button 
+          id="wallets" 
+          :title="$t('dashboard.myWallets')" 
+          v-on:softCenter="myWallets" 
+          v-bind:softkeys="softkeysPhone"
+        />
       </kaiui-tab-item>
-    </div>
+      <kaiui-tab-item :name="$t('dashboard.settings')">
+        <kaiui-button 
+          :title="$t('logout')" 
+          v-on:softCenter="logout" 
+          v-bind:softkeys="softkeysPhone"
+        />
+      </kaiui-tab-item>
+    </kaiui-tabs>
   </kaiui-content>
 </template>
 
 <script>
+import i18n from '@/lang/setup';
 export default {
   data: () => ({
-    loader: true
+    loader: true,
+    softkeysPhone: { 
+      center: i18n.t('select') 
+    },
   }),
   methods: {
     myWallets() {
@@ -26,7 +41,6 @@ export default {
     logout() {
       localStorage.removeItem("user_id");
       this.$router.push({ name: "login" });
-      this.$toastr.s("Logged Out Successfully");
     }
   },
   created() {
@@ -50,7 +64,6 @@ export default {
             if (response[0].walletpin) {
               this.loader = false;
             } else {
-              this.$toastr.e("Pin not available. Please generated.")
               this.$router.push({ name: "generatepin" })
               this.loader = false;
             }
