@@ -32,12 +32,16 @@
       </div>
       <kaiui-text text="" />
     </div>
-    <SoftKey :softkeys.sync="softkeys" />
+    <SoftKey 
+      :softkeys.sync="softkeys"
+      v-on:softLeft="sendBack"
+    />
   </kaiui-content>
 </template>
 
 <script>
 import SoftKey from "../SoftKey";
+import i18n from '@/lang/setup';
 const { Base64 } = require("js-base64");
 
 export default {
@@ -48,11 +52,12 @@ export default {
     return {
       items: null,
       loading: true,
-      softkeysPhone: { left: "Back", center: "View" },
+      softkeysPhone: { 
+        left: i18n.t('back'),
+        center: i18n.t('view'), 
+      },
       softkeys: {
-        left: "Back",
-        center: "",
-        right: ""
+        left: i18n.t('back'),
       }
     };
   },
@@ -63,14 +68,6 @@ export default {
     phoneButtonSoftRightClicked(e, sType) {
       this.$router.push({ name: "wallet", params: { id: e }, query:{secretType: sType} });
       this.$router.go();
-    },
-    onKeyDown(event) {
-      switch (event.key) {
-        case "SoftLeft":
-          return this.sendBack();
-        default:
-          break;
-      }
     },
     sendBack() {
       this.$router.push({ name: "dashboard" });
@@ -101,15 +98,7 @@ export default {
         console.error( error );
     }
     xhr.send();
-
-    document.addEventListener("keydown", this.onKeyDown);
   },
-  beforeDestroy() {
-    window.removeEventListener("keydown", this.onKeyDown);
-  },
-  updated() {
-    document.getElementById("singlewalletbutton").click();
-  }
 };
 </script>
 

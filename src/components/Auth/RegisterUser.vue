@@ -10,44 +10,48 @@
         <form method="POST" class="text-left">
           <kaiui-input
             type="text"
-            label="Username"
+            :label="$t('username')"
             v-model="user.username"
             class="kaiui-p_btn kaiui-input-input form-control"
-            placeholder="User Name"
+            :placeholder="$t('username')"
           />
 
           <kaiui-input
             type="email"
-            label="Email"
+            :label="$t('email')"
             v-model="user.email"
             class="kaiui-p_btn kaiui-input-input form-control"
-            placeholder="Email Address"
+            :placeholder="$t('email')"
           />
 
           <kaiui-input
-            label="Password"
+            :label="$t('password')"
             v-model="user.password"
             type="password"
             class="kaiui-p_btn kaiui-input-input form-control"
-            placeholder="Password"
+            :placeholder="$t('password')"
           />
 
           <kaiui-button
             v-bind:softkeys="softkeysPhone"
             v-on:softCenter="logUser"
             v-on:softLeft="sendBack"
-            title="Register"
+            :title="$t('register')"
           />
         </form>
       </div>
       <kaiui-text text="" />
-      <SoftKey :softkeys.sync="softkeys" />
+      <SoftKey 
+        :softkeys.sync="softkeys"
+        v-on:softLeft="sendBack"
+      />
     </kaiui-tab-item>
   </kaiui-content>
 </template>
 
 <script>
 import SoftKey from "../SoftKey";
+import i18n from '@/lang/setup';
 
 export default {
   components: {
@@ -60,11 +64,11 @@ export default {
         email: null,
         password: null
       },
-      softkeysPhone: { left: "Back", center: "Select" },
+      softkeysPhone: { 
+        center: i18n.t('select'),
+      },
       softkeys: {
-        left: "Back",
-        center: "",
-        right: ""
+        left: i18n.t('back'),
       },
       loading: false
     };
@@ -120,14 +124,6 @@ export default {
       };
       xhr.send(JSON.stringify(obj));
     },
-    onKeyDown(event) {
-      switch (event.key) {
-        case "SoftLeft":
-          return this.sendBack();
-        default:
-          break;
-      }
-    },
     sendBack() {
       this.$router.push({ name: "homepage" });
     },
@@ -142,11 +138,5 @@ export default {
       }
     }
   },
-  beforeDestroy() {
-    document.addEventListener("keydown", this.onKeyDown);
-  },
-  mounted() {
-    window.removeEventListener("keydown", this.onKeyDown);
-  }
 };
 </script>

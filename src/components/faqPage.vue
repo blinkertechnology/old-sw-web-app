@@ -3,22 +3,27 @@
     <kaiui-header title="Welcome to Sorted Wallet" />
     <kaiui-header title="FAQ" />
     <kaiui-text text="This is FAQ page" />
-    <kaiui-button
-      v-bind:softkeys="softkeysPhone"
-      v-on:softLeft="phoneButtonSoftleftClicked"
-      title="Back"
+
+    <SoftKey 
+      :softkeys.sync="softkeys"
+      v-on:softLeft="back"
     />
   </kaiui-content>
 </template>
 
 <script>
+import SoftKey from "./SoftKey";
+
 export default {
+  components: {
+    SoftKey
+  },
   data: () => ({
-    softkeysPhone: { left: "Back" }
+    softkeys: { left: "Back" }
   }),
   methods: {
-    phoneButtonSoftleftClicked() {
-      this.$router.push({ name: "HelloWorld" });
+    back() {
+      this.$router.push({ name: "TermsAndConditions" });
     }
   }
 };

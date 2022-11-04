@@ -15,6 +15,33 @@ export default {
       center: String,
       Right: String
     }
+  },
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.onKeyDown);
+  },
+  mounted() {
+    document.addEventListener("keydown", this.onKeyDown);
+  },
+  methods: {
+    onKeyDown(event) {
+      switch(event.key) {
+        case "SoftLeft":
+        case "ArrowLeft":
+          event.preventDefault();
+          this.$emit("softLeft");
+          break;
+        case "SoftRight":
+        case "ArrowRight":
+          event.preventDefault();
+          this.$emit("softRight");
+          break;
+        case "Enter":
+        case "ArrowUp":
+          event.preventDefault();
+          this.$emit("softCenter");
+          break;
+      }
+    }
   }
 };
 </script>

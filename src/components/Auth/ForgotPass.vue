@@ -11,7 +11,7 @@
           <kaiui-input
             type="text"
             v-model="userPass.email"
-            label="Email Address"
+            label="Email"
             class="kaiui-p_btn kaiui-input-input form-control"
             placeholder="Email"
           />
@@ -20,12 +20,15 @@
             v-bind:softkeys="softkeysPhone"
             v-on:softCenter="forgotPass"
             v-on:softLeft="sendBack"
-            title="Send Password Reset Link"
+            title="Reset Password"
           />
         </form>
       </div>
     </kaiui-tab-item>
-    <SoftKey :softkeys.sync="softkeys" />
+    <SoftKey 
+      :softkeys.sync="softkeys"
+      v-on:softLeft="sendBack"
+    />
   </kaiui-content>
 </template>
 
@@ -41,7 +44,7 @@ export default {
       userPass: {
         email: null
       },
-      softkeysPhone: { left: "Back", center: "Select" },
+      softkeysPhone: { center: "Select" },
       loading: false,
       softkeys: {
         left: "Back",
@@ -91,22 +94,8 @@ export default {
       xhr.send(JSON.stringify(obj));
     },
     sendBack: function () {
-      this.$router.push({ name: "homepage" });
+      this.$router.push({ name: "login" });
     },
-    onKeyDown(event) {
-      switch (event.key) {
-        case "SoftLeft":
-          return this.sendBack();
-        default:
-          break;
-      }
-    }
   },
-  mounted() {
-    document.addEventListener("keydown", this.onKeyDown);
-  },
-  beforeDestroy() {
-    window.removeEventListener("keydown", this.onKeyDown);
-  }
 };
 </script>

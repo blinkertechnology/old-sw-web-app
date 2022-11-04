@@ -5,38 +5,38 @@
       <kaiui-separator title="Login" />
       <form method="POST" class="text-left">
         <kaiui-input
-          label="Email"
+          :label="$t('email')"
           v-model="user.email"
           class="kaiui-p_btn kaiui-input-input form-control"
-          placeholder="E-mail"
+          :placeholder="$t('email')"
         />
 
         <kaiui-input
-          label="Password"
+          :label="$t('password')"
           v-model="user.password"
           class="kaiui-p_btn kaiui-input-input form-control kai-custum-css"
-          placeholder="Password"
+          :placeholder="$t('password')"
         />
 
         <kaiui-button
           v-bind:softkeys="softkeysPhone"
           v-on:softCenter="logUser"
           v-on:softLeft="sendBack"
-          title="Login"
-        />
-
-        <kaiui-button
-          v-on:softCenter="phoneButtonSoftCenterClickedForgotPass"
-          title="Forgot Password?"
+          :title="$t('login')"
         />
       </form>
     </kaiui-tab-item>
-    <SoftKey :softkeys.sync="softkeys" />
+    <SoftKey 
+      :softkeys.sync="softkeys" 
+      v-on:softLeft="sendBack"
+      v-on:softRight="forgotPassword"
+    />
   </kaiui-content>
 </template>
 
 <script>
 import SoftKey from "../SoftKey";
+import i18n from '@/lang/setup';
 
 export default {
   components: {
@@ -49,23 +49,29 @@ export default {
         password: null
       },
       errors: {},
-      softkeysPhone: { left: "Back", center: "Select" },
+      softkeysPhone: { 
+        center: i18n.t('select') 
+      },
       softkeys: {
-        left: "Back",
+        left: i18n.t('back'),
         center: "",
-        right: ""
+        right: i18n.t('forgotPassword')
       }
     };
+  },
+  mounted() {
+    // Force logout 
+    localStorage.removeItem("user_id");
   },
   methods: {
     logUser () {
       this.errors = {};
       if (!this.user.email) {
-        this.$toastr.e("Email Required!");
+        this.showNotice("", "Error", "Enter a valid email address.");
         return false;
       }
       if (!this.user.password) {
-        this.$toastr.e("Password Required!");
+        this.showNotice("", "Error", "Password required.");
         return false;
       }
 
@@ -83,15 +89,16 @@ export default {
               localStorage.setItem("user_id", response.id);
               this.$router.push({ name: "dashboard" });
             } else {
-              this.$toastr.e("Wrong Credentials");
+              this.showNotice("", "Error", "Wrong Credentials.");
             }
           } else {
-            this.$toastr.e("Wrong Credentials");
+            this.showNotice("", "Error", "Wrong Credentials.");
           }
         }
       }
       xhr.onerror = function(error){
         console.error( error );
+        this.showNotice("", "Error", "Please try again.");
       }
 
       const obj = {
@@ -100,26 +107,12 @@ export default {
       };
       xhr.send(JSON.stringify(obj));
     },
-    onKeyDown(event) {
-      switch (event.key) {
-        case "SoftLeft":
-          return this.sendBack();
-        default:
-          break;
-      }
-    },
     sendBack() {
       this.$router.push({ name: "homepage" });
     },
-    phoneButtonSoftCenterClickedForgotPass() {
+    forgotPassword() {
       this.$router.push({ name: "forgotPass" });
     }
-  },
-  mounted() {
-    document.addEventListener("keydown", this.onKeyDown);
-  },
-  beforeDestroy() {
-    window.removeEventListener("keydown", this.onKeyDown);
   }
 };
 </script>
