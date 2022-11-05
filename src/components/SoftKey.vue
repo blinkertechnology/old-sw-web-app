@@ -21,6 +21,17 @@ export default {
   },
   mounted() {
     document.addEventListener("keydown", this.onKeyDown);
+
+    /**
+     * Another component registered to use the softkeys, disable this component
+     */
+    this.$root.$on("update-softkeys-register", () => {
+      document.removeEventListener("keydown", this.onKeyDown);
+    });
+
+    this.$root.$on("update-softkeys-unregister", () => {
+      document.addEventListener("keydown", this.onKeyDown);
+    });
   },
   methods: {
     onKeyDown(event) {

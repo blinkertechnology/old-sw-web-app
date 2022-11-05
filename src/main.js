@@ -14,6 +14,8 @@ import VueCookie from 'vue-cookie';
 
 import i18n from '@/lang/setup';
 
+import PasswordInput from '@/components/PasswordInput.vue';
+
 Vue.prototype.$http = axios;
 
 Vue.config.productionTip = false;
@@ -35,6 +37,8 @@ Vue.use(VueToastr, {
 Vue.use(VueCookie);
 
 Vue.component('qr-code', VueQRCodeComponent);
+
+Vue.component(PasswordInput.name, PasswordInput)
 
 /* eslint-disable no-new */
 new Vue({
