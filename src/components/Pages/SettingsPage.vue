@@ -45,7 +45,6 @@ export default {
             center: i18n.t('select') 
         },
         showLanguageSelectorDialog: false,
-        selectedLanguage: 'en',
         supportedLanguages: {
             'en': 'English',
             'ur': 'Urdu',
@@ -66,7 +65,7 @@ export default {
 
         onLanguageSelect() {
             this.showLanguageSelectorDialog = false;
-            console.log(this.selectedLanguage);
+            this.$cookie.set("lang", i18n.locale);
         }
     }
 }

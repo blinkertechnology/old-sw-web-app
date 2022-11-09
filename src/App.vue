@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import i18n from '@/lang/setup';
+
 export default {
   name: "app",
   beforeDestroy() {
@@ -10,6 +12,10 @@ export default {
   },
   mounted() {
     document.addEventListener("keydown", this.onKeyDown);
+
+    const selectedLang = this.$cookie.get('lang');
+    if(selectedLang) i18n.locale = selectedLang;
+    
   },
   methods: {
     /**
