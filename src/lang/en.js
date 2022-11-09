@@ -1,11 +1,12 @@
 export default {
-    select: 'Select',
     username: 'Username',
     email: 'Email',
     password: 'Password',
 
+    select: 'Select',
     back: 'Back',
     view: 'View',
+    cancel: 'Cancel',
 
     login: 'Login',
     register: 'Register',
@@ -23,6 +24,10 @@ export default {
     dashboard: {
         myWallets: 'My Wallet(s)',
         settings: 'Settings',
+    },
+
+    settings: {
+        changeLanguage: 'Change language'
     },
 
     tac: {

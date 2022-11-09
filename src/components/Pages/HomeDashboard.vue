@@ -15,11 +15,7 @@
         />
       </kaiui-tab-item>
       <kaiui-tab-item :name="$t('dashboard.settings')">
-        <kaiui-button 
-          :title="$t('logout')" 
-          v-on:softCenter="logout" 
-          v-bind:softkeys="softkeysPhone"
-        />
+        <settings-page />
       </kaiui-tab-item>
     </kaiui-tabs>
   </kaiui-content>
@@ -27,7 +23,12 @@
 
 <script>
 import i18n from '@/lang/setup';
+import SettingsPage from '@/components/Pages/SettingsPage.vue';
+
 export default {
+  components: {
+    SettingsPage
+  },
   data: () => ({
     loader: true,
     softkeysPhone: { 
@@ -38,10 +39,6 @@ export default {
     myWallets() {
       this.$router.push({ name: "wallets" });
     },
-    logout() {
-      localStorage.removeItem("user_id");
-      this.$router.push({ name: "login" });
-    }
   },
   created() {
     setTimeout(() => (this.loader = false), 1200);
@@ -52,32 +49,7 @@ export default {
   },
   mounted() {
     var userId = localStorage.getItem("user_id");
-    let xhr = new XMLHttpRequest();
-
-    var params = "userid="+userId;
-    xhr.open("GET", process.env.VUE_APP_URL + "getpin?"+params, true);
-      xhr.onreadystatechange  = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          const status = xhr.status;
-          if (status === 0 || (status >= 200 && status < 400)) {
-            const response = JSON.parse(xhr.responseText);
-            if (response[0].walletpin) {
-              this.loader = false;
-            } else {
-              this.$router.push({ name: "generatepin" })
-              this.loader = false;
-            }
-          } else {
-            this.$toastr.e("Something went wrong. Please try again later.")
-            this.$router.push({ name: "generatepin" })
-            return false
-          }
-        }
-      }
-      xhr.onerror = function(error){
-          console.error( error );
-      }
-      xhr.send();
+    console.log(userId);
   },
   updated() {
     document.getElementById("wallets").click();
