@@ -14,9 +14,18 @@ import VueCookie from 'vue-cookie';
 
 import i18n from '@/lang/setup';
 
-import PasswordInput from '@/components/PasswordInput.vue';
+import CustomInput from '@/components/CustomInput.vue';
 
-Vue.prototype.$http = axios;
+const instance = axios.create({
+  baseURL: process.env.VUE_APP_URL,
+  headers: {
+    // 'ngrok-skip-browser-warning': 'skip',
+    // 'User-Agent': 'sorted-wallet',
+    // 'Content-Type': 'application/json'
+  }
+})
+
+Vue.prototype.$http = instance;
 
 Vue.config.productionTip = false;
 
@@ -38,7 +47,8 @@ Vue.use(VueCookie);
 
 Vue.component('qr-code', VueQRCodeComponent);
 
-Vue.component(PasswordInput.name, PasswordInput)
+Vue.component(CustomInput.name, CustomInput);
+
 
 /* eslint-disable no-new */
 new Vue({
@@ -49,3 +59,27 @@ new Vue({
 
   components: { App },
 }).$mount("#app");
+
+window.addEventListener('keydown', (e) => {
+  switch(e.key) {
+    case 'ArrowLeft':
+      e.preventDefault();
+
+      return document.dispatchEvent(new KeyboardEvent('keydown', {
+        'key': 'SoftLeft'
+      }));
+    case 'ArrowRight':
+      e.preventDefault();
+
+      return document.dispatchEvent(new KeyboardEvent('keydown', {
+        'key': 'SoftRight'
+      }));
+
+    case 'Enter':
+      e.preventDefault();
+
+      return document.dispatchEvent(new KeyboardEvent('keydown', {
+        'key': 'SoftCenter'
+      }));
+  }
+})

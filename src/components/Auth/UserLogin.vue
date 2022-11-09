@@ -11,11 +11,13 @@
           :placeholder="$t('email')"
         />
 
-        <password-input
+        <custom-input
           :label="$t('password')"
+          type="password"
           v-model="user.password"
           class="kaiui-p_btn kaiui-input-input form-control kai-custum-css"
           :placeholder="$t('password')"
+          :showable="true"
         />
 
         <kaiui-button
@@ -64,7 +66,7 @@ export default {
     localStorage.removeItem("user_id");
   },
   methods: {
-    logUser () {
+    async logUser () {
       this.errors = {};
       if (!this.user.email) {
         this.showNotice("", "Error", "Enter a valid email address.");
@@ -75,37 +77,28 @@ export default {
         return false;
       }
 
-      let xhr = new XMLHttpRequest();
-      xhr.open("POST", process.env.VUE_APP_URL + "login", true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.onreadystatechange  = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          const status = xhr.status;
-          if (status === 0 || (status >= 200 && status < 400)) {
-            // The request has been completed successfully
-            const response = JSON.parse(xhr.responseText);
-            if (response.id !== "" && response.id !== undefined) {
-              this.$toastr.s("Login Successfully!");
-              localStorage.setItem("user_id", response.id);
-              this.$router.push({ name: "dashboard" });
-            } else {
-              this.showNotice("", "Error", "Wrong Credentials.");
-            }
-          } else {
-            this.showNotice("", "Error", "Wrong Credentials.");
-          }
-        }
-      }
-      xhr.onerror = function(error){
-        console.error( error );
-        this.showNotice("", "Error", "Please try again.");
-      }
-
-      const obj = {
+      try {
+        const response = await this.$http.post('login', {
           "email": this.user.email,
           "password": this.user.password
-      };
-      xhr.send(JSON.stringify(obj));
+        })
+        const { data } = response;
+        if(data.id !== "" && data.id !== undefined) {
+          localStorage.setItem("user_id", response.id);
+
+          // PIN setup is required
+          if(response.require_pin) {
+            return this.$router.push({ name: "generatepin" });
+          }
+
+          this.$router.push({ name: "dashboard" });
+        } else {
+          this.showNotice("", "Error", "Wrong Credentials.");
+        }
+      } catch(err) {
+        console.log(err);
+        this.showNotice("", "Error", "Wrong Credentials.");
+      }
     },
     sendBack() {
       this.$router.push({ name: "homepage" });

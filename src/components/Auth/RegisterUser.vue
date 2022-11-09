@@ -24,7 +24,7 @@
             :placeholder="$t('email')"
           />
 
-          <kaiui-input
+          <password-input
             :label="$t('password')"
             v-model="user.password"
             type="password"

@@ -2,11 +2,12 @@
     <div class="kaiui-input">
         <label class="kaiui-p_sec kaiui-input-label">{{ label }}</label>
         <input class="kaiui-p_btn kaiui-input-input" 
-            :type="type" 
-            v-bind:placeholder="placeholder"
+            :type="inputType" 
+            :placeholder="placeholder"
             v-on:input="onInput" 
             v-model="value" 
             v-bind:nav-selectable="true" 
+            :pattern="pattern"
 
             v-on:click="onClick" 
             v-on:focus="handleFocusChange(true)"
@@ -17,47 +18,61 @@
 
 <script>
 export default {
-    name: "password-input",
+    name: "custom-input",
     props: {
-        /**
-         * The Placeholder
-         */
         placeholder: {
             type: String,
             required: false,
         },
-        /**
-         * The Input Label
-         */
         label: {
             type: String,
             required: true,
         },
+        type: {
+            type: String,
+            required: false,
+        },
+        pattern: {
+            type: String,
+            required: false,
+        },
+        showable: {
+            type: Boolean,
+            required: false,
+            default: false,
+        }
     },
     data: () => ({
         value: "",
-        type: 'password',
-        softkeys: {
-            left: 'Show'
-        },
+        inputType: null,
     }),
-    mounted() {
-        this.$on("softkey-left-pressed", (e) => {
-            if(this.type === 'password') {
-                this.type = 'text';
-            } else {
-                this.type = 'password';
+    computed: {
+        softkeys() {
+            if(this.showable) {
+                return {
+                    left: 'Show'
+                }
             }
-        });
+
+            return {}
+        }
+    },
+    mounted() {
+        this.inputType = this.type;
+
+        if(this.showable) {
+            this.$on("softkey-left-pressed", (e) => {
+                if(this.type === 'password') {
+                    this.inputType = this.inputType === 'password' ? 'text' : 'password';
+                }
+            });
+        }
     },
     methods: {
         /**
          * @private
          */
         onInput() {
-            /**
-             * Emit the event `input` with `value` when the input value changes
-             */
             this.$emit("input", this.value);
         },
         handleFocusChange(isNowFocused) {

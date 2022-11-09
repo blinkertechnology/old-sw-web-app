@@ -8,24 +8,26 @@
     <div v-else>
         <kaiui-tab-item name="Generate Pin" selected>
         <form method="POST" class="text-left">
-            <kaiui-input
-                type="number"
+            <custom-input
+                type="tel"
                 label="Pin"
-                v-model="user.pin"
+                v-model="pin"
                 class="kaiui-input-input form-control"
                 placeholder="Enter Pin"
+                pattern="[0-9]+"
             />
-            <kaiui-input
-                type="number"
+            <custom-input
+                type="tel"
                 label="Confirm Pin"
-                v-model="user.confirmpin"
+                v-model="confirmpin"
                 class="kaiui-input-input form-control"
                 placeholder="Re-enter Pin"
+                pattern="[0-9]+"
             />
             <kaiui-text text="Please keep it for future wallet transactions."/>
             <kaiui-button
                 v-bind:softkeys="softkeysPhone"
-                v-on:softCenter="generatepinnow"
+                v-on:softCenter="onSubmit"
                 title="Submit"
             />
         </form>
@@ -38,38 +40,40 @@
 const { Base64 } = require("js-base64");
 export default {
     data() {
-        var userId = localStorage.getItem("user_id");
-        var walletUserEncryption = Base64.encode(userId);
         return {
-            user: {
-                pin: "",
-                confirmpin: "",
-                user: walletUserEncryption
-            },
+            pin: "",
+            confirmpin: "",
             loading: false,
-            softkeysPhone: { center: "Select" },
+            softkeysPhone: { 
+                center: "Select" 
+            },
         }
     },
     methods: {
-        generatepinnow() {
-            if (isNaN(this.user.pin) === true) {
-                this.$toastr.e("Numeric Pin Required")
+        onSubmit() {
+            var userId = localStorage.getItem("user_id");
+            var user = Base64.encode(userId);
+        
+            console.log(this.pin, this.confirmpin);
+
+            if (isNaN(this.pin) === true) {
+                this.showNotice("", "Error", "Numeric Pin Required.");
                 return false
             }
-            if (this.user.pin === "") {
+            if (this.pin === "") {
                 this.$toastr.e("Pin Required");
                 return false;
             }
-            if (isNaN(this.user.confirmpin) === true) {
+            if (isNaN(this.confirmpin) === true) {
                 this.$toastr.e("Numeric Confirm Pin Required")
                 return false
             }
-            if (this.user.pin !== this.user.confirmpin) {
+            if (this.pin !== this.confirmpin) {
                 this.$toastr.e("Entered pin not match")
                 return false
             }
             
-            const pin = this.user.pin.length;
+            const pin = this.pin.length;
             if (pin > 6) {
                 this.$toastr.e("Pin Length shound be less than 7");
                 return false;
@@ -106,43 +110,13 @@ export default {
                 console.error( error );
             }
             const obj = {
-                "pin": this.user.pin,
-                "confirmpin": this.user.confirmpin,
-                "user": this.user.user
+                "pin": this.pin,
+                "confirmpin": this.confirmpin,
+                "user": user
             };
+            console.log(obj);
             xhr.send(JSON.stringify(obj));
         }
-    },
-    mounted() {
-        const userId = localStorage.getItem("user_id");        
-        if(userId === null) {
-            this.$router.push({ name: "homepage" })
-        }
-
-        let xhr = new XMLHttpRequest();
-        var params = "userid="+userId;
-        xhr.open("GET", process.env.VUE_APP_URL + "getpin?"+params, true);
-        xhr.onreadystatechange  = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                const status = xhr.status;
-                if (status === 0 || (status >= 200 && status < 400)) {
-                    const response = JSON.parse(xhr.responseText);
-                    if (response[0].walletpin) {
-                        this.loading = false;
-                        this.$router.push({ name: "homepage" })
-                    }
-                } else {
-                    this.loading = false
-                    this.$toastr.e("Something went wrong. Please try again later.")
-                    return false
-                }
-            }
-        }
-        // Error Handling:
-        xhr.onerror = function(error){
-            console.error( error );
-        }
-        xhr.send();
     }
 };
 </script>

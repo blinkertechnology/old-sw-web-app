@@ -24,7 +24,7 @@ Router.prototype.push = function push(location) {
 };
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -78,14 +78,18 @@ export default new Router({
     {
       path: "/cwallet",
       name: "createwallet",
-      component: createwallet
+      component: createwallet,
+      meta: {
+        require_auth: true,
+      }
     },
     {
       path: "/walletlist",
       name: "wallets",
       component: wallets,
       meta: {
-        prev: 'dashboard'
+        prev: 'dashboard',
+        require_auth: true,
       }
     },
     {
@@ -94,18 +98,25 @@ export default new Router({
       component: wallet,
       props: true,
       meta: {
-        prev: 'wallets'
+        prev: 'wallets',
+        require_auth: true,
       }
     },
     {
       path: "/transactions/:secretType",
       name: "transactionslist",
-      component: transactionslist
+      component: transactionslist,
+      meta: {
+        require_auth: true,
+      }
     },
     {
       path: "/camerapage",
       name: "camera",
-      component: camerapage
+      component: camerapage,
+      meta: {
+        require_auth: true,
+      }
     },
     {
       path: "/homepage",
@@ -124,7 +135,10 @@ export default new Router({
       path: "/maketransaction",
       name: "maketransaction",
       component: maketransaction,
-      props: true
+      props: true,
+      meta: {
+        require_auth: true,
+      }
     },
     {
       path: "/generatepin",
@@ -132,8 +146,29 @@ export default new Router({
       component: generatepin,
       props: true,
       meta: {
-        prev: 'login'
+        prev: 'login',
+        require_auth: true,
       }
     },
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  const { meta } = to;
+  const { require_auth } = meta;
+
+  if(require_auth) {
+    // Check if user cookie exists
+    const session = localStorage.getItem("user_id");
+    if(!session || session == null) {
+      next({
+        name: 'login'
+      })
+    }
+  }
+
+  next();
+})
+
+
+export default router;

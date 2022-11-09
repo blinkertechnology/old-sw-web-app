@@ -16,6 +16,9 @@ export default {
       Right: String
     }
   },
+  data: () => ({
+    enabled: true,
+  }),
   beforeDestroy() {
     document.removeEventListener("keydown", this.onKeyDown);
   },
@@ -26,28 +29,27 @@ export default {
      * Another component registered to use the softkeys, disable this component
      */
     this.$root.$on("update-softkeys-register", () => {
-      document.removeEventListener("keydown", this.onKeyDown);
+      this.enabled = false;
     });
 
     this.$root.$on("update-softkeys-unregister", () => {
-      document.addEventListener("keydown", this.onKeyDown);
+      this.enabled = true;
     });
   },
   methods: {
     onKeyDown(event) {
+      if(!this.enabled) return;
+
       switch(event.key) {
         case "SoftLeft":
-        case "ArrowLeft":
           event.preventDefault();
           this.$emit("softLeft");
           break;
         case "SoftRight":
-        case "ArrowRight":
           event.preventDefault();
           this.$emit("softRight");
           break;
         case "Enter":
-        case "ArrowUp":
           event.preventDefault();
           this.$emit("softCenter");
           break;

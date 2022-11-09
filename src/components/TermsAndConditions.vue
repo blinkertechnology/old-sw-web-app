@@ -18,13 +18,13 @@
           class="tandc"
           v-bind:softkeys="softkeysPhone"
           v-on:softCenter="onSelect"
+          v-on:softRight="onAgree"
           id="myCheck"
         />
 
         <SoftKey 
           :softkeys.sync="softkeys"
           v-on:softLeft="sendBottom"
-          v-on:softRight="onAgree"
         />
 
         <div class="exacthere"></div>
