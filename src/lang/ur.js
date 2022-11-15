@@ -1,3 +1,4 @@
 export default {
-    select: 'UR select'
+    select: 'UR Select',
+    logout: 'UR Logout',
 }

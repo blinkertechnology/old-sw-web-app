@@ -1,6 +1,7 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet" />
+    <kaiui-header :title="$t('title')" />
+    
     <kaiui-tab-item name="Register" selected>
       <div v-if="loading" class="loader">
         <kaiui-separator title="Creating Wallet" />

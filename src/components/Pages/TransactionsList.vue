@@ -1,13 +1,24 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet" />
-    <kaiui-separator title="Transaction Records" />
+    <kaiui-header :title="$t('title')" />
+    <kaiui-separator :title="$t('transactions.title')" />
     <div v-if="loading" class="loader">
       <img src="/assets/loader.gif" />
     </div>
     <div v-else>
+      <div v-if="transactions.length < 1" class="no-transactions">
+        <div class="no-transactions__title">{{ $t('transactions.noTransactions') }}</div>
+
+        <kaiui-button
+          title="Make Transaction"
+          :softkeys="softkeysButton"
+          v-on:softCenter="toMakeTransaction"
+          v-on:softLeft="goBack"
+        />
+      </div>
       <div
-        v-for="item in items"
+        v-else
+        v-for="item in transactions"
         :key="item['hash']"
         class="customclass row lead border mb-3"
         nav-selectable="true"
@@ -34,12 +45,16 @@
         </div>
       </div>
     </div>
-    <SoftKey :softkeys.sync="softkeys" />
+    <SoftKey 
+      :softkeys.sync="softkeys" 
+      v-on:softLeft="goBack"
+    />
   </kaiui-content>
 </template>
 
 <script>
 import SoftKey from "../SoftKey";
+import i18n from '@/lang/setup';
 
 export default {
   components: {
@@ -49,75 +64,47 @@ export default {
     return {
       items: null,
       loading: true,
-      softkeys: {
-        left: "Back",
-        center: "",
-        right: ""
+      softkeysButton: {
+        left: i18n.t('back'),
+        center: i18n.t('select')
       },
-      walletaddress: null,
-      walletaddressId: null,
-      walletType: null
-    };
+      softkeys: {
+        left: i18n.t('back'),
+      },
+
+      wallet: null,
+      transactions: [],
+    }
   },
   methods: {
-    onKeyDown(event) {
-      switch (event.key) {
-        case "SoftLeft":
-          return this.sendBacknow();
-        default:
-          break;
-      }
-    },
-    sendBacknow() {
+    goBack() {
       this.$router.push({
-        name: "wallet",
-        params: { id: this.walletaddressId }
+        name: "dashboard",
       });
     },
-    onFulfilled(transRecords) {
-      if (transRecords) {
-        this.loading = false;
-        this.items = transRecords;
-      } else {
-        this.loading = false;
-        this.$toastr.e(
-          "Something wrong happen. Please try again after sometime."
-        );
-      }
+    toMakeTransaction() {
+      this.$router.push({
+        name: "maketransaction",
+        param: { 
+          id: this.$route.params.id
+        }
+      });
     }
   },
-  mounted() {
-    this.walletaddress = this.$route.params.secretType;
-    this.walletaddressId = this.$route.query.walletId;
-    this.walletType = this.$route.query.walletType;
+  async mounted () {
+    try {
+      const response = await this.$http.get(`wallet/${this.$route.params.id}/transactions`);
+      const { wallet, transactions } = response.data;
 
-    if(this.walletType === 'MATIC'){
-        var api = require("polygonscan-api").init("UDMIEP9QACKBHIAMWYH4GEY5C6UP7EBYPT");
-        var balance = api.account.txlist(this.walletaddress);    
-        const p = Promise.resolve(balance);
-        p.then((v) => {
-          this.onFulfilled(v.result);
-        }).catch((err) => this.$toastr.e(
-          "No transaction found."
-        ));
+      this.wallet = wallet;
+      this.transactions = Array.isArray(transactions) ? transactions : [];
+    } catch(err) {
+      console.log(err);
+      this.showNotice("", "Something went wrong", "Please try again later.");
+    } finally {
+      this.loading = false;
     }
-
-    if(this.walletType === 'BITCOIN'){
-        var bitcoinapi = require("bscscan-api").init("MX4ESFKVY29D9SZ81ZJQI66Z2H2ZMMM8PZ");
-        var bitcpingBalance = bitcoinapi.account.txlist(this.walletaddress);    
-        const p = Promise.resolve(bitcpingBalance);
-        p.then((v) => {
-          this.onFulfilled(v.result);
-        }).catch((err) => this.$toastr.e(
-          "No transaction found."
-        ));
-    }
-
-    document.addEventListener("keydown", this.onKeyDown);
   },
-  beforeDestroy() {
-    window.removeEventListener("keydown", this.onKeyDown);
-  }
 };
 </script>
 
@@ -136,6 +123,16 @@ export default {
   hyphens: auto;
 }
 .customclass {
+  text-align: center;
+}
+
+.no-transactions {
+  padding: 20px;
+}
+.no-transactions__title {
+  font-size: 18px;
+  font-weight: 700;
+
   text-align: center;
 }
 </style>

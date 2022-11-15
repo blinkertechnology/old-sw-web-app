@@ -1,7 +1,8 @@
 <template>
   <div>
     <kaiui-content>
-      <kaiui-header :title="$t('tac.title')" />
+      <kaiui-header :title="$t('title')" />
+
       <div v-if="loader" class="loader">
         <img src="/assets/loader.gif" />
       </div>
@@ -55,13 +56,12 @@ export default {
   }),
   methods: {
     onAgree() {
-      console.log('onAgree');
       if(!this.agree) {
         this.showNotice("", "", i18n.t('tac.error'));
         return false;
       }
 
-      this.$cookie.set("TAC_agreed", true, { expires: "90D" });
+      this.$cookies.set("TAC_agreed", true, { expires: "90D" });
       this.$router.push({ name: "homepage" });
     },
     onSelect() {
@@ -75,7 +75,7 @@ export default {
   },
   created() {
     setTimeout(() => (this.loader = false), 1200);
-    if (this.$cookie.get("TAC_agreed")) {
+    if(this.$cookies.get("TAC_agreed")) {
       this.$router.push({ name: "homepage" });
     }
   },

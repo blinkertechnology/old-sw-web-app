@@ -1,3 +1,4 @@
 export default {
-    select: 'AF select'
+    select: 'AF Select',
+    logout: 'AF Logout',
 }

@@ -6,13 +6,10 @@ import faq from "@/components/faqPage";
 import contactus from "@/components/ContactUs";
 import HomePage from "@/components/HomePage";
 import forgotpass from "@/components/Auth/ForgotPass";
-import details from "@/components/Pages/DetailsPage";
 import login from "@/components/Auth/UserLogin";
 import register from "@/components/Auth/RegisterUser";
 import dashboard from "@/components/Pages/HomeDashboard";
 import createwallet from "@/components/Pages/CreateWallet";
-import wallets from "@/components/Pages/WalletsList";
-import wallet from "@/components/Pages/SingleWallet";
 import transactionslist from "@/components/Pages/TransactionsList";
 import camerapage from "@/components/Pages/CameraPage";
 import maketransaction from "@/components/Pages/MakeTransaction";
@@ -50,11 +47,6 @@ const router = new Router({
       component: contactus
     },
     {
-      path: "/",
-      name: "details",
-      component: details
-    },
-    {
       path: "/login",
       name: "login",
       component: login,
@@ -63,9 +55,12 @@ const router = new Router({
       }
     },
     {
-      path: "/",
+      path: "/dashboard",
       name: "dashboard",
-      component: dashboard
+      component: dashboard,
+      meta: {
+        require_auth: true,
+      }
     },
     {
       path: "/register",
@@ -84,41 +79,6 @@ const router = new Router({
       }
     },
     {
-      path: "/walletlist",
-      name: "wallets",
-      component: wallets,
-      meta: {
-        prev: 'dashboard',
-        require_auth: true,
-      }
-    },
-    {
-      path: "/wallet/:id",
-      name: "wallet",
-      component: wallet,
-      props: true,
-      meta: {
-        prev: 'wallets',
-        require_auth: true,
-      }
-    },
-    {
-      path: "/transactions/:secretType",
-      name: "transactionslist",
-      component: transactionslist,
-      meta: {
-        require_auth: true,
-      }
-    },
-    {
-      path: "/camerapage",
-      name: "camera",
-      component: camerapage,
-      meta: {
-        require_auth: true,
-      }
-    },
-    {
       path: "/homepage",
       name: "homepage",
       component: HomePage
@@ -132,12 +92,37 @@ const router = new Router({
       }
     },
     {
-      path: "/maketransaction",
+      path: "/wallet/:id/tx",
       name: "maketransaction",
       component: maketransaction,
       props: true,
       meta: {
         require_auth: true,
+        prev: (router) => {
+          router.go(-1);
+        }
+      }
+    },
+    {
+      path: "/wallet/:id/tx/camera",
+      name: "camera",
+      component: camerapage,
+      meta: {
+        require_auth: true,
+        prev: (router) => {
+          router.go(-1);
+        }
+      }
+    },
+    {
+      path: "/wallet/:id/txs",
+      name: "transactionslist",
+      component: transactionslist,
+      meta: {
+        require_auth: true,
+        prev: (router) => {
+          router.go(-1);
+        }
       }
     },
     {
@@ -154,13 +139,17 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  router.app.$root.$emit('dialog-closed');
+
   const { meta } = to;
   const { require_auth } = meta;
 
   if(require_auth) {
     // Check if user cookie exists
-    const session = localStorage.getItem("user_id");
-    if(!session || session == null) {
+    const session = localStorage.getItem('session');
+    const user = localStorage.getItem('user');
+    
+    if(!session || session == null || !user || user == null) {
       next({
         name: 'login'
       })

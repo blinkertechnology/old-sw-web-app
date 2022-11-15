@@ -28,7 +28,7 @@ export default {
     /**
      * Another component registered to use the softkeys, disable this component
      */
-    this.$root.$on("update-softkeys-register", () => {
+    this.$root.$on("update-softkeys-register", (component) => {
       this.enabled = false;
     });
 
@@ -66,35 +66,35 @@ export default {
   width: 100%;
   max-width: 100%;
   background: white;
-  border-top: 2px #cbcbcb solid;
-  display: flex;
-  flex-shrink: 0;
   white-space: nowrap;
   padding: 0 5px;
   font-weight: 700;
   box-sizing: border-box;
-  line-height: 26px;
   margin-top: auto;
   position: absolute;
   bottom: 0;
   background-color: #cccccc;
+
+
+  display: flex;
+  align-items: center;
+}
+
+.softkey label {
+  color: #242424;
+  box-sizing: border-box;
 }
 
 .left,
 .right {
   font-weight: 600;
   font-size: 14px;
-  color: #242424;
-  overflow: hidden;
   width: 100%;
   letter-spacing: -0.5px;
-  box-sizing: border-box;
-  text-overflow: ellipsis;
 }
 
 .left {
   text-align: left;
-  padding-right: 5px;
 }
 
 .center {
@@ -103,13 +103,10 @@ export default {
   font-size: 18px;
   text-align: center;
   max-width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
   width: 100%;
 }
 
 .right {
   text-align: right;
-  padding-left: 5px;
 }
 </style>

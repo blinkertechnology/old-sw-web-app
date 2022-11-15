@@ -1,6 +1,7 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet" />
+    <kaiui-header :title="$t('title')" />
+    
     <kaiui-separator title="Create your pin code" />
     <div v-if="loading" class="loading">
       <img src="/assets/loader.gif" />
@@ -50,7 +51,7 @@ export default {
         }
     },
     methods: {
-        onSubmit() {
+        async onSubmit() {
             var userId = localStorage.getItem("user_id");
             var user = Base64.encode(userId);
         
@@ -82,40 +83,20 @@ export default {
                 return false;
             }
             
-            this.loading = true
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", process.env.VUE_APP_URL + "savepin", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange  = () => {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    const status = xhr.status;
-                    if (status === 0 || (status >= 200 && status < 400)) {
-                        // The request has been completed successfully
-                        const response = xhr.responseText;
-                        if (response == "success") {
-                            this.loading = false
-                            this.$toastr.s("Pin saved successfully!")
-                            this.$router.push({ name: "dashboard" })
-                        } else {
-                            this.$toastr.s("Something went wrong! Please try again later")
-                            this.loading = false;
-                        }
-                    } else {
-                        this.$toastr.s("Something went wrong! Please try again later")
-                        this.loading = false;
-                    }
-                }
+            this.loading = true;
+
+            try {
+                const response = await this.$http.post('savepin', {
+                    "pin": this.pin,
+                    "confirmpin": this.confirmpin,
+                    "user": user
+                });
+                this.$router.push({ name: "dashboard" });
+            } catch(err) {
+                this.showNotice("", "Something went wrong", "Please try again later");
+            } finally {
+                this.loading = false;
             }
-            xhr.onerror = function(error){
-                console.error( error );
-            }
-            const obj = {
-                "pin": this.pin,
-                "confirmpin": this.confirmpin,
-                "user": user
-            };
-            console.log(obj);
-            xhr.send(JSON.stringify(obj));
         }
     }
 };

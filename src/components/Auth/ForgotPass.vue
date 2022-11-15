@@ -1,6 +1,7 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet" />
+    <kaiui-header :title="$t('title')" />
+    
     <kaiui-tab-item name="Forgot Password" selected>
       <kaiui-separator title="Forgot Password" />
       <div v-if="loading" class="loader">

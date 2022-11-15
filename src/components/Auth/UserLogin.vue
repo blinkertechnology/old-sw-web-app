@@ -1,6 +1,7 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet" />
+    <kaiui-header :title="$t('title')" />
+    
     <kaiui-tab-item name="Login" selected>
       <kaiui-separator title="Login" />
       <form method="POST" class="text-left">
@@ -83,11 +84,14 @@ export default {
           "password": this.user.password
         })
         const { data } = response;
-        if(data.id !== "" && data.id !== undefined) {
-          localStorage.setItem("user_id", response.id);
+        const { user, token } = data;
+
+        if(user && token) {
+          localStorage.setItem('session', token);
+          localStorage.setItem('user', JSON.stringify(user));
 
           // PIN setup is required
-          if(response.require_pin) {
+          if(user.require_pin) {
             return this.$router.push({ name: "generatepin" });
           }
 

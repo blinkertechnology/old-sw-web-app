@@ -1,70 +1,49 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet" />
-    <kaiui-tab-item name="Make Transaction" selected>
-      <kaiui-separator title="Make Transaction" />
-      <div v-if="loading" class="loader">
-        <img src="/assets/loader.gif" />
-      </div>
-      <div v-else>
-        <form method="POST">
-          <kaiui-button
-            title="Upload Image (QR Code)"
-            v-on:softCenter="pickImage"
-          />
-          <kaiui-button
-            title="Scan QR (Wallet Address)"
-            v-on:softCenter="openCam"
-          />
-          <div
-            data-v-6860e009=""
-            data-v-f9ff9db6=""
-            class="kaiui-input kaiui-p_btn kaiui-input-input form-control"
-            value=""
-          >
-          <label data-v-6860e009="" class="kaiui-p_sec kaiui-input-label">To Wallet</label>
-            <input
-              data-v-6860e009=""
-              type="text"
-              placeholder="To Address (try scan)"
-              nav-selectable="true"
-              class="kaiui-p_btn kaiui-input-input"
-              nav-selected="true"
-              id="nameofid"
-              value=""
-              v-model="transaction.toAddress"
-            />
-          </div>
-          <kaiui-input
-            type="number"
-            label="Amount"
-            class="kaiui-p_btn kaiui-input-input form-control"
-            placeholder="Amount"
-            v-model="transaction.amount"
-          />
-          <kaiui-input
-            label="Pin Code"
-            v-model="transaction.pincode"
-            class="kaiui-p_btn kaiui-input-input form-control"
-            placeholder="Pin Code"
-          />
-          <kaiui-button
-            title="Submit"
-            v-bind:softkeys="softkeysPhoneTwo"
-            v-on:softCenter="submittransaction"
-          />
-          <img id="img1" src="" style="display:none" alt="qr code" />
-        </form>
-      </div>
-      <kaiui-text text="" />
-    </kaiui-tab-item>
-    <SoftKey :softkeys.sync="softkeys" />
+    <kaiui-header :title="$t('title')" />
+
+    <kaiui-separator title="Make Transaction" />
+
+    <div v-if="transactionSuccess" class="success-container">
+      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+      </svg>
+    </div>
+
+    <div v-if="loading" class="loader">
+      <img src="/assets/loader.gif" />
+    </div>
+    <div v-else>
+      <form method="POST">
+        <kaiui-button title="Upload Image (QR Code)" v-on:softCenter="pickImage" />
+        <kaiui-button title="Scan QR (Wallet Address)" v-on:softCenter="openCam" />
+        <div class="kaiui-input kaiui-p_btn kaiui-input-input form-control">
+          <label class="kaiui-p_sec kaiui-input-label">To Wallet</label>
+          <input type="text" placeholder="To Address (try scan)" nav-selectable="true"
+            class="kaiui-p_btn kaiui-input-input" nav-selected="true" id="nameofid" value=""
+            v-model="transaction.toAddress" />
+        </div>
+        <custom-input type="tel" label="Amount" class="kaiui-p_btn kaiui-input-input form-control"
+          placeholder="Amount" v-model="transaction.amount" />
+        <custom-input type="tel" label="Pin Code" v-model="transaction.pincode"
+          class="kaiui-p_btn kaiui-input-input form-control" placeholder="Pin Code" pattern="[0-9]+" />
+        <kaiui-button title="Submit" v-bind:softkeys="softkeysPhoneTwo" v-on:softCenter="submit" />
+        <img id="img1" src="" style="display:none" alt="qr code" />
+      </form>
+    </div>
+    
+    <SoftKey 
+      :softkeys.sync="softkeys" 
+      v-on:softLeft="goback" 
+    />
   </kaiui-content>
 </template>
 
 <script>
 import SoftKey from "../SoftKey";
 import QrcodeDecoder from 'qrcode-decoder';
+import i18n from '@/lang/setup';
 
 export default {
   props: ["walletdata"],
@@ -74,125 +53,91 @@ export default {
   data() {
     return {
       transaction: {
-        amount: "",
-        toAddress: "",
-        pincode: "",
-        image: ""
+        amount: null,
+        toAddress: null,
+        pincode: null,
+        image: null
       },
       softkeys: {
-        left: "Back",
-        center: "",
-        right: ""
+        left: i18n.t('back'),
       },
-      recordExist: true,
-      softkeysPhoneTwo: { center: "Select" },
-      singlewallet: null,
-      singlewalletId: null,
-      loading: false
+      softkeysPhoneTwo: {
+        center: i18n.t('select')
+      },
+
+      loading: false,
+      transactionSuccess: false,
     };
   },
   methods: {
-    submittransaction() {
+    goback() {
+      this.$router.push({
+        name: "dashboard",
+      });
+    },
+
+    async submit() {
       if (Number.isInteger(parseInt(this.transaction.amount)) !== true) {
-        this.$toastr.e("Amount Need to be Numeric");
+        this.showNotice("", "Amount Need to be Numeric.");
         return false;
       }
       if (this.transaction.toAddress === "") {
-        this.$toastr.e("To Address Field Required");
+        this.showNotice("", "Error", "To Address Field Required.");
         return false;
       }
       if (Number.isInteger(parseInt(this.transaction.pincode)) !== true) {
-        this.$toastr.e("Numeric Pincode Field Required.");
+        this.showNotice("", "Error", "Numeric Pincode Field Required.");
         return false;
       }
 
       const pincode = this.transaction.pincode.length;
       if (pincode > 6) {
-        this.$toastr.e("Pincode Length shound be less than 7");
+        this.showNotice('', 'Error', "Pincode Length shound be less than 7");
         return false;
       } else if (pincode < 4) {
-        this.$toastr.e("Pincode Length shound be greater than 3");
+        this.showNotice("", "Error", "Pincode Length shound be greater than 3");
         return false;
       }
 
-      var userId = localStorage.getItem("user_id").toString();
-      let arr1 = this.transaction ? this.transaction : "";
-      let arr2 = this.singlewallet;
+      this.loading = true;
 
-      let xhr = new XMLHttpRequest();
-      xhr.open("POST", process.env.VUE_APP_URL + "executetransaction", true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.onreadystatechange  = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          const status = xhr.status;
-          if (status === 0 || (status >= 200 && status < 400)) {
-            // The request has been completed successfully
-            const response = JSON.parse(xhr.responseText);
-              //create Transaction Records
-              this.loading = false;
-              const params = {
-                userid: userId,
-                transHash: response.result.transactionHash,
-                secrettype: this.singlewallet.secretType,
-                address: this.singlewallet.address,
-                amount: this.transaction.amount,
-                wallet_to: this.transaction.toAddress
-              };
-              xhr.open("POST", process.env.VUE_APP_URL + "createtransaction", true);
-              xhr.setRequestHeader("Content-Type", "application/json");
-              xhr.send(JSON.stringify(params));
+      try {
+        const response = await this.$http.post(`wallet/${this.$route.params.id}/execute`, {
+          'pin': this.transaction.pincode,
+          'amount': parseFloat(this.transaction.amount),
+          'to': this.transaction.toAddress
+        });
 
-            this.isForm = false;
-            this.$toastr.s("Your transaction was successful.");
-            localStorage.removeItem("singlewalletdata");
-            this.$router.push({
-              name: "wallet",
-              params: { id: this.$route.query.walletId }
-            });
-          }
-        }
+        this.showNotice('', 'Success', 'Your transaction was successful.');
+
+        this.transactionSuccess = true;
+        setTimeout(() => {
+          this.$router.push({
+            name: "transactionslist",
+            params: {
+              id: this.$route.params.id,
+            }
+          });
+        }, 2000);
+      } catch (err) {
+        console.log(err);
+        this.showNotice("", "Error", err);
+      } finally {
+        this.loading = false;
       }
-      // Error Handling:
-      xhr.onerror = function(error){
-        this.receiveValue(error);
-      }
-
-      const obj1 = {
-        "amount": this.transaction.amount,
-        "toAddress": this.transaction.toAddress,
-        "pincode": this.transaction.pincode,
-      };
-      const obj2 = {
-        arr2
-      };
-      xhr.send(JSON.stringify([obj1, obj2.arr2]));
     },
+
     openCam() {
       this.$router.push({
         name: "camera",
-        query: { walletId: this.$route.query.walletId }
+        params: { 
+          id: this.$route.params.id,
+        }
       });
     },
-    receiveValue(val) {
-      this.$toastr.e(val[0].message);
-      return false;
-    },
-    onKeyDown(event) {
-      switch (event.key) {
-        case "SoftLeft":
-          return this.leftNext();
-        default:
-          break;
-      }
-    },
-    leftNext() {
-      this.$router.push({
-        name: "wallet",
-        params: { id: this.singlewalletId }
-      });
-    },
+
     pickImage() {
-      const qr = new QrcodeDecoder(); 
+      const qr = new QrcodeDecoder();
       let activity = new window.MozActivity({
         name: 'pick',
         data: {
@@ -220,7 +165,7 @@ export default {
             (async () => {
               try {
                 await qr.decodeFromImage(img1).then((res) => {
-                  if(res.data === undefined) {
+                  if (res.data === undefined) {
                     alert("No QR code found. Please upload again.");
                     this.loading = false;
                   } else {
@@ -234,7 +179,7 @@ export default {
                 })
               } catch (error) {
                 return error;
-              }    
+              }
             })();
           }, 1500);
 
@@ -244,32 +189,13 @@ export default {
         }
       };
       activity.onerror = () => {
-      // TODO
+        // TODO
       };
     }
   },
   mounted() {
-    this.singlewalletId = this.$route.query.walletId;
-    const x = localStorage.getItem("singlewalletdata");
-    const data = JSON.parse(x);
-    this.singlewallet = data;
-    if (this.walletdata !== undefined) {
-      localStorage.setItem("singlewalletdata", JSON.stringify(this.walletdata));
-    }
-    const qrdata = this.$route.query.qrData;
-    if (qrdata) {
-      this.recordExist = false;
-      this.transaction.toAddress = qrdata;
-
-      setTimeout(() => {
-        document.getElementById("nameofid").value = this.transaction.toAddress;
-      }, 500);
-    }
-    document.addEventListener("keydown", this.onKeyDown);
+    console.log('MakeTransaction.mounted');
   },
-  beforeDestroy() {
-    window.removeEventListener("keydown", this.onKeyDown);
-  }
 };
 </script>
 
@@ -278,5 +204,75 @@ export default {
   word-wrap: break-word;
   word-break: break-word;
   hyphens: auto;
+}
+
+.success-container {
+  position: absolute;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: #fff;
+}
+
+.checkmark {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #4bb71b;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #4bb71b;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #4bb71b;
+  fill: #fff;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+
+  0%,
+  100% {
+    transform: none;
+  }
+
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #4bb71b;
+  }
 }
 </style>

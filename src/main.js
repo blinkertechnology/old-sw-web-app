@@ -10,7 +10,7 @@ import VueSession from 'vue-session';
 import AxiosPlugin from 'vue-axios-cors';
 import VueQRCodeComponent from 'vue-qrcode-component';
 import VueQrcodeReader from "vue-qrcode-reader";
-import VueCookie from 'vue-cookie';
+import VueCookies from 'vue-cookies';
 
 import i18n from '@/lang/setup';
 
@@ -19,9 +19,9 @@ import CustomInput from '@/components/CustomInput.vue';
 const instance = axios.create({
   baseURL: process.env.VUE_APP_URL,
   headers: {
-    // 'ngrok-skip-browser-warning': 'skip',
-    // 'User-Agent': 'sorted-wallet',
-    // 'Content-Type': 'application/json'
+    'ngrok-skip-browser-warning': 'skip',
+    'User-Agent': 'sorted-wallet',
+    'Content-Type': 'application/json'
   }
 })
 
@@ -43,7 +43,7 @@ Vue.use(VueToastr, {
   defaultStyle: { "background-color": "red" },
   defaultClassNames: ["animated", "zoomInUp"]
 });
-Vue.use(VueCookie);
+Vue.use(VueCookies);
 
 Vue.component('qr-code', VueQRCodeComponent);
 

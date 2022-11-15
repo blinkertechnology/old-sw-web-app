@@ -1,3 +1,4 @@
 export default {
-    select: 'VI select'
+    select: 'VI Select',
+    logout: 'VI Logout',
 }

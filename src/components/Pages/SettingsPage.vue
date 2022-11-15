@@ -3,7 +3,7 @@
         <kaiui-separator :title="$t('settings.changeLanguage')" />
         <kaiui-button 
             :title="$t('settings.changeLanguage')" 
-            v-on:softCenter="onChangeLangauge" 
+            v-on:softCenter="openLanguageDialog" 
             v-bind:softkeys="softkeysPhone"
         />
 
@@ -34,16 +34,7 @@
 import i18n from '@/lang/setup';
 
 export default {
-    mounted() {
-        console.log(i18n.locale);
-    },
     data: () => ({
-        softkeysDialog: {
-            left: i18n.t('cancel')
-        },
-        softkeysPhone: { 
-            center: i18n.t('select') 
-        },
         showLanguageSelectorDialog: false,
         supportedLanguages: {
             'en': 'English',
@@ -53,19 +44,40 @@ export default {
             'vi': 'Vietnamese'
         }
     }),
+    computed: {
+        softkeysDialog: () => ({
+            left: i18n.t('cancel')
+        }),
+        softkeysPhone: () => ({
+            center: i18n.t('select') 
+        })
+    },
+    mounted() {
+        this.$root.$on('close-dialog', () => {
+            this.closeLanguageDialog();
+        });
+    },
     methods: {
         logout() {
             localStorage.removeItem("user_id");
+            localStorage.removeItem("session");
+
             this.$router.push({ name: "login" });
         },
 
-        onChangeLangauge() {
+        openLanguageDialog() {
             this.showLanguageSelectorDialog = true;
+
+            this.$root.$emit('dialog-opened');
+        },
+        closeLanguageDialog() {
+            this.$root.$emit('dialog-closed');
+            this.showLanguageSelectorDialog = false;
         },
 
         onLanguageSelect() {
-            this.showLanguageSelectorDialog = false;
-            this.$cookie.set("lang", i18n.locale);
+            this.closeLanguageDialog();
+            this.$cookies.set("lang", i18n.locale);
         }
     }
 }

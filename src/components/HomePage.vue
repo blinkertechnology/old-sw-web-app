@@ -1,6 +1,6 @@
 <template>
   <kaiui-content>
-    <kaiui-header :title="$t('homepage.title')" />
+    <kaiui-header :title="$t('title')" />
     <div v-if="loader" class="loader">
       <img src="/assets/loader.gif" />
     </div>
@@ -49,8 +49,9 @@ export default {
   },
   created() {
     setTimeout(() => (this.loader = false), 1200);
-    var userId = localStorage.getItem("user_id");
-    if (userId !== null) {
+
+    const session = localStorage.getItem("session");
+    if(session !== null) {
       this.$router.push({ name: "dashboard" });
     }
   },

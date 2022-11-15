@@ -1,6 +1,7 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet" />
+    <kaiui-header :title="$t('title')" />
+    
     <kaiui-tab-item name="Register" selected>
       <kaiui-separator title="Register" />
       <div v-if="loading" class="loader">
@@ -24,18 +25,18 @@
             :placeholder="$t('email')"
           />
 
-          <password-input
+          <custom-input
             :label="$t('password')"
             v-model="user.password"
             type="password"
             class="kaiui-p_btn kaiui-input-input form-control"
             :placeholder="$t('password')"
+            :showable="true"
           />
 
           <kaiui-button
-            v-bind:softkeys="softkeysPhone"
+            v-bind:softkeys="softkeysRegisterBtn"
             v-on:softCenter="logUser"
-            v-on:softLeft="sendBack"
             :title="$t('register')"
           />
         </form>
@@ -64,7 +65,7 @@ export default {
         email: null,
         password: null
       },
-      softkeysPhone: { 
+      softkeysRegisterBtn: { 
         center: i18n.t('select'),
       },
       softkeys: {
@@ -74,7 +75,7 @@ export default {
     };
   },
   methods: {
-    logUser: function () {
+    logUser: async function () {
       if (!this.user.email) {
         this.$toastr.e("Email Required!");
         return false;
@@ -90,51 +91,40 @@ export default {
       } 
 
       this.loading = true;
-      let xhr = new XMLHttpRequest();
-      xhr.open("POST", process.env.VUE_APP_URL + "register", true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.onreadystatechange  = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          const status = xhr.status;
-          if (status === 0 || (status >= 200 && status < 400)) {
-            // The request has been completed successfully
-            const response = xhr.responseText;
 
-            if (response == "success") {
-              this.$toastr.s("Register Successfully!");
-              this.$router.push({ name: "homepage" });
-              this.loading = false;
-            } else {
-              this.$router.push({ name: "Register" });
-              this.receiveValue(response);
-              this.loading = false;
-            }
-          } else {
-            this.$toastr.e("Something went wrong. Please try again after some time");
-          }
+      try {
+        const response = await this.$http.post('register', {
+          "username": this.user.username,
+          "email": this.user.email,
+          "password": this.user.password
+        });
+        const { data } = response;
+        const { token, user } = data;
+
+        localStorage.setItem('session', token);
+        localStorage.setItem('user', JSON.stringify(user));
+
+        if(user.require_pin) {
+          return this.$router.push({ name: "generatepin" });
         }
+
+        return this.$router.push({ name: "homepage" });
+      } catch(err) {
+        console.log(err);
+
+        this.receiveValue(err.response.data);
+      } finally {
+        this.loading = false;
       }
-      xhr.onerror = function(error){
-        console.error( error );
-      }
-      const obj = {
-        "username": this.user.username,
-        "email": this.user.email,
-        "password": this.user.password
-      };
-      xhr.send(JSON.stringify(obj));
     },
     sendBack() {
       this.$router.push({ name: "homepage" });
     },
-    receiveValue(val) {
-      this.loading = false;
-      if (val.response.data.errors.email[0] != '' && val.response.data.errors.email[0] == "validation.unique") {
-        this.$toastr.e("Email Exist!");
-        return false;
+    receiveValue(data) {
+      if(data.errors.email[0] != '' && data.errors.email[0] == "validation.unique") {
+        this.showNotice("", "Something went wrong.", "Email Exist!");
       } else {
-        this.$toastr.e(val.response.data.message);
-        return false;
+        this.showNotice("", "Something went wrong.", "Please try again.");
       }
     }
   },

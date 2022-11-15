@@ -1,11 +1,15 @@
 <template>
   <kaiui-content>
-    <kaiui-header title="Sorted Wallet" />
+    <kaiui-header :title="$t('title')" />
+    
     <div id="camera-wapper">
       <span id="message"></span>
       <video id="viewfinder" autoplay></video>
     </div>
-    <SoftKey :softkeys.sync="softkeys" />
+    <SoftKey 
+      :softkeys.sync="softkeys" 
+      v-on:softLeft="goBack" 
+    />
   </kaiui-content>
 </template>
 
@@ -14,6 +18,7 @@ import _ from "lodash";
 import QrcodeDecoder from "qrcode-decoder";
 var qr = new QrcodeDecoder();
 import SoftKey from "../SoftKey";
+import i18n from '@/lang/setup';
 
 export default {
   components: {
@@ -22,9 +27,7 @@ export default {
   data() {
     return {
       softkeys: {
-        left: "Back",
-        center: "",
-        right: ""
+        left: i18n.t('back'),
       },
       loading: true,
       cameraOptions: "",
@@ -178,29 +181,19 @@ export default {
         );
       }
     },
-    onKeyDown(event) {
-      switch (event.key) {
-        case "SoftLeft":
-          return this.sendBack();
-        default:
-          break;
-      }
-    },
-    sendBack() {
+    goBack() {
       this.$router.push({
         name: "maketransaction",
-        query: { walletId: this.curruntwalletId }
+        params: { 
+          walletId: this.$route.params.id, 
+        }
       });
     }
   },
   mounted() {
-    this.curruntwalletId = this.$route.query.walletId;
+    this.curruntwalletId = this.$route.params.id;
     this.createCameraElement();
-    document.addEventListener("keydown", this.onKeyDown);
   },
-  beforeDestroy() {
-    window.removeEventListener("keydown", this.onKeyDown);
-  }
 };
 </script>
 

@@ -1,4 +1,6 @@
 export default {
+    title: 'Sorted Wallet',
+
     username: 'Username',
     email: 'Email',
     password: 'Password',
@@ -7,6 +9,8 @@ export default {
     back: 'Back',
     view: 'View',
     cancel: 'Cancel',
+    actions: 'Actions',
+    options: 'Options',
 
     login: 'Login',
     register: 'Register',
@@ -14,7 +18,6 @@ export default {
     forgotPassword: 'Forgot Password?',
 
     homepage: {
-        title: 'Sorted Wallet - Home',
         intro: {
             title: 'Welcome to Sorted Wallet',
             sub: 'Login or Register to continue.',
@@ -30,8 +33,12 @@ export default {
         changeLanguage: 'Change language'
     },
 
+    transactions: {
+        title: 'Transaction records',
+        noTransactions: 'No Transactions yet.'
+    },
+
     tac: {
-        title: 'Welcome to Sorted Wallet',
         agree: 'Agree',
         scrollDown: 'Scroll Down',
 
