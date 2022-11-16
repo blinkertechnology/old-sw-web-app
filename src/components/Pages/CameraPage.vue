@@ -32,17 +32,9 @@ export default {
       loading: true,
       cameraOptions: "",
       qrcodeData: "",
-      curruntwalletId: ""
     };
   },
   methods: {
-    phoneButtonSoftleftClicked() {
-      this.deInit();
-      this.$router.push({
-        name: "maketransaction",
-        query: { walletId: this.curruntwalletId }
-      });
-    },
     async createCameraElement() {
       this._cameras = null;
       this._cameraObj = null;
@@ -95,13 +87,18 @@ export default {
       this.viewfinder.play();
 
       const code = await this.scanQRCode();
-      if (code.data) {
+      if(code.data) {
         this.qrcodeData = code.data;
         this.$toastr.s("The QR code is scanned successfully.");
         this.deInit();
         this.$router.push({
           name: "maketransaction",
-          query: { qrData: code.data, walletId: this.curruntwalletId }
+          params: {
+            id: this.$route.params.id,
+          },
+          query: { 
+            toAddress: code.data,
+          }
         });
       }
       this.cameraOptions = camera;
@@ -182,6 +179,8 @@ export default {
       }
     },
     goBack() {
+      this.deInit();
+
       this.$router.push({
         name: "maketransaction",
         params: { 
@@ -191,7 +190,6 @@ export default {
     }
   },
   mounted() {
-    this.curruntwalletId = this.$route.params.id;
     this.createCameraElement();
   },
 };

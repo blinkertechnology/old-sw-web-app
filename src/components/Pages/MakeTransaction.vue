@@ -18,21 +18,30 @@
       <form method="POST">
         <kaiui-button title="Upload Image (QR Code)" v-on:softCenter="pickImage" />
         <kaiui-button title="Scan QR (Wallet Address)" v-on:softCenter="openCam" />
-        <div class="kaiui-input kaiui-p_btn kaiui-input-input form-control">
-          <label class="kaiui-p_sec kaiui-input-label">To Wallet</label>
-          <input type="text" placeholder="To Address (try scan)" nav-selectable="true"
-            class="kaiui-p_btn kaiui-input-input" nav-selected="true" id="nameofid" value=""
-            v-model="transaction.toAddress" />
-        </div>
-        <custom-input type="tel" label="Amount" class="kaiui-p_btn kaiui-input-input form-control"
-          placeholder="Amount" v-model="transaction.amount" />
-        <custom-input type="tel" label="Pin Code" v-model="transaction.pincode"
-          class="kaiui-p_btn kaiui-input-input form-control" placeholder="Pin Code" pattern="[0-9]+" />
+
+        <custom-input
+          type="text"
+          label="Destination address" 
+          v-model="transaction.toAddress" 
+          placeholder="Destination address"
+        />
+
+        <custom-input
+          type="tel" label="Amount" class="kaiui-p_btn kaiui-input-input form-control"
+          placeholder="Amount" 
+          v-model="transaction.amount" 
+        />
+
+        <custom-input type="tel" label="Pin Code" 
+          v-model="transaction.pincode"
+          class="kaiui-p_btn kaiui-input-input form-control" 
+          placeholder="Pin Code" pattern="[0-9]+" 
+        />
+
         <kaiui-button title="Submit" v-bind:softkeys="softkeysPhoneTwo" v-on:softCenter="submit" />
         <img id="img1" src="" style="display:none" alt="qr code" />
       </form>
     </div>
-    
     <SoftKey 
       :softkeys.sync="softkeys" 
       v-on:softLeft="goback" 
@@ -169,7 +178,7 @@ export default {
                     alert("No QR code found. Please upload again.");
                     this.loading = false;
                   } else {
-                    document.getElementById("nameofid").value = res.data
+                    this.transaction.toAddress = res.data;
                     alert("QR Data readed successfully.")
                     this.loading = false
                   }
@@ -195,6 +204,13 @@ export default {
   },
   mounted() {
     console.log('MakeTransaction.mounted');
+
+    const givenToAddress = this.$route.query.toAddress;
+    if(givenToAddress) {
+      this.transaction.toAddress = givenToAddress;
+    }
+
+    console.log(this.transaction);
   },
 };
 </script>

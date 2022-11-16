@@ -5,9 +5,9 @@
             :type="inputType" 
             :placeholder="placeholder"
             v-on:input="onInput" 
-            v-model="value" 
             v-bind:nav-selectable="true" 
             :pattern="pattern"
+            :value="value"
 
             v-on:click="onClick" 
             v-on:focus="handleFocusChange(true)"
@@ -40,12 +40,18 @@ export default {
             type: Boolean,
             required: false,
             default: false,
+        },
+        value: {
+            type: String,
+            required: false,
+            default: null,
         }
     },
-    data: () => ({
-        value: "",
-        inputType: null,
-    }),
+    data() {
+        return {
+            inputType: null,
+        }
+    },
     computed: {
         softkeys() {
             if(this.showable) {
@@ -72,8 +78,8 @@ export default {
         /**
          * @private
          */
-        onInput() {
-            this.$emit("input", this.value);
+        onInput($event) {
+            this.$emit("input", $event.target.value);
         },
         handleFocusChange(isNowFocused) {
             if (isNowFocused) {
