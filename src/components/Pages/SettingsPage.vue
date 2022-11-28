@@ -1,8 +1,8 @@
 <template>
     <div>
-        <kaiui-separator :title="$t('settings.changeLanguage')" />
+        <kaiui-separator :title="$t('pages.settings.changeLanguage')" />
         <kaiui-button 
-            :title="$t('settings.changeLanguage')" 
+            :title="$t('pages.settings.changeLanguage')" 
             v-on:softCenter="openLanguageDialog" 
             v-bind:softkeys="softkeysPhone"
         />
@@ -58,11 +58,19 @@ export default {
         });
     },
     methods: {
-        logout() {
-            localStorage.removeItem("user_id");
-            localStorage.removeItem("session");
+        async logout() {
+            try {
+                await this.$http.get('auth/logout');
+            } catch(err) {
+                console.error(err);
+            } finally {
+                localStorage.removeItem("user_id");
+                localStorage.removeItem("session");
 
-            this.$router.push({ name: "login" });
+                this.$router.push({ 
+                    name: "homepage" 
+                });
+            }
         },
 
         openLanguageDialog() {

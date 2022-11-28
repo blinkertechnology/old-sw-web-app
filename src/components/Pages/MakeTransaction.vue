@@ -42,6 +42,7 @@
         <img id="img1" src="" style="display:none" alt="qr code" />
       </form>
     </div>
+    
     <SoftKey 
       :softkeys.sync="softkeys" 
       v-on:softLeft="goback" 
@@ -193,7 +194,7 @@ export default {
           }, 1500);
 
         } else {
-          this.$toastr.s("Error scanning file.");
+          this.showNotice("", "Error", "Error scanning file.");
           this.loading = false;
         }
       };

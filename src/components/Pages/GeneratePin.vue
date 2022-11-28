@@ -1,7 +1,7 @@
 <template>
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
-    
+
     <kaiui-separator title="Create your pin code" />
     <div v-if="loading" class="loading">
       <img src="/assets/loader.gif" />
@@ -52,44 +52,38 @@ export default {
     },
     methods: {
         async onSubmit() {
-            var userId = localStorage.getItem("user_id");
-            var user = Base64.encode(userId);
-        
-            console.log(this.pin, this.confirmpin);
-
             if (isNaN(this.pin) === true) {
                 this.showNotice("", "Error", "Numeric Pin Required.");
                 return false
             }
             if (this.pin === "") {
-                this.$toastr.e("Pin Required");
+                this.showNotice("", "", "Pin Required");
                 return false;
             }
             if (isNaN(this.confirmpin) === true) {
-                this.$toastr.e("Numeric Confirm Pin Required")
+                this.showNotice("", "", "Numeric Confirm Pin Required")
                 return false
             }
             if (this.pin !== this.confirmpin) {
-                this.$toastr.e("Entered pin not match")
+                this.showNotice("", "", "Entered pin not match")
                 return false
             }
             
             const pin = this.pin.length;
             if (pin > 6) {
-                this.$toastr.e("Pin Length shound be less than 7");
+                this.showNotice("", "", "Pin Length shound be less than 7");
                 return false;
             } else if (pin < 4) {
-                this.$toastr.e("Pin Length shound be greater than 3");
+                this.showNotice("", "", "Pin Length shound be greater than 3");
                 return false;
             }
             
             this.loading = true;
 
             try {
-                const response = await this.$http.post('savepin', {
+                const response = await this.$http.post('pin', {
                     "pin": this.pin,
-                    "confirmpin": this.confirmpin,
-                    "user": user
+                    "pinRe": this.confirmpin,
                 });
                 this.$router.push({ name: "dashboard" });
             } catch(err) {

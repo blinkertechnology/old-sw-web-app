@@ -4,6 +4,8 @@ export default {
     username: 'Username',
     email: 'Email',
     password: 'Password',
+    phoneNumber: 'Phone number',
+    otpCode: '6-digit code',
 
     select: 'Select',
     back: 'Back',
@@ -11,26 +13,48 @@ export default {
     cancel: 'Cancel',
     actions: 'Actions',
     options: 'Options',
+    error: 'Error',
+    success: 'Success',
+    ok: 'OK',
+    next: 'Next',
 
     login: 'Login',
     register: 'Register',
     logout: 'Logout',
     forgotPassword: 'Forgot Password?',
 
-    homepage: {
-        intro: {
-            title: 'Welcome to Sorted Wallet',
-            sub: 'Login or Register to continue.',
+    genericError: 'Something went wrong. Please try again.',
+
+    pages: {
+        homepage: {
+            intro: {
+                title: 'Welcome to Sorted Wallet',
+                sub: 'Login or Register to continue.',
+            },
+            emailLogin: 'Email/password',
+            phoneLogin: 'Phone number'
         },
-    },
 
-    dashboard: {
-        myWallets: 'My Wallet(s)',
-        settings: 'Settings',
-    },
+        forgotPassword: {
+            title: 'Forgot Password',
+            resetPassword: 'Reset password'
+        },
 
-    settings: {
-        changeLanguage: 'Change language'
+        settings: {
+            changeLanguage: 'Change language'
+        },
+
+        dashboard: {
+            myWallets: 'My Wallet(s)',
+            settings: 'Settings',
+
+            qrCode: 'QR Code',
+            transactionRecords: 'Transaction Records',
+            makeTransaction: 'Make Transaction',
+            share: 'Share',
+            shareEmail: 'Email',
+            shareMessage: 'Message',
+        },
     },
 
     transactions: {

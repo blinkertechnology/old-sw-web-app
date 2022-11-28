@@ -45,6 +45,11 @@ export default {
             type: String,
             required: false,
             default: null,
+        },
+        disabled: {
+            type: Boolean,
+            require: false,
+            default: false,
         }
     },
     data() {

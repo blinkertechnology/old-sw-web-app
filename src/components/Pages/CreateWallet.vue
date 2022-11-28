@@ -1,7 +1,7 @@
 <template>
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
-    
+
     <kaiui-tab-item name="Register" selected>
       <div v-if="loading" class="loader">
         <kaiui-separator title="Creating Wallet" />
@@ -103,24 +103,24 @@ export default {
   methods: {
     Createnewwallet() {
       if (this.wallet.secretType === null) {
-        this.$toastr.e("Secret type Required");
+        this.showNotice("", "", "Secret type Required");
         return false;
       }
       if (Number.isInteger(parseInt(this.wallet.pincode)) !== true) {
-        this.$toastr.e("Numeric Pincode Field Required.");
+        this.showNotice("", "", "Numeric Pincode Field Required.");
         return false;
       }
       const pincode = this.wallet.pincode.length;
       if (pincode > 6) {
-        this.$toastr.e("Length shound be less than 6");
+        this.showNotice("", "", "Length shound be less than 6");
         return false;
       } else if (pincode < 4) {
-        this.$toastr.e("Length shound be greater than 4");
+        this.showNotice("", "", "Length shound be greater than 4");
         return false;
       }
 
       if (this.wallet.description === null) {
-        this.$toastr.e("Description Required");
+        this.showNotice("", "", "Description Required");
         return false;
       }
 
@@ -130,7 +130,7 @@ export default {
         .then((response) => {
           if (response.data.success === true) {
             this.$router.push({ name: "wallets" });
-            this.$toastr.s("Wallet Created!");
+            this.showNotice("", "", "Wallet Created!");
             this.loading = false;
           } else {
             this.loading = false;
@@ -150,10 +150,10 @@ export default {
       this.shouldShowValueSelectorDialog = !this.shouldShowValueSelectorDialog;
     },
     valueSelectorDialogRightSelected() {
-      this.$toastr.s("Selected");
+      this.showNotice("", "", "Selected");
     },
     valueSelectorDialogLeftSelected() {
-      this.$toastr.e("Cancel");
+      this.showNotice("", "", "Cancel");
     },
     onKeyDown(event) {
       switch (event.key) {
@@ -167,7 +167,7 @@ export default {
       this.$router.push({ name: "dashboard" });
     },
     receiveValue(val) {
-      this.$toastr.e(val[0].message);
+      this.showNotice("", "", val[0].message);
       return false;
     }
   },

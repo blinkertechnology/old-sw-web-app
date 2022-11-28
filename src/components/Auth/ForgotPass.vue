@@ -2,30 +2,26 @@
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
     
-    <kaiui-tab-item name="Forgot Password" selected>
-      <kaiui-separator title="Forgot Password" />
-      <div v-if="loading" class="loader">
-        <img src="/assets/loader.gif" />
-      </div>
-      <div v-else>
-        <form method="POST" class="text-left">
-          <kaiui-input
-            type="text"
-            v-model="userPass.email"
-            label="Email"
-            class="kaiui-p_btn kaiui-input-input form-control"
-            placeholder="Email"
-          />
+    <kaiui-separator :title="$t('pages.forgotPassword.title')" />
 
-          <kaiui-button
-            v-bind:softkeys="softkeysPhone"
-            v-on:softCenter="forgotPass"
-            v-on:softLeft="sendBack"
-            title="Reset Password"
-          />
-        </form>
-      </div>
-    </kaiui-tab-item>
+    <div>
+      <form method="POST" class="text-left">
+        <custom-input
+          type="text"
+          v-model="email"
+          :label="$t('email')"
+          :placeholder="$t('email')"
+        />
+
+        <kaiui-button
+          v-bind:softkeys="softkeysPhone"
+          v-on:softCenter="forgotPass"
+          v-on:softLeft="sendBack"
+          :title="$t('pages.forgotPassword.resetPassword')"
+        />
+      </form>
+    </div>
+
     <SoftKey 
       :softkeys.sync="softkeys"
       v-on:softLeft="sendBack"
@@ -35,6 +31,7 @@
 
 <script>
 import SoftKey from "../SoftKey";
+import i18n from '@/lang/setup';
 
 export default {
   components: {
@@ -42,60 +39,41 @@ export default {
   },
   data() {
     return {
-      userPass: {
-        email: null
+      email: null,
+      softkeysPhone: { 
+        center: i18n.t('select') 
       },
-      softkeysPhone: { center: "Select" },
-      loading: false,
       softkeys: {
-        left: "Back",
-        center: "",
-        right: ""
+        left: i18n.t('back')
       }
     };
   },
   methods: {
-    forgotPass: function () {
-      if (!this.userPass.email) {
-        this.$toastr.e("Email Required");
-        return false;
+    async forgotPass() {
+      if(!this.email) {
+        return this.showDialog(i18n.t('error'), 'Enter a valid email address.');
       }
 
-      this.loading = true;
-      let xhr = new XMLHttpRequest();
-      xhr.open("POST", process.env.VUE_APP_URL + "forget-password", true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.onreadystatechange  = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          const status = xhr.status;
-          if (status === 0 || (status >= 200 && status < 400)) {
-            // The request has been completed successfully
-            const response = xhr.responseText;
-            if (response === "success") {
-              this.loading = false;
-              this.$toastr.s("We have e-mailed your password reset link!");
-              this.$router.push({ name: "login" });
-            } else {
-              this.loading = false;
-              this.$toastr.e(
-                "Something went wrong. Please try again after some time"
-              );
-            }
-          } else {
-            this.$toastr.e("Something went wrong. Please try again after some time");
-          }
-        }
+      try {
+        this.showLoading();
+
+        await this.$http.post('auth/forget-password', {
+          'email': this.email
+        });
+
+        this.showDialog(i18n.t('success'), `An email has been send to ${this.email} with instructions on how to reset your password.`);
+      } catch(err) {
+        console.log(err);
+
+        this.showDialog(i18n.t('error'), i18n.t('genericError'));
+      } finally {
+        this.hideLoading();
       }
-      xhr.onerror = function(error){
-        console.error( error );
-      }
-      const obj = {
-          "email": this.userPass.email
-      };
-      xhr.send(JSON.stringify(obj));
     },
     sendBack: function () {
-      this.$router.push({ name: "login" });
+      this.$router.push({ 
+        name: "login" 
+      });
     },
   },
 };

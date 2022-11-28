@@ -10,14 +10,6 @@
       <div v-else>
         <form method="POST" class="text-left">
           <kaiui-input
-            type="text"
-            :label="$t('username')"
-            v-model="user.username"
-            class="kaiui-p_btn kaiui-input-input form-control"
-            :placeholder="$t('username')"
-          />
-
-          <kaiui-input
             type="email"
             :label="$t('email')"
             v-model="user.email"
@@ -61,7 +53,6 @@ export default {
   data() {
     return {
       user: {
-        username:null,
         email: null,
         password: null
       },
@@ -77,31 +68,30 @@ export default {
   methods: {
     logUser: async function () {
       if (!this.user.email) {
-        this.$toastr.e("Email Required!");
+        this.showNotice("", "", "Email Required!");
         return false;
       }
       if (!this.user.password) {
-        this.$toastr.e("Password Required!");
+        this.showNotice("", "", "Password Required!");
         return false;
       }
       const pass = this.user.password.length;
       if (pass < 5) {
-        this.$toastr.e("Password length should not be less than 5.");
+        this.showNotice("", "", "Password length should not be less than 5.");
         return false;
       } 
 
       this.loading = true;
 
       try {
-        const response = await this.$http.post('register', {
-          "username": this.user.username,
+        const response = await this.$http.post('auth/signup', {
           "email": this.user.email,
           "password": this.user.password
         });
         const { data } = response;
-        const { token, user } = data;
+        const { access_token, user } = data;
 
-        localStorage.setItem('session', token);
+        localStorage.setItem('access_token', access_token);
         localStorage.setItem('user', JSON.stringify(user));
 
         if(user.require_pin) {
@@ -112,7 +102,7 @@ export default {
       } catch(err) {
         console.log(err);
 
-        this.receiveValue(err.response.data);
+        this.showNotice("", "Something went wrong.", err.response.data.error);
       } finally {
         this.loading = false;
       }
@@ -120,13 +110,6 @@ export default {
     sendBack() {
       this.$router.push({ name: "homepage" });
     },
-    receiveValue(data) {
-      if(data.errors.email[0] != '' && data.errors.email[0] == "validation.unique") {
-        this.showNotice("", "Something went wrong.", "Email Exist!");
-      } else {
-        this.showNotice("", "Something went wrong.", "Please try again.");
-      }
-    }
   },
 };
 </script>

@@ -15,6 +15,8 @@ import camerapage from "@/components/Pages/CameraPage";
 import maketransaction from "@/components/Pages/MakeTransaction";
 import generatepin from "@/components/Pages/GeneratePin";
 
+import PhoneLogin from '@/components/Auth/PhoneLogin.vue';
+
 const includPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
   return includPush.call(this, location).catch((err) => err);
@@ -50,6 +52,14 @@ const router = new Router({
       path: "/login",
       name: "login",
       component: login,
+      meta: {
+        prev: 'homepage'
+      }
+    },
+    {
+      path: "/login/phone",
+      name: "login_phone",
+      component: PhoneLogin,
       meta: {
         prev: 'homepage'
       }
@@ -146,7 +156,7 @@ router.beforeEach((to, from, next) => {
 
   if(require_auth) {
     // Check if user cookie exists
-    const session = localStorage.getItem('session');
+    const session = localStorage.getItem('access_token');
     const user = localStorage.getItem('user');
     
     if(!session || session == null || !user || user == null) {

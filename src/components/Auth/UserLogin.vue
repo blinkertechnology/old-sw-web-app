@@ -2,33 +2,33 @@
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
     
-    <kaiui-tab-item name="Login" selected>
-      <kaiui-separator title="Login" />
-      <form method="POST" class="text-left">
-        <kaiui-input
-          :label="$t('email')"
-          v-model="user.email"
-          class="kaiui-p_btn kaiui-input-input form-control"
-          :placeholder="$t('email')"
-        />
+    <kaiui-separator title="Login" />
+    <form method="POST" class="text-left">
+      <kaiui-input
+        :label="$t('email')"
+        v-model="user.email"
+        class="kaiui-p_btn kaiui-input-input form-control"
+        :placeholder="$t('email')"
+      />
 
-        <custom-input
-          :label="$t('password')"
-          type="password"
-          v-model="user.password"
-          class="kaiui-p_btn kaiui-input-input form-control kai-custum-css"
-          :placeholder="$t('password')"
-          :showable="true"
-        />
+      <custom-input
+        :label="$t('password')"
+        type="password"
+        v-model="user.password"
+        class="kaiui-p_btn kaiui-input-input form-control kai-custum-css"
+        :placeholder="$t('password')"
+        :showable="true"
+      />
 
-        <kaiui-button
-          v-bind:softkeys="softkeysPhone"
-          v-on:softCenter="logUser"
-          v-on:softLeft="sendBack"
-          :title="$t('login')"
-        />
-      </form>
-    </kaiui-tab-item>
+      <kaiui-button
+        v-bind:softkeys="softkeysPhone"
+        v-on:softCenter="logUser"
+        v-on:softLeft="sendBack"
+        :title="$t('login')"
+      />
+    </form>
+
+
     <SoftKey 
       :softkeys.sync="softkeys" 
       v-on:softLeft="sendBack"
@@ -51,13 +51,11 @@ export default {
         email: null,
         password: null
       },
-      errors: {},
       softkeysPhone: { 
         center: i18n.t('select') 
       },
       softkeys: {
         left: i18n.t('back'),
-        center: "",
         right: i18n.t('forgotPassword')
       }
     };
@@ -65,29 +63,36 @@ export default {
   mounted() {
     // Force logout 
     localStorage.removeItem("user_id");
+
+    const { reason } = this.$route.query;
+    if(reason) {
+      this.showDialog('Error', reason);
+    }
   },
   methods: {
     async logUser () {
-      this.errors = {};
       if (!this.user.email) {
-        this.showNotice("", "Error", "Enter a valid email address.");
+        this.showDialog('Error', 'Enter a valid email address.');
         return false;
       }
+
       if (!this.user.password) {
-        this.showNotice("", "Error", "Password required.");
+        this.showDialog('Error', 'Password required.');
         return false;
       }
 
       try {
-        const response = await this.$http.post('login', {
+        this.showLoading('Sending one-time code.');
+
+        const response = await this.$http.post('auth/login', {
           "email": this.user.email,
           "password": this.user.password
         })
         const { data } = response;
-        const { user, token } = data;
+        const { access_token, user } = data;
 
-        if(user && token) {
-          localStorage.setItem('session', token);
+        if(access_token && user) {
+          localStorage.setItem('access_token', access_token);
           localStorage.setItem('user', JSON.stringify(user));
 
           // PIN setup is required
@@ -97,11 +102,14 @@ export default {
 
           this.$router.push({ name: "dashboard" });
         } else {
-          this.showNotice("", "Error", "Wrong Credentials.");
+          this.showDialog('Error', 'Wrong Credentials.');
         }
       } catch(err) {
         console.log(err);
-        this.showNotice("", "Error", "Wrong Credentials.");
+
+        this.showDialog('Error', 'Wrong Credentials.');
+      } finally {
+        this.hideLoading();
       }
     },
     sendBack() {
@@ -113,10 +121,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.mb-3 {
-  padding-left: 10px;
-  margin: 5px;
-}
-</style>

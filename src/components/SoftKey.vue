@@ -18,6 +18,7 @@ export default {
   },
   data: () => ({
     enabled: true,
+    errorShowing: false,
   }),
   beforeDestroy() {
     document.removeEventListener("keydown", this.onKeyDown);
@@ -29,16 +30,28 @@ export default {
      * Another component registered to use the softkeys, disable this component
      */
     this.$root.$on("update-softkeys-register", (component) => {
+      if(this.errorShowing) return;
+
       this.enabled = false;
     });
 
     this.$root.$on("update-softkeys-unregister", () => {
+      if(this.errorShowing) return;
+      
       this.enabled = true;
+    });
+
+    this.$root.$on('show-dialog', () => {
+      this.errorShowing = true;
+    });
+    this.$root.$on('hide-dialog', () => {
+      this.errorShowing = false;
     });
   },
   methods: {
     onKeyDown(event) {
-      if(!this.enabled) return;
+      console.log('SoftKey.enabled', this.enabled, this.errorShowing);
+      if(!this.enabled || this.errorShowing) return;
 
       switch(event.key) {
         case "SoftLeft":

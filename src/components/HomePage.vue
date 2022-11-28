@@ -1,6 +1,7 @@
 <template>
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
+
     <div v-if="loader" class="loader">
       <img src="/assets/loader.gif" />
     </div>
@@ -12,8 +13,40 @@
       </div>
     </div>
 
+    <kaiui-dialog
+      :title="$t('login')"
+      v-model="showLoginDialog"
+      :softkeys="dialogSoftkeys"
+    >
+      <list-item 
+        primaryText="Email/password"
+        v-on:softCenter="selectLoginMethod('email')"
+      />
+
+      <list-item 
+        primaryText="Phone number"
+        v-on:softCenter="selectLoginMethod('phone')"
+      />
+    </kaiui-dialog>
+
+    <kaiui-dialog
+      :title="$t('register')"
+      v-model="showSignupDialog"
+      :softkeys="dialogSoftkeys"
+    >
+      <list-item 
+        primaryText="Email/password"
+        v-on:softCenter="selectSignupMethod('email')"
+      />
+
+      <list-item 
+        primaryText="Phone number"
+        v-on:softCenter="selectSignupMethod('phone')"
+      />
+    </kaiui-dialog>
+
     <SoftKey
-      :softkeys.sync="softkeys"
+      :softkeys="softkeys"
       v-on:softLeft="onSoftLeft"
       v-on:softRight="onSoftRight"
     />
@@ -30,22 +63,47 @@ export default {
   },
   data: () => ({
     loader: true,
-    btnSoftKeys: {
-      center: i18n.t('select'),
-    },
     softkeys: {
       left: i18n.t('register'),
-      center: "",
       right: i18n.t('login')
     },
+
+    dialogSoftkeys: {
+      left: i18n.t('cancel'),
+      center: i18n.t('select'),
+    },
+    showLoginDialog: false,
+    showSignupDialog: false,
   }),
   methods: {
     onSoftLeft() {
-      this.$router.push({ name: "register" });
+      this.showSignupDialog = true;
     },
     onSoftRight() {
-      this.$router.push({ name: "login" });
+      this.showLoginDialog = true;
     },
+
+    selectLoginMethod(method) {
+      console.log('selectLoginMethod', method);
+
+      switch(method) {
+        case 'email':
+          return this.$router.push({ name: "login" });
+        case 'phone':
+          return this.$router.push({ name: "login_phone" });
+      }
+    },
+
+    selectSignupMethod(method) {
+      console.log('selectSignupMethod', method);
+
+      switch(method) {
+        case 'email':
+          return this.$router.push({ name: "register" });
+        case 'phone':
+          return this.$router.push({ name: "login_phone" });
+      }
+    }
   },
   created() {
     setTimeout(() => (this.loader = false), 1200);

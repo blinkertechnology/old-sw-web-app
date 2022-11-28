@@ -7,9 +7,9 @@
         <img src="/assets/loader.gif" />
       </div>
       <kaiui-tabs v-else>
-        <kaiui-tab-item :name="$t('dashboard.myWallets')" selected>
-          <kaiui-separator :title="$t('dashboard.myWallets')" />
-          <kaiui-list-item
+        <kaiui-tab-item :name="$t('pages.dashboard.myWallets')" selected>
+          <kaiui-separator :title="$t('pages.dashboard.myWallets')" />
+          <list-item
             v-for="item in items"
             :key="item.id"
 
@@ -22,7 +22,7 @@
 
           
         </kaiui-tab-item>
-        <kaiui-tab-item :name="$t('dashboard.settings')">
+        <kaiui-tab-item :name="$t('pages.dashboard.settings')">
           <settings-page />
         </kaiui-tab-item>
       </kaiui-tabs>
@@ -33,46 +33,42 @@
       v-model="showActionDialog"
       :softkeys="softkeysDialog"
     >
-      <kaiui-list-item 
-        primaryText="QR Code"
-        :softkeys="softkeysListItem"
+      <list-item 
+        :primaryText="$t('pages.dashboard.qrCode')"
         v-on:softCenter="showQRCode"
         v-on:softLeft="closeDialogs"
       />
-      <kaiui-list-item 
-        primaryText="Transaction Records"
-        :softkeys="softkeysListItem"
+      <list-item 
+        :primaryText="$t('pages.dashboard.transactionRecords')"
         v-on:softCenter="toTransactionList"
         v-on:softLeft="closeDialogs"
       />
-      <kaiui-list-item 
-        primaryText="Make Transaction"
-        :softkeys="softkeysListItem"
+      <list-item 
+        :primaryText="$t('pages.dashboard.makeTransaction')"
         v-on:softCenter="toMakeTransaction"
         v-on:softLeft="closeDialogs"
       />
-      <kaiui-list-item 
-        primaryText="Share"
-        :softkeys="softkeysListItem"
+      <list-item 
+        :primaryText="$t('pages.dashboard.share')"
         v-on:softCenter="showShare"
         v-on:softLeft="closeDialogs"
       />
     </kaiui-dialog>
 
     <kaiui-dialog
-      title="Share"
+      :title="$t('pages.dashboard.share')"
       v-model="showShareDialog"
       :softkeys="softkeysDialog"
       v-on:softLeft="closeDialogs"
     >
-      <kaiui-list-item 
-        primaryText="Email"
+      <list-item 
+        :primaryText="$t('pages.dashboard.shareEmail')"
         :softkeys="softkeysListItem"
         v-on:softCenter="shareViaEmail"
         v-on:softLeft="closeDialogs"
       />
-      <kaiui-list-item 
-        primaryText="Messages"
+      <list-item 
+        :primaryText="$t('pages.dashboard.shareMessage')"
         :softkeys="softkeysListItem"
         v-on:softCenter="shareViaMessage"
         v-on:softLeft="closeDialogs"
@@ -195,17 +191,13 @@ export default {
       var identifierData = Base64.encode(`user=${user.id}`);
 
       try {
-        const response = await this.$http.get('wallets', {
-          params: {
-            'walletId': identifierData
-          }
-        });
+        const response = await this.$http.get('wallets');
         const { data } = response;
 
         this.items = data.wallets || [];
       } catch(err) {
         console.log(err);
-        this.showNotice("", "Something went wrong", "Please try again later.");
+        this.showNotice(i18n.t('error'), i18n.t('genericError'));
       } finally {
         this.loading = false;
       }
