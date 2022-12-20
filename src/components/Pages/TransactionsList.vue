@@ -1,16 +1,16 @@
 <template>
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
-    <kaiui-separator :title="$t('transactions.title')" />
+    <kaiui-separator :title="$t('pages.transactions.title')" />
     <div v-if="loading" class="loader">
       <img src="/assets/loader.gif" />
     </div>
     <div v-else>
       <div v-if="transactions.length < 1" class="no-transactions">
-        <div class="no-transactions__title">{{ $t('transactions.noTransactions') }}</div>
+        <div class="no-transactions__title">{{ $t('pages.transactions.noTransactions') }}</div>
 
         <kaiui-button
-          title="Make Transaction"
+          :title="$t('pages.transactions.makeTransaction')"
           :softkeys="softkeysButton"
           v-on:softCenter="toMakeTransaction"
           v-on:softLeft="goBack"
@@ -100,7 +100,7 @@ export default {
       this.transactions = Array.isArray(transactions) ? transactions : [];
     } catch(err) {
       console.log(err);
-      this.showNotice("", "Something went wrong", "Please try again later.");
+      this.showDialog(i18n.t('genericErrorTitle'), err.generic);
     } finally {
       this.loading = false;
     }

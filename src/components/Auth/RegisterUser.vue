@@ -2,12 +2,9 @@
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
     
-    <kaiui-tab-item name="Register" selected>
-      <kaiui-separator title="Register" />
-      <div v-if="loading" class="loader">
-        <img src="/assets/loader.gif" />
-      </div>
-      <div v-else>
+    <kaiui-tab-item :name="$t('pages.signup.title')" selected>
+      <kaiui-separator :title="$t('pages.signup.title')" />
+      <div>
         <form method="POST" class="text-left">
           <kaiui-input
             type="email"
@@ -27,15 +24,21 @@
           />
 
           <kaiui-button
-            v-bind:softkeys="softkeysRegisterBtn"
+            :softkeys="{ 
+              center: $t('select'),
+              left: $t('back')
+            }"
             v-on:softCenter="logUser"
+            v-on:softLeft="sendBack"
             :title="$t('register')"
           />
         </form>
       </div>
-      <kaiui-text text="" />
+      
       <SoftKey 
-        :softkeys.sync="softkeys"
+        :softkeys="{
+          left: $t('back')
+        }"
         v-on:softLeft="sendBack"
       />
     </kaiui-tab-item>
@@ -56,32 +59,27 @@ export default {
         email: null,
         password: null
       },
-      softkeysRegisterBtn: { 
-        center: i18n.t('select'),
-      },
-      softkeys: {
-        left: i18n.t('back'),
-      },
-      loading: false
     };
   },
   methods: {
     logUser: async function () {
       if (!this.user.email) {
-        this.showNotice("", "", "Email Required!");
+        this.showDialog("", i18n.t('pages.signup.emailRequired'));
         return false;
       }
       if (!this.user.password) {
-        this.showNotice("", "", "Password Required!");
+        this.showDialog("", i18n.t('pages.signup.passwordRequired'));
         return false;
       }
       const pass = this.user.password.length;
       if (pass < 5) {
-        this.showNotice("", "", "Password length should not be less than 5.");
+        this.showDialog("", i18n.t('pages.signup.passwordLength'));
         return false;
       } 
 
       this.loading = true;
+
+      this.showLoading();
 
       try {
         const response = await this.$http.post('auth/signup', {
@@ -102,9 +100,9 @@ export default {
       } catch(err) {
         console.log(err);
 
-        this.showNotice("", "Something went wrong.", err.response.data.error);
+        this.showDialog(i18n.t('genericErrorTitle'), err.generic);
       } finally {
-        this.loading = false;
+        this.hideLoading();
       }
     },
     sendBack() {

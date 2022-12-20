@@ -1,9 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
 import TermsAndConditions from '../components/TermsAndConditions';
-import hello2 from "@/components/hello2Page";
-import faq from "@/components/faqPage";
-import contactus from "@/components/ContactUs";
 import HomePage from "@/components/HomePage";
 import forgotpass from "@/components/Auth/ForgotPass";
 import login from "@/components/Auth/UserLogin";
@@ -14,6 +11,8 @@ import transactionslist from "@/components/Pages/TransactionsList";
 import camerapage from "@/components/Pages/CameraPage";
 import maketransaction from "@/components/Pages/MakeTransaction";
 import generatepin from "@/components/Pages/GeneratePin";
+
+import offlinePage from '@/components/Pages/OfflinePage.vue';
 
 import PhoneLogin from '@/components/Auth/PhoneLogin.vue';
 
@@ -29,24 +28,6 @@ const router = new Router({
       path: "/",
       name: "TermsAndConditions",
       component: TermsAndConditions
-    },
-    {
-      path: "/",
-      name: "hello2",
-      component: hello2
-    },
-    {
-      path: "/",
-      name: "faq",
-      component: faq,
-      meta: {
-        prev: 'TermsAndConditions'
-      }
-    },
-    {
-      path: "/",
-      name: "contactus",
-      component: contactus
     },
     {
       path: "/login",
@@ -108,9 +89,7 @@ const router = new Router({
       props: true,
       meta: {
         require_auth: true,
-        prev: (router) => {
-          router.go(-1);
-        }
+        prev: 'dashboard'
       }
     },
     {
@@ -130,9 +109,7 @@ const router = new Router({
       component: transactionslist,
       meta: {
         require_auth: true,
-        prev: (router) => {
-          router.go(-1);
-        }
+        prev: 'dashboard'
       }
     },
     {
@@ -145,11 +122,26 @@ const router = new Router({
         require_auth: true,
       }
     },
+    {
+      path: '/offline',
+      name: 'offline',
+      component: offlinePage
+    }
   ]
 });
 
 router.beforeEach((to, from, next) => {
   router.app.$root.$emit('dialog-closed');
+
+  /**
+   * User went offline
+   */
+  const isOnline = navigator.onLine;
+  if(!isOnline && to.name !== 'offline') {
+    return next({
+      name: 'offline'
+    })
+  }
 
   const { meta } = to;
   const { require_auth } = meta;
@@ -160,13 +152,24 @@ router.beforeEach((to, from, next) => {
     const user = localStorage.getItem('user');
     
     if(!session || session == null || !user || user == null) {
-      next({
-        name: 'login'
+      router.app.showDialog('Error', 'Please login to continue.');
+
+      return next({
+        name: 'homepage',
       })
     }
   }
 
   next();
+})
+
+/**
+ * Detect if user is online or offline
+ */
+window.addEventListener('offline', event => {
+  router.push({
+    name: 'offline'
+  });
 })
 
 

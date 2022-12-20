@@ -21,7 +21,10 @@
       />
 
       <kaiui-button
-        v-bind:softkeys="softkeysPhone"
+        :softkeys="{ 
+          center: $t('select'),
+          left: $t('back')
+        }"
         v-on:softCenter="logUser"
         v-on:softLeft="sendBack"
         :title="$t('login')"
@@ -30,7 +33,10 @@
 
 
     <SoftKey 
-      :softkeys.sync="softkeys" 
+      :softkeys="{
+        left: $t('back'),
+        right: $t('forgotPassword')
+      }" 
       v-on:softLeft="sendBack"
       v-on:softRight="forgotPassword"
     />
@@ -39,7 +45,7 @@
 
 <script>
 import SoftKey from "../SoftKey";
-import i18n from '@/lang/setup';
+import { logout } from '@/auth';
 
 export default {
   components: {
@@ -51,23 +57,10 @@ export default {
         email: null,
         password: null
       },
-      softkeysPhone: { 
-        center: i18n.t('select') 
-      },
-      softkeys: {
-        left: i18n.t('back'),
-        right: i18n.t('forgotPassword')
-      }
     };
   },
   mounted() {
-    // Force logout 
-    localStorage.removeItem("user_id");
-
-    const { reason } = this.$route.query;
-    if(reason) {
-      this.showDialog('Error', reason);
-    }
+    logout();
   },
   methods: {
     async logUser () {

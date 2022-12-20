@@ -8,8 +8,8 @@
     <div v-else>
       <div class="intro">
         <img src="/assets/icons/kaios_112.png" />
-        <h1>{{ $t('homepage.intro.title') }}</h1>
-        <h2>{{ $t('homepage.intro.sub') }}</h2>
+        <h1>{{ $t('pages.homepage.intro.title') }}</h1>
+        <h2>{{ $t('pages.homepage.intro.sub') }}</h2>
       </div>
     </div>
 
@@ -19,12 +19,12 @@
       :softkeys="dialogSoftkeys"
     >
       <list-item 
-        primaryText="Email/password"
+        :primaryText="$t('pages.homepage.emailLogin')"
         v-on:softCenter="selectLoginMethod('email')"
       />
 
       <list-item 
-        primaryText="Phone number"
+        :primaryText="$t('pages.homepage.phoneLogin')"
         v-on:softCenter="selectLoginMethod('phone')"
       />
     </kaiui-dialog>
@@ -35,12 +35,12 @@
       :softkeys="dialogSoftkeys"
     >
       <list-item 
-        primaryText="Email/password"
+        :primaryText="$t('pages.homepage.emailLogin')"
         v-on:softCenter="selectSignupMethod('email')"
       />
 
       <list-item 
-        primaryText="Phone number"
+        :primaryText="$t('pages.homepage.phoneLogin')"
         v-on:softCenter="selectSignupMethod('phone')"
       />
     </kaiui-dialog>
@@ -84,8 +84,6 @@ export default {
     },
 
     selectLoginMethod(method) {
-      console.log('selectLoginMethod', method);
-
       switch(method) {
         case 'email':
           return this.$router.push({ name: "login" });
@@ -95,8 +93,6 @@ export default {
     },
 
     selectSignupMethod(method) {
-      console.log('selectSignupMethod', method);
-
       switch(method) {
         case 'email':
           return this.$router.push({ name: "register" });
@@ -108,8 +104,12 @@ export default {
   created() {
     setTimeout(() => (this.loader = false), 1200);
 
-    const session = localStorage.getItem("session");
-    if(session !== null) {
+    /**
+     * User was already logged in, redirect to dashboard
+     */
+    const session = localStorage.getItem("access_token");
+    const user = localStorage.getItem("user");
+    if(session && user) {
       this.$router.push({ name: "dashboard" });
     }
   },
@@ -122,20 +122,17 @@ export default {
 
   text-align: center;
 }
+  .intro img {
+    max-width: 100px;
+  }
+  .intro h1 {
+    font-size: 1em;
+    line-height: 1.5em;
 
-img {
-  max-width: 100px;
-}
-
-h1 {
-  /* font-family: 'Poppins'; */
-  font-size: 1em;
-  line-height: 1.5em;
-
-  margin-bottom: 10px;
-}
-h2 {
-  font-size: 0.7em;
-  font-weight: 300;
-}
+    margin-bottom: 10px;
+  }
+  .intro h2 {
+    font-size: 0.7em;
+    font-weight: 300;
+  }
 </style>

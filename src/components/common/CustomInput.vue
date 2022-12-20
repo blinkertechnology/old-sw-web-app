@@ -65,7 +65,7 @@ export default {
                 }
             }
 
-            return {}
+            return null;
         }
     },
     mounted() {
@@ -91,12 +91,12 @@ export default {
                 /**
                  * @private
                  */
-                this.$root.$emit("update-softkeys-register", this);
+                if(this.softkeys) this.$root.$emit("update-softkeys-register", this);
             } else {
                 /**
                  * @private
                  */
-                this.$root.$emit("update-softkeys-unregister");
+                 if(this.softkeys) this.$root.$emit("update-softkeys-unregister");
             }
         },
         /**

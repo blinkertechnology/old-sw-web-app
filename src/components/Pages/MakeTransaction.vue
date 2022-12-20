@@ -2,7 +2,7 @@
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
 
-    <kaiui-separator title="Make Transaction" />
+    <kaiui-separator :title="$t('pages.makeTransaction.title')" />
 
     <div v-if="transactionSuccess" class="success-container">
       <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
@@ -16,29 +16,47 @@
     </div>
     <div v-else>
       <form method="POST">
-        <kaiui-button title="Upload Image (QR Code)" v-on:softCenter="pickImage" />
-        <kaiui-button title="Scan QR (Wallet Address)" v-on:softCenter="openCam" />
+        <kaiui-button 
+          :title="$t('pages.makeTransaction.upload')" 
+          v-on:softCenter="pickImage" 
+          v-bind:softkeys="softkeysPhoneTwo" 
+          v-on:softLeft="goback" 
+        />
+        <kaiui-button 
+          :title="$t('pages.makeTransaction.scan')" 
+          v-on:softCenter="openCam" 
+          v-bind:softkeys="softkeysPhoneTwo" 
+          v-on:softLeft="goback" 
+        />
 
         <custom-input
           type="text"
-          label="Destination address" 
+          :label="$t('pages.makeTransaction.destination')" 
           v-model="transaction.toAddress" 
-          placeholder="Destination address"
+          :placeholder="$t('pages.makeTransaction.destination')"
         />
 
         <custom-input
-          type="tel" label="Amount" class="kaiui-p_btn kaiui-input-input form-control"
-          placeholder="Amount" 
+          type="tel" 
+          :label="$t('pages.makeTransaction.amount')"
+          :placeholder="$t('pages.makeTransaction.amount')" 
           v-model="transaction.amount" 
         />
 
-        <custom-input type="tel" label="Pin Code" 
+        <custom-input 
+          type="tel" 
+          :label="$t('pages.makeTransaction.pin')" 
           v-model="transaction.pincode"
-          class="kaiui-p_btn kaiui-input-input form-control" 
-          placeholder="Pin Code" pattern="[0-9]+" 
+          :placeholder="$t('pages.makeTransaction.pin')" pattern="[0-9]+" 
         />
 
-        <kaiui-button title="Submit" v-bind:softkeys="softkeysPhoneTwo" v-on:softCenter="submit" />
+        <kaiui-button 
+          :title="$t('pages.makeTransaction.submit')" 
+          v-bind:softkeys="softkeysPhoneTwo" 
+          v-on:softCenter="submit" 
+          v-on:softLeft="goback" 
+        />
+
         <img id="img1" src="" style="display:none" alt="qr code" />
       </form>
     </div>
@@ -72,7 +90,8 @@ export default {
         left: i18n.t('back'),
       },
       softkeysPhoneTwo: {
-        center: i18n.t('select')
+        center: i18n.t('select'),
+        left: i18n.t('back'),
       },
 
       loading: false,
@@ -87,26 +106,18 @@ export default {
     },
 
     async submit() {
-      if (Number.isInteger(parseInt(this.transaction.amount)) !== true) {
-        this.showNotice("", "Amount Need to be Numeric.");
-        return false;
+      if(Number.isInteger(parseInt(this.transaction.amount)) !== true) {
+        return this.showDialog('', 'Amount Need to be Numeric.');
       }
-      if (this.transaction.toAddress === "") {
-        this.showNotice("", "Error", "To Address Field Required.");
-        return false;
-      }
-      if (Number.isInteger(parseInt(this.transaction.pincode)) !== true) {
-        this.showNotice("", "Error", "Numeric Pincode Field Required.");
-        return false;
+      if(this.transaction.toAddress === "") {
+        return this.showDialog('', 'To Address Field Required.');
       }
 
       const pincode = this.transaction.pincode.length;
-      if (pincode > 6) {
-        this.showNotice('', 'Error', "Pincode Length shound be less than 7");
-        return false;
+      if(pincode > 6) {
+        return this.showDialog('', 'Pincode Length shound be less than 7');
       } else if (pincode < 4) {
-        this.showNotice("", "Error", "Pincode Length shound be greater than 3");
-        return false;
+        return this.showDialog('', 'Pincode Length shound be greater than 3');
       }
 
       this.loading = true;
@@ -130,8 +141,8 @@ export default {
           });
         }, 2000);
       } catch (err) {
-        console.log(err);
-        this.showNotice("", "Error", err);
+        console.error(err);
+        this.showDialog('Error', err.generic);
       } finally {
         this.loading = false;
       }
@@ -204,14 +215,10 @@ export default {
     }
   },
   mounted() {
-    console.log('MakeTransaction.mounted');
-
     const givenToAddress = this.$route.query.toAddress;
     if(givenToAddress) {
       this.transaction.toAddress = givenToAddress;
     }
-
-    console.log(this.transaction);
   },
 };
 </script>

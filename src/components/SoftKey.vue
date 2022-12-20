@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     onKeyDown(event) {
-      console.log('SoftKey.enabled', this.enabled, this.errorShowing);
       if(!this.enabled || this.errorShowing) return;
 
       switch(event.key) {

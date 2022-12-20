@@ -1,26 +1,16 @@
 <template>
-  <div>
+  <div class="container">
     <router-view></router-view>
 
-    <div
-      v-if="isLoading"
-      class="loading-overlay"
-    >
+    <div v-if="isLoading" class="loading-overlay">
       <img src="/assets/loader.gif" />
     </div>
 
     <div class="dialog">
-      <kaiui-dialog
-        :title="dialogData.title"
-        v-model="dialogShowing"
-        :softkeys="{
-          right: $t('ok'),
-        }"
-        v-on:softRight="closeDialog"
-      >
-        <kaiui-text
-          :text="dialogData.message"
-        />
+      <kaiui-dialog :title="dialogData.title" v-model="dialogShowing" :softkeys="{
+        right: $t('ok'),
+      }" v-on:softRight="closeDialog">
+        <kaiui-text :text="dialogData.message" />
       </kaiui-dialog>
     </div>
   </div>
@@ -28,6 +18,7 @@
 
 <script>
 import i18n from '@/lang/setup';
+import { logout } from '@/auth';
 
 export default {
   name: "app",
@@ -38,18 +29,52 @@ export default {
 
     dialogShowing: false,
     dialogData: {
-      title: null,
-      message: null,
+      title: "",
+      message: "",
     },
   }),
   beforeDestroy() {
     document.removeEventListener("keydown", this.onKeyDown);
   },
+  created() {
+    /**
+     * Intercept any outgoing request, and attach the "Authorization" header
+     */
+    this.$http.interceptors.request.use(config => {
+      const access_token = localStorage.getItem('access_token');
+      if(access_token) {
+        config.headers.common['Authorization'] = `Bearer ${access_token}`;
+      }
+      return config;
+    })
+
+    /**
+     * Intercept any responses, and catch 401s,
+     * which means the user is not authenticated and redirect back to login page
+     */
+     this.$http.interceptors.response.use(response => {
+      return response;
+    }, error => {
+      error.generic = error && error.response && error.response.data && error.response.data.error ? error.response.data.error : i18n.t('genericError');
+
+      if(error.response.status === 401) {
+        logout();
+
+        error.generic = i18n.t('loggedOut');
+
+        this.$router.push({
+          name: 'homepage'
+        })
+      }
+
+      return Promise.reject(error);
+    })
+  },
   mounted() {
     document.addEventListener("keydown", this.onKeyDown);
 
     const selectedLang = this.$cookies.get('lang');
-    if(selectedLang) i18n.locale = selectedLang;
+    if (selectedLang) i18n.locale = selectedLang;
 
     this.$root.$on('dialog-opened', () => {
       this.dialogOpen = true;
@@ -76,6 +101,35 @@ export default {
     this.$root.$on('hide-loading', () => {
       this.isLoading = false;
     });
+
+    /**
+     * 
+     */
+    const bodyEl = document.querySelector('body')
+    const observer = new MutationObserver(records => {
+      records.forEach(record => {
+        if(record.type === 'attributes' && record.attributeName === 'nav-selected') {
+          const isSelected = record.target.getAttribute('nav-selected') === "true";
+
+          if(isSelected) {
+            const rect = record.target.getBoundingClientRect();
+            const absTop = bodyEl.scrollTop + rect.top;
+
+            if(absTop < 150) {
+              bodyEl.scrollTo({ 
+                top: 0,
+                behavior: 'smooth'
+              })
+            }
+          }
+        }
+      })
+    })
+
+    observer.observe(this.$el, {
+      attributes: true,
+      subtree: true,
+    });
   },
   methods: {
     /**
@@ -85,19 +139,31 @@ export default {
      * @param {*} event 
      */
     onKeyDown(event) {
-      if(event.key === 'Backspace' || event.key === '`') {
-        if(this.dialogOpen) {
+      if (event.key === 'Backspace' || event.key === '`') {
+        /**
+         * Main dialog is open, close it
+         */
+        if (this.dialogShowing) {
           event.preventDefault();
-          
+
+          return this.$root.$emit('hide-dialog');
+        }
+
+        /**
+         * A dialog is showing inside another view
+         */
+        if (this.dialogOpen) {
+          event.preventDefault();
+
           return this.$root.$emit('close-dialog');
         }
 
         const { meta } = this.$route;
 
-        if(meta.prev) {
+        if (meta.prev) {
           event.preventDefault();
 
-          if(typeof meta.prev === 'function') {
+          if (typeof meta.prev === 'function') {
             meta.prev(this.$router);
           } else {
             this.$router.push({
@@ -116,16 +182,16 @@ export default {
 </script>
 
 <style>
+:root {
+  /* --primary-color: red;
+  --primary-dark-color: darkred; */
+}
+
 #app {
   font-family: "Poppins";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-
-:root {
-  /* --primary-color: red;
-  --primary-dark-color: darkred; */
 }
 
 .dialog {
@@ -155,8 +221,19 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .loading-overlay img {
   width: 70px;
   height: 70px;
+}
+
+.kaiui-tabs-header .kaiui-tabs-header-tab:after {
+  content: '';
+
+  border-right: 1px solid #ccc;
+}
+
+.kaiui-content-wrapper {
+  padding-bottom: 30px;
 }
 </style>

@@ -6,7 +6,7 @@
 
         <div v-if="!codeSend">
             <kaiui-dialog
-                :title="$t('login')"
+                :title="$t('pages.login.title')"
                 v-model="showCountryDialog"
                 :softkeys="{
                     left: $t('cancel'),
@@ -32,7 +32,7 @@
             </kaiui-dialog>
 
             <kaiui-text
-                text="Sorted Wallet will send you a one-time code to verify your phone number."
+                :text="$t('pages.login.instructions1')"
             />
 
             <br />
@@ -63,7 +63,9 @@
 
         <div v-if="codeSend">
             <kaiui-text
-                :text="`Enter the 6-digit code that was send to ${this.supportedCountries[this.selectedCountry]} ${phoneNumber}.`"
+                :text="$t('pages.login.instructions2', {
+                    phone: `${this.supportedCountries[this.selectedCountry]} ${phoneNumber}`
+                })"
             />
 
             <custom-input
@@ -94,6 +96,7 @@
 <script>
 import SoftKey from "../SoftKey";
 import i18n from '@/lang/setup';
+import { logout } from '@/auth';
 
 export default {
     components: {
@@ -116,10 +119,12 @@ export default {
         }
     },
     mounted() {
+        logout();
+        
         this.selectedCountry = Object.keys(this.supportedCountries)[0];
     },
     methods: {
-        sendBack() {
+        sendBack() {            
             if(this.codeSend) {
                 this.codeSend = false;
             } else {
@@ -176,7 +181,7 @@ export default {
                     this.$router.push({ name: "dashboard" });
                 }
             } catch(err) {
-                return this.showDialog('Error', err.generic);
+                return this.showDialog(i18n.t('genericErrorTitle'), err.generic);
             } finally {
                 this.hideLoading();
             }

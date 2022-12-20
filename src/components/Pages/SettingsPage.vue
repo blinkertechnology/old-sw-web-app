@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div v-if="isDev">
+            <kaiui-separator title="App info" />
+
+            <kaiui-text 
+                :text="`Environment: ${appEnv}`" />
+            <kaiui-text 
+                :text="`Version: ${appVersion}`" />
+        </div>
+        
         <kaiui-separator :title="$t('pages.settings.changeLanguage')" />
         <kaiui-button 
             :title="$t('pages.settings.changeLanguage')" 
@@ -32,6 +41,7 @@
 
 <script>
 import i18n from '@/lang/setup';
+import { logout } from '@/auth';
 
 export default {
     data: () => ({
@@ -42,7 +52,11 @@ export default {
             // '2': 'Nigerian',
             'af': 'Afrikaans',
             'vi': 'Vietnamese'
-        }
+        },
+
+        isDev: process.env.VUE_APP_ENV === 'development' || process.env.VUE_APP_ENV === 'staging',
+        appEnv: process.env.VUE_APP_ENV,
+        appVersion: process.env.VUE_APP_VERSION,
     }),
     computed: {
         softkeysDialog: () => ({
@@ -64,8 +78,7 @@ export default {
             } catch(err) {
                 console.error(err);
             } finally {
-                localStorage.removeItem("user_id");
-                localStorage.removeItem("session");
+                logout();
 
                 this.$router.push({ 
                     name: "homepage" 

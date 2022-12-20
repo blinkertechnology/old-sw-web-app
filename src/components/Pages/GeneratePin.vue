@@ -2,102 +2,89 @@
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
 
-    <kaiui-separator title="Create your pin code" />
-    <div v-if="loading" class="loading">
-      <img src="/assets/loader.gif" />
-    </div>
-    <div v-else>
-        <kaiui-tab-item name="Generate Pin" selected>
-        <form method="POST" class="text-left">
-            <custom-input
-                type="tel"
-                label="Pin"
-                v-model="pin"
-                class="kaiui-input-input form-control"
-                placeholder="Enter Pin"
-                pattern="[0-9]+"
-            />
-            <custom-input
-                type="tel"
-                label="Confirm Pin"
-                v-model="confirmpin"
-                class="kaiui-input-input form-control"
-                placeholder="Re-enter Pin"
-                pattern="[0-9]+"
-            />
-            <kaiui-text text="Please keep it for future wallet transactions."/>
-            <kaiui-button
-                v-bind:softkeys="softkeysPhone"
-                v-on:softCenter="onSubmit"
-                title="Submit"
-            />
-        </form>
-      </kaiui-tab-item>
-    </div>
+    <kaiui-separator :title="$t('pages.setupPIN.title')" />
+
+    <form method="POST" class="text-left">
+        <custom-input
+            type="tel"
+            :label="$t('pages.setupPIN.pinInput')"
+            v-model="pin"
+            class="kaiui-input-input form-control"
+            :placeholder="$t('pages.setupPIN.pinInput')"
+            pattern="[0-9]+"
+        />
+        <custom-input
+            type="tel"
+            :label="$t('pages.setupPIN.confirmPinInput')"
+            v-model="confirmpin"
+            class="kaiui-input-input form-control"
+            :placeholder="$t('pages.setupPIN.confirmPinInput')"
+            pattern="[0-9]+"
+        />
+        <kaiui-text :text="$t('pages.setupPIN.instructions1')"/>
+        <kaiui-button
+            v-bind:softkeys="softkeysPhone"
+            v-on:softCenter="onSubmit"
+            :title="$t('pages.setupPIN.submit')"
+        />
+    </form>
   </kaiui-content>
 </template>
 
 <script>
 const { Base64 } = require("js-base64");
+import i18n from '@/lang/setup';
+
 export default {
     data() {
         return {
             pin: "",
             confirmpin: "",
-            loading: false,
-            softkeysPhone: { 
-                center: "Select" 
-            },
         }
+    },
+    computed: {
+        softkeysDialog: () => ({
+            left: i18n.t('cancel')
+        }),
+        softkeysPhone: () => ({
+            center: i18n.t('select') 
+        })
     },
     methods: {
         async onSubmit() {
-            if (isNaN(this.pin) === true) {
-                this.showNotice("", "Error", "Numeric Pin Required.");
-                return false
+            if(isNaN(this.pin) === true) {
+                return this.showDialog(i18n.t('genericErrorTitle'), i18n.t('pages.setupPIN.errors.required'));
             }
-            if (this.pin === "") {
-                this.showNotice("", "", "Pin Required");
-                return false;
+            if(this.pin === "") {
+                return this.showDialog(i18n.t('genericErrorTitle'), i18n.t('pages.setupPIN.errors.required'));
             }
-            if (isNaN(this.confirmpin) === true) {
-                this.showNotice("", "", "Numeric Confirm Pin Required")
-                return false
-            }
-            if (this.pin !== this.confirmpin) {
-                this.showNotice("", "", "Entered pin not match")
-                return false
+            if(this.pin !== this.confirmpin) {
+                return this.showDialog(i18n.t('genericErrorTitle'), i18n.t('pages.setupPIN.errors.match'));
             }
             
             const pin = this.pin.length;
             if (pin > 6) {
-                this.showNotice("", "", "Pin Length shound be less than 7");
-                return false;
+                return this.showDialog(i18n.t('genericErrorTitle'), i18n.t('pages.setupPIN.errors.length'));
             } else if (pin < 4) {
-                this.showNotice("", "", "Pin Length shound be greater than 3");
-                return false;
+                return this.showDialog(i18n.t('genericErrorTitle'), i18n.t('pages.setupPIN.errors.length'));
             }
             
-            this.loading = true;
+            this.showLoading();
 
             try {
-                const response = await this.$http.post('pin', {
+                await this.$http.post('pin', {
                     "pin": this.pin,
                     "pinRe": this.confirmpin,
                 });
-                this.$router.push({ name: "dashboard" });
+                this.$router.push({ 
+                    name: "dashboard" 
+                });
             } catch(err) {
-                this.showNotice("", "Something went wrong", "Please try again later");
+                this.showDialog("", err.generic);
             } finally {
-                this.loading = false;
+                this.hideLoading();
             }
         }
     }
 };
 </script>
-
-<style scoped>
-.loading {
-  text-align: center;
-}
-</style>

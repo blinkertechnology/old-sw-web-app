@@ -7,10 +7,12 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <link href="/css/app.css" rel="stylesheet" />
-    <title>Sorted Wallet</title>
+    <title><%= process.env.VUE_APP_TITLE %></title>
+
+    <script src="/js/kaiads.v5.min.js"></script>
   </head>
 
-  <body class="overflow-auto">
+  <body>
     <div id="app"></div>
   </body>
 </html>

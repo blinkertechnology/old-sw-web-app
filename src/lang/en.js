@@ -17,22 +17,62 @@ export default {
     success: 'Success',
     ok: 'OK',
     next: 'Next',
+    closeAd: 'Close ad',
 
     login: 'Login',
     register: 'Register',
     logout: 'Logout',
     forgotPassword: 'Forgot Password?',
 
+    genericErrorTitle: 'Something went wrong.',
     genericError: 'Something went wrong. Please try again.',
 
+    loggedOut: 'You\'ve been logged out, please log in again.',
+    offline: {
+        title: 'You are offline',
+        text: 'It seems there is a problem with your connection. Please check your network connection.',
+        refresh: 'Refresh'
+    },
+
+    wallets: {
+        bitcoin: 'BTC Balance',
+        matic: 'MATIC Balance'
+    },
+
     pages: {
+        signup: {
+            title: 'Register',
+            emailRequired: 'Email Required!',
+            passwordRequired: 'Password Required!',
+            passwordLength: 'Password length should not be less than 5.'
+        },
+
+        login: {
+            title: 'Login',
+            instructions1: 'Sorted Wallet will send you a one-time code to verify your phone number.',
+            instructions2: 'Enter the 6-digit code that was send to {phone}',
+        },
+
+        setupPIN: {
+            title: 'Create your pin code',
+            instructions1: 'Please keep it for future wallet transactions.',
+            submit: 'Submit',
+            pinInput: 'Pin',
+            confirmPinInput: 'Confirm pin',
+            errors: {
+                required: 'Please enter a numeric pin code.',
+                match: 'Entered pin not match',
+                length: 'Pin must be between 3 and 7 digits'
+            }
+        },
+
         homepage: {
             intro: {
                 title: 'Welcome to Sorted Wallet',
                 sub: 'Login or Register to continue.',
             },
-            emailLogin: 'Email/password',
-            phoneLogin: 'Phone number'
+            emailLogin: 'Email & Password',
+            phoneLogin: 'Phone Number'
         },
 
         forgotPassword: {
@@ -55,11 +95,22 @@ export default {
             shareEmail: 'Email',
             shareMessage: 'Message',
         },
-    },
 
-    transactions: {
-        title: 'Transaction records',
-        noTransactions: 'No Transactions yet.'
+        makeTransaction: {
+            title: 'Make Transaction',
+            upload: 'Upload Image (QR Code)',
+            scan: 'Scan QR (Wallet Address)',
+            destination: 'Destination address',
+            amount: 'Amount',
+            pin: 'Pin Code',
+            submit: 'Submit',
+        },
+
+        transactions: {
+            makeTransaction: 'Make transaction',
+            title: 'Transaction records',
+            noTransactions: 'No Transactions yet.'
+        },
     },
 
     tac: {

@@ -1,7 +1,7 @@
 <script>
 export default {
     methods: {
-        showLoading() {
+        showLoading(title = "") {
             this.$root.$emit('show-loading');
         },
         hideLoading() {

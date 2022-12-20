@@ -3,59 +3,97 @@
     <kaiui-content>
       <kaiui-header :title="$t('title')" />
 
-      <div v-if="loading" class="loader">
-        <img src="/assets/loader.gif" />
-      </div>
-      <kaiui-tabs v-else>
-        <kaiui-tab-item :name="$t('pages.dashboard.myWallets')" selected>
+      <tabs>
+        <kaiui-tab-item :name="$t('pages.dashboard.myWallets')">
           <kaiui-separator :title="$t('pages.dashboard.myWallets')" />
           <list-item
             v-for="item in items"
             :key="item.id"
 
-            :primaryText="item.description"
+            :primaryText="$t(`wallets.${item.secretType.toLowerCase()}`)"
             :secondaryText="`Balance: ${item.balance.balance} ($US ${item.usd})`"
 
             :softkeys="softkeysPhone"
             v-on:softCenter="showOptionsDialog(item)"
           />
-
-          
         </kaiui-tab-item>
+
         <kaiui-tab-item :name="$t('pages.dashboard.settings')">
           <settings-page />
         </kaiui-tab-item>
-      </kaiui-tabs>
+      </tabs>
+
+      <div class="ad-container" v-show="adShowing">
+        <div class="ad-container__close">
+          <kaiui-button 
+            :title="$t('closeAd')"
+            :softkeys="{
+              center: $t('closeAd')
+            }"
+            v-on:softCenter="closeAd()"
+          />
+        </div>
+        <div class="ad-container__ad"></div>
+      </div>
     </kaiui-content>
 
     <kaiui-dialog
-      :title="$t('back')"
+      :title="actionDialogTitle"
       v-model="showActionDialog"
       :softkeys="softkeysDialog"
+      v-on:softLeft="closeDialogs"
     >
-      <list-item 
-        :primaryText="$t('pages.dashboard.qrCode')"
-        v-on:softCenter="showQRCode"
-        v-on:softLeft="closeDialogs"
-      />
-      <list-item 
-        :primaryText="$t('pages.dashboard.transactionRecords')"
-        v-on:softCenter="toTransactionList"
-        v-on:softLeft="closeDialogs"
-      />
-      <list-item 
-        :primaryText="$t('pages.dashboard.makeTransaction')"
-        v-on:softCenter="toMakeTransaction"
-        v-on:softLeft="closeDialogs"
-      />
-      <list-item 
-        :primaryText="$t('pages.dashboard.share')"
-        v-on:softCenter="showShare"
-        v-on:softLeft="closeDialogs"
-      />
+      <div v-if="showShareDialog">
+        <list-item 
+          :primaryText="$t('pages.dashboard.shareEmail')"
+          :softkeys="softkeysListItem"
+          v-on:softCenter="shareViaEmail"
+          v-on:softLeft="closeDialogs"
+        />
+        <list-item 
+          :primaryText="$t('pages.dashboard.shareMessage')"
+          :softkeys="softkeysListItem"
+          v-on:softCenter="shareViaMessage"
+          v-on:softLeft="closeDialogs"
+        />
+      </div>
+
+      <div v-if="showQRCodeDialog">
+        <div v-if="selectedWallet" class="qrcode">
+          <qr-code
+            :size="180"
+            :text="selectedWallet.address"
+            style="display: block"
+            class="m-auto"
+          />
+        </div>
+      </div>
+
+      <div v-if="!showShareDialog && !showQRCodeDialog">
+        <list-item 
+          :primaryText="$t('pages.dashboard.makeTransaction')"
+          v-on:softCenter="toMakeTransaction"
+          v-on:softLeft="closeDialogs"
+        />
+        <list-item 
+          :primaryText="$t('pages.dashboard.qrCode')"
+          v-on:softCenter="showQRCode"
+          v-on:softLeft="closeDialogs"
+        />
+        <list-item 
+          :primaryText="$t('pages.dashboard.transactionRecords')"
+          v-on:softCenter="toTransactionList"
+          v-on:softLeft="closeDialogs"
+        />
+        <list-item 
+          :primaryText="$t('pages.dashboard.share')"
+          v-on:softCenter="showShare"
+          v-on:softLeft="closeDialogs"
+        />
+      </div>
     </kaiui-dialog>
 
-    <kaiui-dialog
+    <!-- <kaiui-dialog
       :title="$t('pages.dashboard.share')"
       v-model="showShareDialog"
       :softkeys="softkeysDialog"
@@ -73,9 +111,9 @@
         v-on:softCenter="shareViaMessage"
         v-on:softLeft="closeDialogs"
       />
-    </kaiui-dialog>
+    </kaiui-dialog> -->
 
-    <kaiui-dialog
+    <!-- <kaiui-dialog
       title="QR Code"
       v-model="showQRCodeDialog"
       :softkeys="softkeysDialog"
@@ -89,7 +127,7 @@
             class="m-auto"
           />
       </div>
-    </kaiui-dialog>
+    </kaiui-dialog> -->
   </div>
 </template>
 
@@ -103,7 +141,8 @@ export default {
     SettingsPage,
   },
   data: () => ({
-    loading: true,
+    adShowing: false,
+
     items: [],
     selectedWallet: null,
 
@@ -112,6 +151,16 @@ export default {
     showShareDialog: false,
   }),
   computed: {
+    actionDialogTitle() {
+      if(this.showQRCodeDialog) {
+        return i18n.t('pages.dashboard.qrCode');
+      }
+      if(this.showShareDialog) {
+        return i18n.t('pages.dashboard.share');
+      }
+      return i18n.t('options')
+    },
+
     softkeysPhone: () => ({
       left: null,
       center: i18n.t('options')
@@ -127,31 +176,41 @@ export default {
   methods: {
     showOptionsDialog(wallet) {
       this.selectedWallet = wallet;
+      
       this.showActionDialog = true;
+      this.showQRCodeDialog = false;
+      this.showShareDialog = false;
 
       this.$root.$emit('dialog-opened');
     },
 
-    closeDialogs() {    
-      this.$root.$emit('dialog-closed');
+    closeDialogs() {
+      if(this.showShareDialog) {        
+        this.showShareDialog = false;
+      } else if(this.showQRCodeDialog) {
+        this.showQRCodeDialog = false;
+      } else {
+        this.showActionDialog = false;
+        this.showQRCodeDialog = false;
+        this.showShareDialog = false;
+        this.selectedWallet = null;
 
-      this.showActionDialog = false;
-      this.showQRCodeDialog = false;
-      this.showShareDialog = false;
-
-      this.selectedWallet = null;
+        this.$root.$emit('dialog-closed');
+      }
     },
 
     showQRCode() {
-      this.showActionDialog = false;
+      this.showShareDialog = false;
+      this.showActionDialog = true;
       this.showQRCodeDialog = true;
 
       this.$root.$emit('dialog-opened');
     },
 
     showShare() {
-      this.showActionDialog = false;
+      this.showActionDialog = true;
       this.showShareDialog = true;
+      this.showQRCodeDialog = false;
 
       this.$root.$emit('dialog-opened');
     },
@@ -185,7 +244,7 @@ export default {
     },
 
     async getWallets() {
-      this.loading = true;
+      this.showLoading();
 
       var user = JSON.parse(localStorage.getItem("user"));
       var identifierData = Base64.encode(`user=${user.id}`);
@@ -195,12 +254,47 @@ export default {
         const { data } = response;
 
         this.items = data.wallets || [];
+
+        this.showAd();
       } catch(err) {
-        console.log(err);
-        this.showNotice(i18n.t('error'), i18n.t('genericError'));
+        this.showDialog(i18n.t('genericErrorTitle'), err.generic);
       } finally {
-        this.loading = false;
+        this.hideLoading();
       }
+    },
+
+    showAd(timeout = 10 * 1000)  {
+      // eslint-disable-next-line no-undef
+      getKaiAd({
+        publisher: process.env.VUE_APP_KAI_AD_PUBLISHER_ID,
+        app: process.env.VUE_APP_KAI_AD_APP,
+        slot: process.env.VUE_APP_KAI_AD_SLOT,
+        test: parseInt(process.env.VUE_APP_KAI_AD_TEST),
+        timeout,
+
+        container: document.querySelector('.ad-container__ad'),
+
+        h: 50,
+        w: 240,
+
+        onerror: err => {
+          console.error(err);
+          // this.showDialog('Ad error', err);
+        },
+        onready: ad => {
+          this.adShowing = true;
+
+          ad.call('display', {
+            tabindex: 0,
+            display: 'block'
+          })
+        }
+      })
+    },
+    closeAd() {
+      this.adShowing = false;
+      
+      this.$root.$emit("update-softkeys-unregister");
     }
   },
   mounted() {
@@ -225,4 +319,34 @@ export default {
 .qrcode img {
   width: 100%;
 }
+</style>
+
+<style>
+.ad-container {
+  width: 100%;
+
+  position: absolute;
+  bottom: 30px;
+
+  z-index: 9999;
+}
+  .ad-container__ad {
+    height: 50px;
+  }
+  .ad-container__close {
+    background-color: #cccccc;
+  }
+    .ad-container__close .kaiui-button {
+      margin: 0 !important;
+      background-color: transparent !important;
+      min-height: auto !important;
+    }
+    .ad-container__close .kaiui-button .kaiui-button-title  {
+      font-size: 12px;
+      text-decoration: underline;
+      text-align: right !important;
+    }
+    .ad-container__close .kaiui-button[nav-selected="true"] .kaiui-button-title  {
+      color: #000 !important;
+    }
 </style>
