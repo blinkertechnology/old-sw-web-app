@@ -25,12 +25,12 @@ export default {
     forgotPassword: 'Forgot Password?',
 
     genericErrorTitle: 'Something went wrong.',
-    genericError: 'Something went wrong. Please try again.',
+    genericError: 'Something went wrong. Please try again shortly.',
 
-    loggedOut: 'You\'ve been logged out, please log in again.',
+    loggedOut: 'You have been logged out, please log in again.',
     offline: {
-        title: 'You are offline',
-        text: 'It seems there is a problem with your connection. Please check your network connection.',
+        title: 'You are offline.',
+        text: 'It seems like there is a problem with your connection. Please check your network connection.',
         refresh: 'Refresh'
     },
 
@@ -44,24 +44,24 @@ export default {
             title: 'Register',
             emailRequired: 'Email Required!',
             passwordRequired: 'Password Required!',
-            passwordLength: 'Password length should not be less than 5.'
+            passwordLength: 'Password length should not be less than 5 characters.'
         },
 
         login: {
             title: 'Login',
             instructions1: 'Sorted Wallet will send you a one-time code to verify your phone number.',
-            instructions2: 'Enter the 6-digit code that was send to {phone}',
+            instructions2: 'Please Enter the 6-digit code that was send to {phone}',
         },
 
         setupPIN: {
             title: 'Create your pin code',
-            instructions1: 'Please keep it for future wallet transactions.',
+            instructions1: 'Please remember it and keep it safe for future wallet transactions.',
             submit: 'Submit',
             pinInput: 'Pin',
             confirmPinInput: 'Confirm pin',
             errors: {
                 required: 'Please enter a numeric pin code.',
-                match: 'Entered pin not match',
+                match: 'Entered pin does not match',
                 length: 'Pin must be between 3 and 7 digits'
             }
         },
@@ -76,7 +76,7 @@ export default {
         },
 
         forgotPassword: {
-            title: 'Forgot Password',
+            title: 'Forgot Password?',
             resetPassword: 'Reset password'
         },
 
@@ -91,7 +91,7 @@ export default {
             qrCode: 'QR Code',
             transactionRecords: 'Transaction Records',
             makeTransaction: 'Make Transaction',
-            share: 'Share',
+            share: 'Share Wallet Address',
             shareEmail: 'Email',
             shareMessage: 'Message',
         },
@@ -100,7 +100,7 @@ export default {
             title: 'Make Transaction',
             upload: 'Upload Image (QR Code)',
             scan: 'Scan QR (Wallet Address)',
-            destination: 'Destination address',
+            destination: 'Destination Wallet Address',
             amount: 'Amount',
             pin: 'Pin Code',
             submit: 'Submit',
@@ -117,11 +117,11 @@ export default {
         agree: 'Agree',
         scrollDown: 'Scroll Down',
 
-        error: 'Please agree on Terms & Conditions!',
+        error: 'Please agree to the Terms & Conditions.',
 
         confirm: {
             primary: 'I have read and agreed',
-            secondary: 'on the Terms & Coditions',
+            secondary: 'to the Terms & Conditions',
         },
 
         body: [
