@@ -30,7 +30,7 @@ export default {
     loggedOut: 'You\'ve been logged out, please log in again.',
     offline: {
         title: 'You are offline',
-        text: 'It seems there is a problem with your connection. Please check your network connection.',
+        text: 'It seems like there is a problem with your connection. Please check your network connection.',
         refresh: 'Refresh'
     },
 
