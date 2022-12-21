@@ -91,7 +91,7 @@ export default {
             qrCode: 'QR Code',
             transactionRecords: 'Transaction Records',
             makeTransaction: 'Make Transaction',
-            share: 'Share',
+            share: 'Share Wallet Address',
             shareEmail: 'Email',
             shareMessage: 'Message',
         },
