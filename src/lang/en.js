@@ -55,7 +55,7 @@ export default {
 
         setupPIN: {
             title: 'Create your pin code',
-            instructions1: 'Please keep it safe for future wallet transactions.',
+            instructions1: 'Please remember it and keep it safe for future wallet transactions.',
             submit: 'Submit',
             pinInput: 'Pin',
             confirmPinInput: 'Confirm pin',
