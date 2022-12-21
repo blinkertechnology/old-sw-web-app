@@ -76,7 +76,7 @@ export default {
         },
 
         forgotPassword: {
-            title: 'Forgot Password',
+            title: 'Forgot Password?',
             resetPassword: 'Reset password'
         },
 
