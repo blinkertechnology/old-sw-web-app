@@ -14,14 +14,14 @@
                 }"
             >
                 <kaiui-radiogroup
-                    v-model="selectedCountry"
+                    v-model="selectedCountryId"
                 >
                     <kaiui-radiobutton 
-                        v-for="c in Object.keys(supportedCountries)"
-                        :key="c"
-                        :value="c"
-                        :primaryText="c"
-                        :secondaryText="supportedCountries[c]"
+                        v-for="c in allCountries"
+                        :key="c.isoCode"
+                        :value="c.isoCode"
+                        :primaryText="c.name"
+                        :secondaryText="c.dialCode"
                         :softkeys="{
                             left: $t('cancel'),
                             center: $t('select'),
@@ -38,8 +38,8 @@
             <br />
 
             <list-item 
-                :primaryText="selectedCountry"
-                :secondaryText="supportedCountries[selectedCountry]"
+                :primaryText="selectedCountry.name"
+                :secondaryText="selectedCountry.dialCode"
                 :icon-right="true"
                 :icon-left="true"
                 v-on:softCenter="showCountryDialog = true"
@@ -64,7 +64,7 @@
         <div v-if="codeSend">
             <kaiui-text
                 :text="$t('pages.login.instructions2', {
-                    phone: `${this.supportedCountries[this.selectedCountry]} ${phoneNumber}`
+                    phone: `${this.selectedCountry.dialCode} ${phoneNumber}`
                 })"
             />
 
@@ -97,6 +97,7 @@
 import SoftKey from "../SoftKey";
 import i18n from '@/lang/setup';
 import { logout } from '@/auth';
+import countries from '@/countries.json';
 
 export default {
     components: {
@@ -108,20 +109,22 @@ export default {
 
             phoneNumber: null,
             code: null,
-            selectedCountry: null,
+            selectedCountryId: null,
 
-            supportedCountries: {
-                'Hong Kong': '+852',
-                'China': "+86"
-            },
+            allCountries: countries,
 
             showCountryDialog: false,   
+        }
+    },
+    computed: {
+        selectedCountry() {
+            return this.allCountries.find(c => c.isoCode === this.selectedCountryId);
         }
     },
     mounted() {
         logout();
         
-        this.selectedCountry = Object.keys(this.supportedCountries)[0];
+        this.selectedCountryId = this.allCountries[0].isoCode;
     },
     methods: {
         sendBack() {            
@@ -154,12 +157,12 @@ export default {
             console.log(cleanedNumberInput);
 
             try {
-                console.log(this.selectedCountry, this.phoneNumber);
+                console.log(this.selectedCountry.dialCode, this.phoneNumber);
 
                 this.showLoading('Sending one-time code.');
 
                 const response = await this.$http.post('auth/login/phone', {
-                    phone: `${this.supportedCountries[this.selectedCountry]}${cleanedNumberInput}`,
+                    phone: `${this.selectedCountry.dialCode}${cleanedNumberInput}`,
                     ...(this.codeSend ? { code: this.code } : null)
                 })
                 const { data } = response;
