@@ -25,7 +25,7 @@ export default {
     forgotPassword: 'Forgot Password?',
 
     genericErrorTitle: 'Something went wrong.',
-    genericError: 'Something went wrong. Please try again.',
+    genericError: 'Something went wrong. Please try again shortly.',
 
     loggedOut: 'You\'ve been logged out, please log in again.',
     offline: {
