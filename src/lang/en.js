@@ -87,6 +87,7 @@ export default {
         dashboard: {
             myWallets: 'My Wallet(s)',
             settings: 'Settings',
+            faq: 'FAQ',
 
             qrCode: 'QR Code',
             transactionRecords: 'Transaction Records',
