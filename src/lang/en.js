@@ -87,6 +87,7 @@ export default {
         dashboard: {
             myWallets: 'My Wallet(s)',
             settings: 'Settings',
+            faq: 'FAQ',
 
             qrCode: 'QR Code',
             transactionRecords: 'Transaction Records',
@@ -111,6 +112,110 @@ export default {
             title: 'Transaction records',
             noTransactions: 'No Transactions yet.'
         },
+    },
+
+    faq: {
+        title: 'Sorted Wallet Knowledge Base',
+        introduction: 'We have put together some helpful information and tutorials that will allow you to use Sorted Wallet to its full potential. Please read through this knowledge base to find answers to your questions, and feel free to contact us if you still could not find what you were looking for! ',
+        blocks: [
+            {
+                title: 'Getting Started',
+                body: [
+                    [
+                        `What is Sorted Wallet?`,
+                        `Sorted Wallet is the first digital asset wallet on KaiOS platform. With Sorted Wallet, users can store, send and receive digital assets instantly without having to own a high-end smartphone. Sorted Wallet is created to bring a digital asset wallet in the hands of individuals from emerging markets where not everyone can afford a smartphone.
+                        You can download Sorted Wallet through the KaiStore on KaiOS devices or through its desktop version at wallet.sorted.finance`
+                    ],
+                    [
+                        `How to register for Sorted Wallet?`,
+                        `Any user can register for Sorted Wallet using 2 ways, using their Email ID or their Phone Number. A user may register for Sorted Wallet either through their KaiOS device or through the desktop version.`
+                    ],
+                    [
+                        `How to Register for Sorted Wallet on KaiOS devices:`,
+                        `1. Download Sorted Wallet on your KaiOS device.
+                        2. Open the Sorted Wallet app.
+                        3. After agreeing to the Terms & Conditions, you will see 2 options of Login and Register. Click on Register.
+                        4. You will be prompted with 2 options: Email & Password and Phone Number. Choose the option you like and then fill in the required information. If you choose a Phone Number, you will be prompted to type in a one-time password.
+                        5. After the previous step, you will be asked to type in a numeric PIN (3 to 7 digits) which you must remember for all future transactions of your wallet.
+                        6. After all steps have been completed, Woohoo, you have successfully registered for Sorted Wallet!
+                        `
+                    ],
+                    [
+                        `How to Register for Sorted Wallet on desktop devices:`,
+                        `1. Open wallet.sorted.finance
+                        2. Click on “Don’t have an account? Sign up here”.
+                        3. Fill in the required information. Choose a username, type your Email ID and set a password.
+                        4. You will be prompted with 2 options: Email & Password and Phone Number. Choose the option you like and then fill in the required information. If you choose a Phone Number, you will be prompted to type in a one-time password.
+                        5. After the previous step, you will be asked to type in a numeric PIN (3 to 7 digits) which you must remember for all future transactions of your wallet.
+                        6. After all steps have been completed, Woohoo, you have successfully registered for Sorted Wallet!
+                        `
+                    ],
+                    [
+                        `Who can create an account on Sorted Wallet?`,
+                        `Any user (over the age of 18) with a valid E-mail ID or Phone Number can become a Sorted Wallet user.`
+                    ],
+                    [
+                        `How to send digital assets with Sorted Wallet?`,
+                        `On your My Wallets page, click on either of your wallets and select Make Transaction. Once you are on the transaction page, either type in the wallet address or scan the QR code of the destination wallet address to automatically paste in the wallet address. 
+                        Once the wallet address is typed, type in the Amount and your PIN (the one you set up when registering for an account on Sorted Wallet). Now confirm all the details to ensure you are sending the right wallet address the right amount of digital assets, once confirmed, click Submit and the transaction will start processing immediately.`
+                    ],
+                    [
+                        `How to receive digital assets with Sorted Wallet?`,
+                        `On your My Wallets page, click on either of your wallets and select QR Code for people around you to scan your wallet address, or share the wallet address with either email or message to people who live far away from you. Ask them to copy the wallet address and use it to send digital assets to your wallet.`
+                    ],
+                    [
+                        `Why does Sorted Wallet have no seed phrase / recovery phrase?`,
+                        `For the ease and comfort of our users, we partnered with Venly, an industry-leading Web3 company in tech solutions. They handle the security and private keys management of the Sorted Wallet.
+                        You can rest easy knowing that your private keys do not reside on your device, and not on any server managed by Sorted. It is handled by a robust and elegant system developed by Venly. Strict access control policies and lists, AES encryption, and secret sharing algorithms ensure that your private keys reside safely in vaults only accessible by your account login and pincode. Just click here to read all about the security behind Venly’s API.`
+                    ],
+                    [
+                        `How do I keep my wallets safe?`,
+                        `Sorted Wallet requires that you store your PIN in a safe place. It is the only way to interact with your wallet assets and to make transactions out of the Sorted Wallet. We recommend you to write it down. If you lose your PIN, it will be difficult for us to help you recover your wallet. We also encourage you to never share your PIN with anyone or any site, unless you want them to have full control over your funds.`
+                    ]
+                ]
+            },
+            {
+                title: 'Blockchain 101',
+                body: [
+                    [
+                        `What is Bitcoin (BTC)?`,
+                        `Bitcoin (BTC) is a cryptocurrency, a form of digital money that allows secure and seamless peer-to-peer transactions on the internet.
+                        It is the world’s first widely-adopted cryptocurrency. With Bitcoin, people can securely and directly send each other digital money on the internet.`
+                    ],
+                    [
+                        `What is MATIC?`,
+                        `MATIC is a cryptocurrency developed by the company Polygon, which is a technology platform that enables blockchain networks to connect and scale.
+                        MATIC is an ERC-20 token, meaning that it is compatible with other Ethereum-based digital currencies. MATIC is used to govern and secure the Polygon network and to pay network transaction fees.`
+                    ],
+                    [
+                        `What is USDC?`,
+                        `USD Coin (USDC) is a type of cryptocurrency that is referred to as a stablecoin. This means 1 USDC will always be equal to US$1.00, giving it a stable price. This is a cryptocurrency backed by fully reserved assets to ensure the stability of the coin. `
+                    ],
+                ]
+            },
+            {
+                title: 'Troubleshooting',
+                body: [
+                    [
+                        `I forgot my password. What should I do?`,
+                        `For users who registered using an E-Mail:
+
+                        When on the Login / Register page of your Sorted Wallet, click on Forgot Password to be redirected to receive a link to create a new password for your Sorted Wallet account.
+                        For users who registered using a Phone Number:
+                        
+                        You will receive a new OTP every time you login, so just remember to keep your phone number safe and available at all times to be able to login to your Sorted Wallet account.`
+                    ],
+                    [
+                        `I forgot my PIN. What should I do?`,
+                        ``
+                    ],
+                    [
+                        `I have an issue / complaint / feedback. Who do I contact?`,
+                        `We are so sorry that you are facing issues with the Sorted Wallet. Please write about your problem to us on support@sorted.finance and someone from our team will get back to you as soon as possible. `
+                    ]
+                ]
+            }
+        ]
     },
 
     tac: {

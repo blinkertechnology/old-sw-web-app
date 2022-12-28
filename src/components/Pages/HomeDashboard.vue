@@ -21,6 +21,10 @@
         <kaiui-tab-item :name="$t('pages.dashboard.settings')">
           <settings-page />
         </kaiui-tab-item>
+
+        <kaiui-tab-item :name="$t('pages.dashboard.faq')">
+          <faq-page />
+        </kaiui-tab-item>
       </tabs>
 
       <div class="ad-container" v-show="adShowing">
@@ -92,53 +96,20 @@
         />
       </div>
     </kaiui-dialog>
-
-    <!-- <kaiui-dialog
-      :title="$t('pages.dashboard.share')"
-      v-model="showShareDialog"
-      :softkeys="softkeysDialog"
-      v-on:softLeft="closeDialogs"
-    >
-      <list-item 
-        :primaryText="$t('pages.dashboard.shareEmail')"
-        :softkeys="softkeysListItem"
-        v-on:softCenter="shareViaEmail"
-        v-on:softLeft="closeDialogs"
-      />
-      <list-item 
-        :primaryText="$t('pages.dashboard.shareMessage')"
-        :softkeys="softkeysListItem"
-        v-on:softCenter="shareViaMessage"
-        v-on:softLeft="closeDialogs"
-      />
-    </kaiui-dialog> -->
-
-    <!-- <kaiui-dialog
-      title="QR Code"
-      v-model="showQRCodeDialog"
-      :softkeys="softkeysDialog"
-      v-on:softLeft="closeDialogs"
-    >
-      <div v-if="selectedWallet" class="qrcode">
-          <qr-code
-            :size="180"
-            :text="selectedWallet.address"
-            style="display: block"
-            class="m-auto"
-          />
-      </div>
-    </kaiui-dialog> -->
   </div>
 </template>
 
 <script>
 import i18n from '@/lang/setup';
 import SettingsPage from '@/components/Pages/SettingsPage.vue';
+import FaqPage from '@/components/Pages/FAQPage.vue';
+
 const { Base64 } = require("js-base64");
 
 export default {
   components: {
     SettingsPage,
+    FaqPage,
   },
   data: () => ({
     adShowing: false,
@@ -245,9 +216,6 @@ export default {
 
     async getWallets() {
       this.showLoading();
-
-      var user = JSON.parse(localStorage.getItem("user"));
-      var identifierData = Base64.encode(`user=${user.id}`);
 
       try {
         const response = await this.$http.get('wallets');

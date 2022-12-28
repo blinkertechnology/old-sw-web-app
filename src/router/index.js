@@ -134,6 +134,14 @@ router.beforeEach((to, from, next) => {
   router.app.$root.$emit('dialog-closed');
 
   /**
+   * Scroll to top upon navigation to any other page
+   */
+  document.querySelector('body').scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+
+  /**
    * User went offline
    */
   const isOnline = navigator.onLine;
