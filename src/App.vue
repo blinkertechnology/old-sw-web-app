@@ -105,7 +105,7 @@ export default {
     /**
      * 
      */
-    const bodyEl = document.querySelector('body')
+    const bodyEl = document.querySelector('body');
     const observer = new MutationObserver(records => {
       records.forEach(record => {
         if(record.type === 'attributes' && record.attributeName === 'nav-selected') {
