@@ -40,19 +40,13 @@
 </template>
 
 <script>
-import i18n from '@/lang/setup';
+import i18n, { supportedLanguages } from '@/lang/setup';
 import { logout } from '@/auth';
 
 export default {
     data: () => ({
         showLanguageSelectorDialog: false,
-        supportedLanguages: {
-            'en': 'English',
-            'ur': 'Urdu',
-            // '2': 'Nigerian',
-            'af': 'Afrikaans',
-            'vi': 'Vietnamese'
-        },
+        supportedLanguages: supportedLanguages,
 
         isDev: process.env.VUE_APP_ENV === 'development' || process.env.VUE_APP_ENV === 'staging',
         appEnv: process.env.VUE_APP_ENV,
