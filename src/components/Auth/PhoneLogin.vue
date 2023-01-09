@@ -13,6 +13,12 @@
                     center: $t('select'),
                 }"
             >
+                <custom-input
+                    placeholder="search"
+                    type="text"
+                    v-on:input="onSearch"
+                />
+
                 <kaiui-radiogroup
                     v-model="selectedCountryId"
                 >
@@ -96,7 +102,7 @@
 <script>
 import SoftKey from "../SoftKey";
 import i18n from '@/lang/setup';
-import { logout } from '@/auth';
+import { logout, login } from '@/auth';
 import countries from '@/countries.json';
 
 export default {
@@ -118,7 +124,7 @@ export default {
     },
     computed: {
         selectedCountry() {
-            return this.allCountries.find(c => c.isoCode === this.selectedCountryId);
+            return this.allCountries.find(c => c.isoCode === this.selectedCountryId) || this.allCountries[0];
         }
     },
     mounted() {
@@ -140,6 +146,17 @@ export default {
             this.showCountryDialog = false;
         },
 
+        onSearch(search) {
+            if(!search.length) {
+                this.allCountries = countries;
+                return;
+            }
+
+            this.allCountries = countries.filter(c => {
+                return c.name.includes(search) || c.dialCode.includes(search) || c.isoCode.includes(search);
+            })
+        },
+
         /**
          * Send the verification code to the inputted phone
          */
@@ -154,11 +171,8 @@ export default {
             
             // Basic phone number verification
             const cleanedNumberInput = parseInt(this.phoneNumber.replace(/ /g, ''));
-            console.log(cleanedNumberInput);
 
             try {
-                console.log(this.selectedCountry.dialCode, this.phoneNumber);
-
                 this.showLoading('Sending one-time code.');
 
                 const response = await this.$http.post('auth/login/phone', {
@@ -173,8 +187,7 @@ export default {
                 } else {
                     const { access_token, user } = data;
 
-                    localStorage.setItem('access_token', access_token);
-                    localStorage.setItem('user', JSON.stringify(user));
+                    login(access_token, user);
 
                     // PIN setup is required
                     if(user.require_pin) {

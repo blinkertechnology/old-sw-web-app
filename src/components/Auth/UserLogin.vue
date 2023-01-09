@@ -45,7 +45,7 @@
 
 <script>
 import SoftKey from "../SoftKey";
-import { logout } from '@/auth';
+import { logout, login } from '@/auth';
 
 export default {
   components: {
@@ -85,8 +85,7 @@ export default {
         const { access_token, user } = data;
 
         if(access_token && user) {
-          localStorage.setItem('access_token', access_token);
-          localStorage.setItem('user', JSON.stringify(user));
+          login(access_token, user);
 
           // PIN setup is required
           if(user.require_pin) {

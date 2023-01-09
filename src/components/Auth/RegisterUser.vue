@@ -48,6 +48,7 @@
 <script>
 import SoftKey from "../SoftKey";
 import i18n from '@/lang/setup';
+import { login } from '@/auth';
 
 export default {
   components: {
@@ -89,8 +90,7 @@ export default {
         const { data } = response;
         const { access_token, user } = data;
 
-        localStorage.setItem('access_token', access_token);
-        localStorage.setItem('user', JSON.stringify(user));
+        login(access_token, user);
 
         if(user.require_pin) {
           return this.$router.push({ name: "generatepin" });
