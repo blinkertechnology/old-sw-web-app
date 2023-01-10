@@ -36,7 +36,8 @@ export default {
 
     wallets: {
         bitcoin: 'BTC Balance',
-        matic: 'MATIC Balance'
+        matic: 'MATIC Balance',
+        matic_usdc: 'USDC on MATIC Balance'
     },
 
     pages: {

@@ -7,14 +7,14 @@
         <kaiui-tab-item :name="$t('pages.dashboard.myWallets')">
           <kaiui-separator :title="$t('pages.dashboard.myWallets')" />
           <list-item
-            v-for="item in items"
-            :key="item.id"
+            v-for="(wallet, index) in getWalletsList()"
+            :key="index"
 
-            :primaryText="$t(`wallets.${item.secretType.toLowerCase()}`)"
-            :secondaryText="`Balance: ${item.balance.balance} ($US ${item.usd})`"
+            :primaryText="wallet.primaryLabel"
+            :secondaryText="wallet.secondaryLabel"
 
             :softkeys="softkeysPhone"
-            v-on:softCenter="showOptionsDialog(item)"
+            v-on:softCenter="showOptionsDialog(wallet.item)"
           />
         </kaiui-tab-item>
 
@@ -229,6 +229,30 @@ export default {
       } finally {
         this.hideLoading();
       }
+    },
+
+    getWalletsList() {
+      const walletsForDisplay = [];
+
+      this.items.forEach(item => {
+        walletsForDisplay.push({
+          primaryLabel: i18n.t(`wallets.${item.secretType.toLowerCase()}`),
+          secondaryLabel: `Balance: ${item.balance.balance} ($US ${item.usd})`,
+          item: item,
+        })
+
+        if(item.tokens.length) {
+          item.tokens.forEach(token => {
+            walletsForDisplay.push({
+              primaryLabel: i18n.t(`wallets.${item.secretType.toLowerCase()}_${token.symbol.toLowerCase()}`),
+              secondaryLabel: `Balance: ${token.balance} ($US ${token.usd})`,
+              item: item,
+            })
+          })
+        }
+      })
+
+      return walletsForDisplay;
     },
 
     showAd(timeout = 10 * 1000)  {
