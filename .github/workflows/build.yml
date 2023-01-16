@@ -25,4 +25,6 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: release.zip
-          path: ./dist/*.zip
+          path: |
+            ./dist/**/*
+            !./dist/*.zip
