@@ -5,6 +5,36 @@
         <kaiui-separator :title="$t('login')" />
 
         <div v-if="!codeSend">
+            <kaiui-text
+                :text="$t('pages.login.instructions1')"
+            />
+
+            <br />
+
+            <list-item 
+                :primaryText="selectedCountry.name"
+                :secondaryText="selectedCountry.dialCode"
+                :icon-right="true"
+                :icon-left="true"
+                v-on:softCenter="showCountryDialog = true"
+            />
+
+            <custom-input
+                :label="$t('phoneNumber')"
+                :placeholder="$t('phoneNumber')"
+                type="tel"
+                v-model="phoneNumber"
+                ref="phoneNumber"
+            />
+
+            <kaiui-button 
+                :title="$t('next')"
+                :softkeys="{
+                    center: $t('select')
+                }"
+                v-on:softCenter="sendCode"
+            />
+
             <kaiui-dialog
                 :title="$t('pages.login.title')"
                 v-model="showCountryDialog"
@@ -36,35 +66,6 @@
                     />
                 </kaiui-radiogroup>
             </kaiui-dialog>
-
-            <kaiui-text
-                :text="$t('pages.login.instructions1')"
-            />
-
-            <br />
-
-            <list-item 
-                :primaryText="selectedCountry.name"
-                :secondaryText="selectedCountry.dialCode"
-                :icon-right="true"
-                :icon-left="true"
-                v-on:softCenter="showCountryDialog = true"
-            />
-
-            <custom-input
-                :label="$t('phoneNumber')"
-                :placeholder="$t('phoneNumber')"
-                type="tel"
-                v-model="phoneNumber"
-            />
-
-            <kaiui-button 
-                :title="$t('next')"
-                :softkeys="{
-                    center: $t('select')
-                }"
-                v-on:softCenter="sendCode"
-            />
         </div>
 
         <div v-if="codeSend">
@@ -144,6 +145,9 @@ export default {
         },
         closeCountryDialog() {
             this.showCountryDialog = false;
+            this.$nextTick(() => {
+                this.$refs.phoneNumber.focus();
+            })
         },
 
         onSearch(search) {

@@ -8,6 +8,7 @@
             v-bind:nav-selectable="true" 
             :pattern="pattern"
             :value="value"
+            ref="input"
 
             v-on:click="onClick" 
             v-on:focus="handleFocusChange(true)"
@@ -99,9 +100,6 @@ export default {
                  if(this.softkeys) this.$root.$emit("update-softkeys-unregister");
             }
         },
-        /**
-         * @private
-         */
         onClick() {
             this.handleFocusChange(true);
 
@@ -110,6 +108,12 @@ export default {
              */
             this.$root.$emit("set-element-selected", this.$el);
         },
+
+        focus() {
+            this.$nextTick(() => {
+                this.$root.$emit("set-element-selected", this.$refs.input);
+            });
+        }
     },
 };
 </script>
