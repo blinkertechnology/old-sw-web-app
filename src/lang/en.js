@@ -147,7 +147,7 @@ export default {
                         2. Click on “Don’t have an account? Sign up here”.
                         3. Fill in the required information. Choose a username, type your Email ID and set a password.
                         4. You will be prompted with 2 options: Email & Password and Phone Number. Choose the option you like and then fill in the required information. If you choose a Phone Number, you will be prompted to type in a one-time password.
-                        5. After the previous step, you will be asked to type in a numeric PIN (3 to 7 digits) which you must remember for all future transactions of your wallet.
+                        5. After the previous step, you will be asked to type in a numeric PIN (4 to 6 digits) which you must remember for all future transactions of your wallet.
                         6. After all steps have been completed, Woohoo, you have successfully registered for Sorted Wallet!
                         `
                     ],
@@ -172,6 +172,11 @@ export default {
                     [
                         `How do I keep my wallets safe?`,
                         `Sorted Wallet requires that you store your PIN in a safe place. It is the only way to interact with your wallet assets and to make transactions out of the Sorted Wallet. We recommend you to write it down. If you lose your PIN, it will be difficult for us to help you recover your wallet. We also encourage you to never share your PIN with anyone or any site, unless you want them to have full control over your funds.`
+                    ]
+                    [
+                        `Is the app available in different languages`,
+                        `Yes, the app can be operated using 4 languages. These 4 languages are English, Vietnamese, Hausa and Urdu. Please write to us at support@sorted.finance if you would like us to include the local language of your region. 
+`
                     ]
                 ]
             },
@@ -208,7 +213,8 @@ export default {
                     ],
                     [
                         `I forgot my PIN. What should I do?`,
-                        ``
+                        `You must contact us immediately at support@sorted.finance and share your wallet address. We will then contact our technology partner Venly, who will reset the PIN from their end and provide you with one time link including the pin. We are working on automating this process so please be understanding while we manually process your request.
+`
                     ],
                     [
                         `I have an issue / complaint / feedback. Who do I contact?`,
