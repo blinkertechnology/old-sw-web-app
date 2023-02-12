@@ -2,7 +2,7 @@
     <div>
         <kaiui-separator :title="$t('faq.title')" />
 
-        <kaiui-text :text="$t('faq.introduction')" />
+        <kaiui-text v-for="l, i in introduction.split('\n')" :text="l" :key="i" />
 
         <div v-for="block, index in blocks" :key="`block-${index}`">
             <kaiui-text :text="`${index + 1}. ${block.title}`" class="block-title" />
@@ -21,6 +21,7 @@ import i18n from '@/lang/setup';
 
 export default {
     data: () => ({
+        introduction: i18n.t('faq.introduction'),
         blocks: i18n.t('faq.blocks')
     }),
 }

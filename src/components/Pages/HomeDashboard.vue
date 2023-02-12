@@ -280,7 +280,7 @@ export default {
             tabindex: 0,
             display: 'block'
           })
-        }
+        },
       })
     },
     closeAd() {

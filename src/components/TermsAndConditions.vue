@@ -7,11 +7,13 @@
         <img src="/assets/loader.gif" />
       </div>
       <div v-else>
-        <kaiui-text 
-          v-for="(p, i) in body"
-          :key="i"
-          :text="p"
-        />
+        <div v-for="(p, i) in body" :key="i">
+          <kaiui-text 
+            v-for="(s, j) in p.split('\n').filter(x => x.length > 0)"
+            :key="j"
+            :text="s"
+          />
+        </div>
 
         <kaiui-checkbox 
           :primaryText="$t('tac.confirm.primary')" 

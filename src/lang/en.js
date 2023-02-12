@@ -117,26 +117,32 @@ export default {
 
     faq: {
         title: 'Sorted Wallet Knowledge Base',
-        introduction: 'We have put together some helpful information and tutorials that will allow you to use Sorted Wallet to its full potential. Please read through this knowledge base to find answers to your questions, and feel free to contact us if you still could not find what you were looking for! ',
+        introduction: `We have put together some helpful information and tutorials that will allow you to use Sorted Wallet to its full potential. 
+            Please read through this knowledge base to find answers to your questions, and feel free to contact us if you still could not find what you were looking for!`,
         blocks: [
             {
                 title: 'Getting Started',
                 body: [
                     [
                         `What is Sorted Wallet?`,
-                        `Sorted Wallet is the first digital asset wallet on KaiOS platform. With Sorted Wallet, users can store, send and receive digital assets instantly without having to own a high-end smartphone. Sorted Wallet is created to bring a digital asset wallet in the hands of individuals from emerging markets where not everyone can afford a smartphone.
+                        `Sorted Wallet is the first digital asset wallet on KaiOS platform.
+                        With Sorted Wallet, users can store, send and receive digital assets instantly without having to own a high-end smartphone. 
+                        Sorted Wallet is created to bring a digital asset wallet in the hands of individuals from emerging markets where not everyone can afford a smartphone.
                         You can download Sorted Wallet through the KaiStore on KaiOS devices or through its desktop version at wallet.sorted.finance`
                     ],
                     [
                         `How to register for Sorted Wallet?`,
-                        `Any user can register for Sorted Wallet using 2 ways, using their Email ID or their Phone Number. A user may register for Sorted Wallet either through their KaiOS device or through the desktop version.`
+                        `Any user can register for Sorted Wallet using 2 ways, using their Email ID or their Phone Number. 
+                        A user may register for Sorted Wallet either through their KaiOS device or through the desktop version.`
                     ],
                     [
                         `How to Register for Sorted Wallet on KaiOS devices:`,
                         `1. Download Sorted Wallet on your KaiOS device.
                         2. Open the Sorted Wallet app.
                         3. After agreeing to the Terms & Conditions, you will see 2 options of Login and Register. Click on Register.
-                        4. You will be prompted with 2 options: Email & Password and Phone Number. Choose the option you like and then fill in the required information. If you choose a Phone Number, you will be prompted to type in a one-time password.
+                        4. You will be prompted with 2 options: Email & Password and Phone Number. 
+                           Choose the option you like and then fill in the required information.
+                        If you choose a Phone Number, you will be prompted to type in a one-time password.
                         5. After the previous step, you will be asked to type in a numeric PIN (3 to 7 digits) which you must remember for all future transactions of your wallet.
                         6. After all steps have been completed, Woohoo, you have successfully registered for Sorted Wallet!
                         `
@@ -146,7 +152,9 @@ export default {
                         `1. Open wallet.sorted.finance
                         2. Click on “Don’t have an account? Sign up here”.
                         3. Fill in the required information. Choose a username, type your Email ID and set a password.
-                        4. You will be prompted with 2 options: Email & Password and Phone Number. Choose the option you like and then fill in the required information. If you choose a Phone Number, you will be prompted to type in a one-time password.
+                        4. You will be prompted with 2 options: Email & Password and Phone Number.
+                           Choose the option you like and then fill in the required information.
+                           If you choose a Phone Number, you will be prompted to type in a one-time password.
                         5. After the previous step, you will be asked to type in a numeric PIN (4 to 6 digits) which you must remember for all future transactions of your wallet.
                         6. After all steps have been completed, Woohoo, you have successfully registered for Sorted Wallet!
                         `
@@ -158,11 +166,13 @@ export default {
                     [
                         `How to send digital assets with Sorted Wallet?`,
                         `On your My Wallets page, click on either of your wallets and select Make Transaction. Once you are on the transaction page, either type in the wallet address or scan the QR code of the destination wallet address to automatically paste in the wallet address. 
-                        Once the wallet address is typed, type in the Amount and your PIN (the one you set up when registering for an account on Sorted Wallet). Now confirm all the details to ensure you are sending the right wallet address the right amount of digital assets, once confirmed, click Submit and the transaction will start processing immediately.`
+                        Once the wallet address is typed, type in the Amount and your PIN (the one you set up when registering for an account on Sorted Wallet). 
+                        Now confirm all the details to ensure you are sending the right wallet address the right amount of digital assets, once confirmed, click Submit and the transaction will start processing immediately.`
                     ],
                     [
                         `How to receive digital assets with Sorted Wallet?`,
-                        `On your My Wallets page, click on either of your wallets and select QR Code for people around you to scan your wallet address, or share the wallet address with either email or message to people who live far away from you. Ask them to copy the wallet address and use it to send digital assets to your wallet.`
+                        `On your My Wallets page, click on either of your wallets and select QR Code for people around you to scan your wallet address, or share the wallet address with either email or message to people who live far away from you. 
+                        Ask them to copy the wallet address and use it to send digital assets to your wallet.`
                     ],
                     [
                         `Why does Sorted Wallet have no seed phrase / recovery phrase?`,
@@ -172,11 +182,10 @@ export default {
                     [
                         `How do I keep my wallets safe?`,
                         `Sorted Wallet requires that you store your PIN in a safe place. It is the only way to interact with your wallet assets and to make transactions out of the Sorted Wallet. We recommend you to write it down. If you lose your PIN, it will be difficult for us to help you recover your wallet. We also encourage you to never share your PIN with anyone or any site, unless you want them to have full control over your funds.`
-                    ]
+                    ],
                     [
                         `Is the app available in different languages`,
-                        `Yes, the app can be operated using 4 languages. These 4 languages are English, Vietnamese, Hausa and Urdu. Please write to us at support@sorted.finance if you would like us to include the local language of your region. 
-`
+                        `Yes, the app can be operated using 4 languages. These 4 languages are English, Vietnamese, Hausa and Urdu. Please write to us at support@sorted.finance if you would like us to include the local language of your region. `
                     ]
                 ]
             },
@@ -186,12 +195,14 @@ export default {
                     [
                         `What is Bitcoin (BTC)?`,
                         `Bitcoin (BTC) is a cryptocurrency, a form of digital money that allows secure and seamless peer-to-peer transactions on the internet.
-                        It is the world’s first widely-adopted cryptocurrency. With Bitcoin, people can securely and directly send each other digital money on the internet.`
+                        It is the world’s first widely-adopted cryptocurrency. 
+                        With Bitcoin, people can securely and directly send each other digital money on the internet.`
                     ],
                     [
                         `What is MATIC?`,
                         `MATIC is a cryptocurrency developed by the company Polygon, which is a technology platform that enables blockchain networks to connect and scale.
-                        MATIC is an ERC-20 token, meaning that it is compatible with other Ethereum-based digital currencies. MATIC is used to govern and secure the Polygon network and to pay network transaction fees.`
+                        MATIC is an ERC-20 token, meaning that it is compatible with other Ethereum-based digital currencies.
+                        MATIC is used to govern and secure the Polygon network and to pay network transaction fees.`
                     ],
                     [
                         `What is USDC?`,
@@ -213,8 +224,8 @@ export default {
                     ],
                     [
                         `I forgot my PIN. What should I do?`,
-                        `You must contact us immediately at support@sorted.finance and share your wallet address. We will then contact our technology partner Venly, who will reset the PIN from their end and provide you with one time link including the pin. We are working on automating this process so please be understanding while we manually process your request.
-`
+                        `You must contact us immediately at support@sorted.finance and share your wallet address. 
+                        We will then contact our technology partner Venly, who will reset the PIN from their end and provide you with one time link including the pin. We are working on automating this process so please be understanding while we manually process your request.`
                     ],
                     [
                         `I have an issue / complaint / feedback. Who do I contact?`,
@@ -237,558 +248,648 @@ export default {
         },
 
         body: [
-            `(the “Website”) is a website operated by Sors Technology Limited (“SORS”). These Terms of Use will apply when you use our Website, the Account, the Wallet, the Platform or Service. Sors Technology Limited is a private company limited by shares incorporated in Hong Kong with Companies Registry number 3132391. Before proceeding, you must read and agree to these Terms of Use. If you do not agree to these Terms of Use, then you must not use our Website, the Account, the Wallet, the Platform or any Service. If however, you agree to and accept these Terms of Use, you will be given the opportunity to click on the ‘I acknowledge that I have read, understood and agreed to be bound by these Terms of Use’ button which appears at the end of this document, and you will then be able to use the Website, the Platform, the Account, the Wallet and Services under and subject to these Terms of Use. Cryptocurrencies are volatile. Carefully evaluate your goals and the financial risk you are willing to take before using our Service. SORS does not provide financial, tax or legal advice. Decisions to perform any transactions involving cryptocurrencies should be taken on your own. We recommend you seek advice and opinions of reliable and qualified experts in respect of transactions you undertake.
-            1.	Definitions 1.1	In these Terms of Use, the following capitalised terms have the meaning given to them in this paragraph 1.1: “Account” means the account opened with SORS by you to access your Wallet and to use our Services; “Confidential Information” means all information related to the Website, the Platform the Services and the business of SORS that is marked or treated as confidential or secret by SORS, or should reasonably be regarded as confidential or secret from the applicable context and circumstances; “Copyrighted Contents” means the Wallet, Website, the Platform, and the information and content available therein that are protected worldwide by copyright laws; “Cryptocurrencies” means digital representations of value which may be in the form of digital tokens (such as utility tokens, stablecoins, security tokens, or asset-backed tokens) or any other virtual commodities, crypto assets or other assets of essentially the same nature; “Intellectual Property Rights” means all intellectual property rights including patents, trademarks, design rights, copyrights, database rights, trade secrets, know-how and all rights of an equivalent nature. Login ID” means your screen name from registering with the Website or the Platform; “Password” means the password you selected upon registration with the Website or the Platform to access your Account and Services through the Platform or the Website, as updated from time to time; “Platform” means the device, mobile or tablet application, or other similar forms of digital platform, that grant access to an Account and a Wallet;“Prohibited Acts” means the acts set out in paragraph 5; “Restricted Locations” means the countries or jurisdictions subject to prohibitions or restrictions on accessing or using the Website, Platform and Services, as notified on our Website or to you from time to time;“Services” means one or more services of SORS;
-            <br>
-            “Terms of Use” means the terms of these Terms of Use;
-        
-            “Wallet” means a software programme which interacts with various supported blockchain networks to generate and manage sets of private keys and public keys, configure transactions and monitor their balance through the Platform;
-        
-            “Website” means [insert], operated and controlled by SORS, and any updated, upgraded or successor websites operated and controlled by SORS. 1.2	Section headings in these Terms of Use are for convenience only and shall not govern the meaning or interpretation of any provision of these Terms of Use.  
-            1.3	In these Terms of Use, the words importing the singular shall include the plural and vice versa unless the context under these Terms of Use clearly indicates the contrary.`,
-
-            `2.Acceptance
-
-            2.1	You represent and warrant that:
-        
-            (a)	(if you are an individual) you are 18 years or older; 
-        
-            (b)	(if you are a corporation) you are duly incorporated and organised, and validly existing, under the applicable laws of the jurisdiction of your organisation, and any person performing any act in relation to your Account, the Wallet or our Services under these Terms of Use is duly authorised by such legal entity to act on its behalf;
-        
-            (c)	you have the authority to enter into a legally binding contract with SORS; 
-        
-            (d)	you are not barred under any applicable laws or contracts from entering into a legally binding contract with SORS or to use our Services; 
-        
-            (e)	all information and details you provide to us are true, current, complete and not misleading;
-        
-            (f)	you are not a resident, or a tax resident of, and do not otherwise have any relevant connection with, any Restricted Locations;
-        
-            (g)	you are not located in, under the control of, or a national, citizen or resident of any Restrict Locations; 
-        
-            (h)	you do not intend to transfer or provide Cryptocurrencies to, or receive Cryptocurrencies from, anyone in any Restricted Locations or any person that is on any of the sanctions lists published and maintained by the United Nations, European Union, any EU country, UK Treasury or US Office of Foreign Assets Control; and
-        
-            (i)	you are not on any of the sanctions lists published and maintained by the United Nations, European Union, any EU country, UK Treasury or US Office of Foreign Assets Control.`,
-
-            `2.2	SORS reserves the right to request written confirmation, or to seek additional documents or information, regarding your authority to agree to these Terms of Use.`,
-            `2.3	SORS reserves the right to refuse access to any users to our Website or the Services if SORS, in its absolute discretion, deems such refusal necessary.`,
-            `2.4	You represent and warrant that neither you nor anyone authorised by you:
-
-            (a)	have been convicted for any computer or internet related crime;
-          
-            (b)	are located in a region that is prohibited from using the Services by law; and 
-          
-            (c)	have been refused Services by SORS in the past.`,
-            `2.5	Your application to create an Account and a Wallet constitutes:
-
-            (a)	your representation and warranty that you have read these Terms of Use carefully and in their entirety;
-          
-            (b)	your acceptance of these Terms of Use; and 
-          
-            (c)	your undertaking to us to comply with them.`,
-            `2.6	If you do not agree to these Terms of Use, you must not use the Website or our Services.`,
-            `2.7	You must expressly agree to these Terms of Use to:
+			`Terms of Use
 
-            (a)	register your details with our Website or through the Platform;
-          
-            (b)	create an Account and a Wallet;
-          
-            (c)	submit information to or via our Website or the Platform; 
-          
-            (d)	access your Wallet through the Platform; or
-          
-            (e)	use our Services.`,
-            `By visiting our Website, creating an Account and a Wallet, accessing the Platform, using our Services or agreeing to these Terms of Use:
+		Important Notice
 
-            (a)	you also agree and consent to our Privacy Policy. Our Privacy Policy can be reviewed`,
-            `(b)	you consent and agree to comply with our Acceptable Use policy (see paragraph 5 below for further details).`,
-            `2.9	We recommend you print a copy of these Terms of Use for future reference.
 
-            3.	Registration
-          
-            3.1	As a condition to using our Services, you will be required to:
-          
-            (a)	register with SORS and create an Account and a Wallet;
-          
-            (b)	select a password (“Password”); and 
-          
-            (c)	select an email address as your log-in ID (“Login ID”). `,
-            `3.2	You will provide SORS with accurate, complete, and updated registration information and documents. Failure to do so constitutes a breach of these Terms of Use, which may result in immediate termination of your Account. You agree to indemnify SORS, our associated companies, and any third-party service providers from and against any and all losses and damages incurred as a result of your failure to provide accurate, complete and updated information to SORS. If we believe documents you have provided us are not current, accurate, authentic, true, or complete, or are misleading, or have been tampered with, or those documents otherwise fail our compliance and security standards for any reason, we may cease all steps to register your details, approve an Account, provide access to our Services, create a Wallet for you, or otherwise engage with you. We will not be required to provide you with any comment or feedback in these circumstances.`,
-            `3.3	We may request information and details about you as we consider necessary or appropriate. This may include your name, password, e-mail address, postal address, telephone number, ID number, birthdate, taxpayer identification number, personal bank or card account details. You will provide information and details to us promptly when requested by us, and as prompted by our registration and verification process or as prompted at any time following creation of an Account.  You will promptly update any information or details you provide to us so your information and details with us are complete and accurate at all times.`,
-            `3.4	We may verify your details, at any time, by requesting certain documents and information from you. These may include constitution documents and copies of business registrations or registers in respect of business entities, and government issued passport or identification document of individuals.`,
-            `3.5	We may perform further background checks or conduct other inquiries on you conducted by any third party whom we select and appoint. We may take all actions we consider appropriate or necessary arising from those checks and inquiries, and we will not be required to provide you comment or feedback on them. You authorise us to conduct background checks and conduct inquiries in respect of you, and to disclose your personal data and other documents and information to third party service providers in respect of those background checks and inquiries.`,
-            `3.6	You must not:
+		This KaiOs Application and https://wallet.sorted.finance/ (the “Website”) is a website operated by Sors Technology Limited (“SORS”). These Terms of Use will apply when you use our Website, the Account, the Wallet, the Platform or Service.
 
-  (a)	select or use an Account or a Wallet of another person with the intent to impersonate that person; 
 
-  (b)	use an Account or a Wallet subject to any rights of a person other than you without appropriate authorisation; or 
+		Sors Technology Limited is a private company limited by shares incorporated in Hong Kong with Companies Registry number 3132391.
 
-  (c)	use as a Login ID words that are otherwise offensive, vulgar or obscene.
 
-  3.7	SORS reserves the right to refuse registration of, suspend access to, or cancel an Account or a Wallet in its sole discretion. `,
-            `3.8	(a)	You are solely responsible for activity that occurs in your Account or Wallet.
+		Before proceeding, you must read and agree to these Terms of Use. If you do not agree to these Terms of Use, then you must not use our Website, the Account, the Wallet, the Platform or any Service. If however, you agree to and accept these Terms of Use, you will be given the opportunity to click on the ‘I acknowledge that I have read, understood and agreed to be bound by these Terms of Use’ button which appears at the end of this document, and you will then be able to use the Website, the Platform, the Account, the Wallet and Services under and subject to these Terms of Use.
 
-  (b)	You must never use another person’s Account or Wallet.
 
-  (c)	You may not create or use an Account or a Wallet in any manner that is not authorised or approved by us. 
+		Cryptocurrencies are volatile. Carefully evaluate your goals and the financial risk you are willing to take before using our Service. SORS does not provide financial, tax or legal advice. Decisions to perform any transactions involving cryptocurrencies should be taken on your own. We recommend you seek advice and opinions of reliable and qualified experts in respect of transactions you undertake.
 
-  (d)	You may not assist others to create or use an Account or a Wallet in an unauthorised manner. 
 
-  (e)	You must not distribute instructions, software or tools for the purpose creating or using an Account or Wallet in an unauthorised manner.
 
-  (f)	Any Account created or used in an unauthorized manner will result in the immediate suspension or termination of the Account.`,
-            `4.	Security
+		1.	Definitions
 
-  4.1	We may provide you with security alerts from time to time. We will not in any manner be held responsible for any damages or losses arising from or in connection with your failure to properly and fully follow or act upon any security alerts we send you. 
+		1.1	In these Terms of Use, the following capitalised terms have the meaning given to them in this paragraph 1.1:
 
-  4.2	(a)	If you choose, or you are provided with, a Login ID or Password or any other piece of information as part of our security procedures, you must treat that information as confidential. You must not disclose it to any third party. 
+		“Account” means the account opened with SORS by you to access your Wallet and to use our Services;
 
-  (b)	We have no obligation to maintain your Login ID and Password. We will assist you in retrieving your Login ID and Password if you misplace, forget or lose that information but we cannot guarantee the retrieval will be successful.`,
-            `4.3	We have the right to disable, temporarily suspend or refuse any access to any Account or Wallet at any time (including to block your internet protocol address for internet access to the Platform), if we believe you have failed to comply with any of the provisions of these Terms of Use.`,
+		“Confidential Information” means all information related to the Website, the Platform the Services and the business of SORS that is marked or treated as confidential or secret by SORS, or should reasonably be regarded as confidential or secret from the applicable context and circumstances;
 
-            `4.4	You must promptly notify us at [email address] if you know or suspect that anyone other than you knows your Login ID and Password, or if you become aware of any unauthorised use of your Account or Wallet or any other security breach.`,
+		“Copyrighted Contents” means the Wallet, Website, the Platform, and the information and content available therein that are protected worldwide by copyright laws;
 
-            `4.5	You are responsible for any activity on our Website, the Platform or in respect of Services arising out of any failure to keep your Account, Login ID or Password confidential, and may be held liable for any losses arising out of such failure. Any compromise of your Login ID and Password may expose your Account and Wallet to unauthorised access by third parties, which may result in loss or theft of Cryptocurrencies in your Wallet. SORS has no obligation to maintain your Account, Login ID or Password. SORS will not be responsible or liable if you misplace, forget or lose your Account name or password.`,
+		“Cryptocurrencies” means digital representations of value which may be in the form of digital tokens (such as utility tokens, stablecoins, security tokens, or asset-backed tokens) or any other virtual commodities, crypto assets or other assets of essentially the same nature;
 
-            `4.6	You are also responsible for ensuring that all persons who access our Website, the Platform, your Account (through your Login ID and Password) or our Services are aware of these Terms of Use and other applicable terms and conditions, and that they comply with them.  If you (or any person accessing our Website, the Platform, the Wallet or Services through your Account) are in breach, or suspected to be in breach, of these Terms of Use, we may disable, delete, suspend or cancel your Account or Wallet, or block your access to the Account through an internet protocol block.`,
-            `4.8	You must not use methods to conceal the location, or the internet protocol address, from which you access the Website, and you must disclose to SORS your accurate and true location when accessing the Website and using our Services.`,
-            `5.Acceptable use
+		“Intellectual Property Rights” means all intellectual property rights including patents, trademarks, design rights, copyrights, database rights, trade secrets, know-how and all rights of an equivalent nature.
 
-  5.1	You must not (“Prohibited Acts”): 
+		“Login ID” means your screen name from registering with the Website or the Platform;
 
-  (a)	use our Website, our Services, your Account, your Wallet, or the Platform in any way or take any action that causes, or may cause, damage to the Website, our Services, your Account, your Wallet, or the Platform or impairment of the performance, availability or accessibility of the Website, our Services, your Wallet, or the Platform;
+		“Password” means the password you selected upon registration with the Website or the Platform to access your Account and Services through the Platform or the Website, as updated from time to time;
 
-  (b)	use our Website, our Services, your Account, your Wallet, or the Platform in any way that is unlawful, illegal, fraudulent or harmful, or in connection with any unlawful, illegal, fraudulent or harmful purpose or activity;
+		“Platform” means the device, mobile or tablet application, or other similar forms of digital platform, that grant access to an Account and a Wallet;
 
-  (c)	use the Website, our Services, your Account, your Wallet, or the Platform to copy, store, host, transmit, send, use, publish or distribute any material which consists of (or is linked to) any spyware, computer virus, Trojan horse, worm, keystroke logger, rootkit or other malicious computer software;
+		“Privacy Policy” means the privacy policy from time to time of SORS, which may be viewed here.
 
-  (d)	conduct any systematic or automated data collection activities (including scraping, data mining, data extraction, or data harvesting) on or in relation to the Website, our Services, your Account, your Wallet, or the Platform without our express written consent;
+		“Prohibited Acts” means the acts set out in paragraph 5;
 
-  (e)	access or otherwise interact with the Website, our Services, your Account, your Wallet, or the Platform using any robot, spider or other automated means;
+		“Restricted Locations” means the countries or jurisdictions subject to prohibitions or restrictions on accessing or using the Website, Platform and Services, as notified on our Website or to you from time to time;
 
-  (f)	copy, redistribute, publish, reverse engineer, decompile, disassemble, modify, translate or in any manner make any attempt to access the source code (whether to create derivative works of the source code, or otherwise);
+		“Services” means one or more services of SORS;
 
-  (g)	sell, assign, sublicence, transfer, distribute or lease your access to the Website;
+		“Terms of Use” means the terms of these Terms of Use;
 
-  (h)	violate the directives set out in the robots.txt file for the Website, our Services, your Account, your Wallet, or the Platform;
+		“Wallet” means a software programme which interacts with various supported blockchain networks to generate and manage sets of private keys and public keys, configure transactions and monitor their balance through the Platform;
 
-  (i)	use data collected from the Website, our Services, your Account, your Wallet, or the Platform for any direct marketing activity (including email marketing, SMS marketing, telemarketing or direct mailing); `,
-            `(j)	use data collected from the Website, our Services, your Account, your Wallet, or the Platform to contact individuals, companies or other persons or entities;`,
-            `(k)	make the Website available to any third party through a private computer network;
+		“Website” means https://wallet.sorted.finance/ operated and controlled by SORS, and any updated, upgraded or successor websites operated and controlled by SORS.
 
-  (l)	edit or otherwise modify any content or paper or digital copies of any materials printed off or copied from our Website in any way; 
+		1.2	Section headings in these Terms of Use are for convenience only and shall not govern the meaning or interpretation of any provision of these Terms of Use.
+		1.3	In these Terms of Use, the words importing the singular shall include the plural and vice versa unless the context under these Terms of Use clearly indicates the contrary.
+		2.	Acceptance
 
-  (m)	use the Website, our Services, your Account, your Wallet, or the Platform in a manner prohibited by any laws or regulations which apply to the use of the Website, our Services, your Account, your Wallet, or the Platform;`,
-            `(n)	transmit any material that is unlawful, disruptive, threatening, profane, abusive, harassing, embarrassing, tortuous, defamatory, obscene, libelous, is hateful or racially or ethnically offensive; 
+		2.1	You represent and warrant that:
 
-  (o)	directly or indirectly, decompile, disassemble, reverse engineer or otherwise attempt to derive the structure of the Services, the Platform or your Account, your Wallet, or the source code from the Services, the Platform or your Account, your Wallet; and
+		(a)	(if you are an individual) you are 18 years or older;
 
-  (p)	use or access the Website, our Services, your Account, your Wallet, or the Platform in order to build a similar or competitive product or service or disclose to any third party any benchmarking or comparative study involving the Services.`,
-            `5.2	You must ensure that all the information you supply to us:
+		(b)	(if you are a corporation) you are duly incorporated and organised, and validly existing, under the applicable laws of the jurisdiction of your organisation, and any person performing any act in relation to your Account, the Wallet or our Services under these Terms of Use is duly authorised by such legal entity to act on its behalf;
 
-  (a)	is true, accurate, current and complete, and is not misleading;
+		(c)	you have the authority to enter into a legally binding contract with SORS;
 
-  (b)	complies with all applicable laws and regulations;
+		(d)	you are not barred under any applicable laws or contracts from entering into a legally binding contract with SORS or to use our Services;
 
-  (c)	does not infringe the privacy, personal data protection, confidentiality or intellectual property rights or other rights of any person; and
+		(e)	all information and details you provide to us are true, current, complete and not misleading;
 
-  (d)	is not offensive, abusive, pornographic, defamatory, unreliable, misleading, illegal or otherwise objectionable.`,
-            `5.3	Please e-mail us at [email address] with details if you learn of any material or activity on our Website or in respect of our Services that breaches these Terms of Use or of any Prohibited Acts. You will provide SORS with any reasonable assistance in relation to any investigation that SORS may conduct as a result of the information provided by you in this respect.
+		(f)	you are not a resident, or a tax resident of, and do not otherwise have any relevant connection with, any Restricted Locations;
 
-  6.	Wallet and the Platform
+		(g)	you are not located in, under the control of, or a national, citizen or resident of any Restrict Locations;
 
-  6.1	The Wallet, Website, the Platform, and the information and content available therein are protected worldwide by copyright laws (“Copyrighted Content”). Subject to the terms of these Terms of Use, SORS grants you a limited licence to reproduce portions of Copyrighted Content to access the Account, the Wallet and the Platform, and use our Services for your personal or internal business purposes. 
+		(h)	you do not intend to transfer or provide Cryptocurrencies to, or receive Cryptocurrencies from, anyone in any Restricted Locations or any person that is on any of the sanctions lists published and maintained by the United Nations, European Union, any EU country, UK Treasury or US Office of Foreign Assets Control; and
 
-  6.2	Upon being successfully registered with SORS, you will be granted access to your Wallet through the Platform, which enables you to:
+		(i)	you are not on any of the sanctions lists published and maintained by the United Nations, European Union, any EU country, UK Treasury or US Office of Foreign Assets Control.
 
-  (a)	access the means to perform operations on various blockchain networks in accordance with their respective protocol rules, including to store, receive, track and transfer certain supported Cryptocurrencies in your Wallet to another wallet;
+		2.2	SORS reserves the right to request written confirmation, or to seek additional documents or information, regarding your authority to agree to these Terms of Use.
 
-  (b)	view the balance of Cryptocurrencies in your Wallet; and
+		2.3	SORS reserves the right to refuse access to any users to our Website or the Services if SORS, in its absolute discretion, deems such refusal necessary.
 
-  (c)	[connect with third party services (subject to whether the third party services are supported by SORS), access services such as the delegation of staking rights on supported proof-of-stake blockchains or purchasing Cryptocurrencies].
-  Subject to these Terms of Use, SORS grants you a non-assignable, non-transferable, non-sublicensable, revocable, and non-exclusive licence and right to use the Platform for your personal or internal business purposes.`,
+		2.4	You represent and warrant that neither you nor anyone authorised by you:
 
-            `6.3	The Platform is locally installed, or the Website will be accessible from your own local device. You are responsible for the security of your device on which the Platform is installed, or the Website is accessed, including ensuring that you keep anti-virus software current and otherwise protect the device against malware. SORS is not responsible for any loss or damages (including loss of Cryptocurrencies) resulting from your failure to keep the device safe and free of any malware. 
+		(a)	have been convicted for any computer or internet related crime;
 
-  6.4	You may be required to accept or install updates to the Platform, or update third-party software (such as browsers or operating systems), in order to access the Wallet or our Services, or access their latest features, including security updates. SORS may update the Platform and Services at any time, without providing notice.
+		(b)	are located in a region that is prohibited from using the Services by law; and
 
-  6.5	By accessing the Account and using your Wallet through the Platform, you agree not to:
+		(c)	have been refused Services by SORS in the past.
 
-  (a)	licence, sell, rent, lease, transfer, assign, reproduce, distribute, host or otherwise commercially exploit our Services or the Copyrighted Content, or any portion thereof;
+		2.5	Your application to create an Account and a Wallet constitutes:
 
-  (b)	frame or enclose any trademark, logo or other Copyrighted Content (including images, text, page layout or form);
+		(a)	your representation and warranty that you have read these Terms of Use carefully and in their entirety;
 
-  (c)	copy, reproduce, distribute, republish, download, display, post or transmit any Copyrighted Content except as expressly permitted herein; and 
+		(b)	your acceptance of these Terms of Use; and
 
-  (d)	remove or destroy any copyright notices or other proprietary markings contained on or in the Services or the Copyrighted Content.`,
-            `6.6	SORS does not guarantee the correct functioning of the Platform in the event of the installation or use of programs or applications that do not conform to Platform specifications and technical standards.  
+		(c)	your undertaking to us to comply with them.
 
-  6.7	SORS does not guarantee that the Website and Platform will always be available or be uninterrupted. SORS may stop, suspend or withdraw or restrict the availability of all or any part of our Website or the Platform for business or operational reasons, including:
+		2.6	If you do not agree to these Terms of Use, you must not use the Website or our Services.
 
-  (a)	compliance with the terms of any third party contract; 
+		2.7	You must expressly agree to these Terms of Use to:
 
-  (b)	continued provision of the Website or the Platform are illegal or contrary to any law, regulation, guideline or request of any regulatory authority; or 
+		(a)	register your details with our Website or through the Platform;
 
-  (c)	a claim or potential claim that continued provision of the Website or the Platform infringes or violates the rights of any third party.
+		(b)	create an Account and a Wallet;
 
-  SORS will use reasonable endeavours to give you reasonable notice of any suspension or withdrawal to the extent that circumstances or applicable laws permit.  You will not be entitled to any compensation or other payment upon the discontinuance, suspension, withdrawal or alteration of the Website or the Platform.`,
-            `6.8	SORS may make obsolete a prior version of the Website and Platform at any time. 
+		(c)	submit information to or via our Website or the Platform;
 
-  6.9	SORS will not have any obligation to provide any support to any prior version of the Website and Platform after they are made obsolete.
+		(d)	access your Wallet through the Platform; or
 
-  7.	Cryptocurrencies and blockchain`,
+		(e)	use our Services.
 
-            `7.1	The Cryptocurrencies that you store in the Wallet may be subject to other terms and conditions that may be imposed by third parties. These third party terms may govern your use, storage and transfer of your Cryptocurrencies. It is your responsibility to understand applicable third party terms and conditions, and whether your use, storage and transfer of your Cryptocurrencies complies with such other terms and conditions or third party terms.
+		2.8	By visiting our Website, creating an Account and a Wallet, accessing the Platform, using our Services or agreeing to these Terms of Use:
 
-  7.2	Only certain Cryptocurrencies are supported by our Services. SORS may update the supported Cryptocurrencies from time to time, and will announce such update on the Website and the Platform. SORS will not be responsible to ensure you are informed of the update. You are responsible to keep yourself informed. SORS will not be liable for any losses if you transfer unsupported Cryptocurrencies into the Wallet.`,
-            `7.3	You represent and warrant that:
+		(a)	you also agree and consent to our Privacy Policy. Our Privacy Policy can be reviewed here; and
 
-  (a)	 you have the necessary right to use, store, receive, share, display and transfer your Cryptocurrencies, and such use, storage, sharing, displaying, receiving and transferring of your Cryptocurrencies will not infringe the rights of any third party or breach any applicable law; 
+		(b)	you consent and agree to comply with our Acceptable Use policy (see paragraph 5 below for further details).
 
-  (b)	you have sufficient knowledge and experience in blockchain technology, and sufficient prior experience in buying, selling, storying and holding Cryptocurrencies; and
+		2.9	We recommend you print a copy of these Terms of Use for future reference.
 
-  (c)	you have consulted or have been given the time and opportunity to consult your own legal, financial and tax advisors in respect of your use of your Account, Wallet, our Services and in respect of any transactions involving Cryptocurrencies.`,
+		3.	Registration
 
-            `7.4	When transferring your Cryptocurrencies from your Wallet, you are responsible for checking and confirming that the recipient wallet address or public key information:
+		3.1	As a condition to using our Services, you will be required to:
 
-  (a)	supports the storage of your Cryptocurrencies; 
+		(a)	register with SORS and create an Account and a Wallet;
 
-  (b)	is valid and is compatible with the applicable token standard; and 
+		(b)	select a password (“Password”); and
 
-  (c)	is correct. 
+		(c)	select an email address as your log-in ID (“Login ID”).
 
-  SORS is not liable for any losses of your Cryptocurrencies and will not assist you in retrieving such lost Cryptocurrencies if you fail to do so. 
+		3.2	You will provide SORS with accurate, complete, and updated registration information and documents. Failure to do so constitutes a breach of these Terms of Use, which may result in immediate termination of your Account. You agree to indemnify SORS, our associated companies, and any third-party service providers from and against any and all losses and damages incurred as a result of your failure to provide accurate, complete and updated information to SORS. If we believe documents you have provided us are not current, accurate, authentic, true, or complete, or are misleading, or have been tampered with, or those documents otherwise fail our compliance and security standards for any reason, we may cease all steps to register your details, approve an Account, provide access to our Services, create a Wallet for you, or otherwise engage with you. We will not be required to provide you with any comment or feedback in these circumstances.
 
-  8.	Services
+		3.3	We may request information and details about you as we consider necessary or appropriate. This may include your name, password, e-mail address, postal address, telephone number, ID number, birthdate, taxpayer identification number, personal bank or card account details. You will provide information and details to us promptly when requested by us, and as prompted by our registration and verification process or as prompted at any time following creation of an Account.  You will promptly update any information or details you provide to us so your information and details with us are complete and accurate at all times.
 
-  8.1	SORS’s Services allow you to:
+		3.4	We may verify your details, at any time, by requesting certain documents and information from you. These may include constitution documents and copies of business registrations or registers in respect of business entities, and government issued passports or identification documents of individuals.
 
-  (a)	manage, change and retrieve your Login ID and Password;
+		3.5	We may perform further background checks or conduct other inquiries on you conducted by any third party whom we select and appoint. We may take all actions we consider appropriate or necessary arising from those checks and inquiries, and we will not be required to provide you comment or feedback on them. You authorise us to conduct background checks and conduct inquiries in respect of you, and to disclose your personal data and other documents and information to third party service providers in respect of those background checks and inquiries.
 
-  (b)	view and access your transaction history;
+		3.6	You must not:
 
-  (c)	[other].
+		(a)	select or use an Account or a Wallet of another person with the intent to impersonate that person;
 
-  8.2	Notwithstanding the above, you are responsible to:
+		(b)	use an Account or a Wallet subject to any rights of a person other than you without appropriate authorisation; or
 
-  (a)	create and remember a strong Password that you do not use for any other service;
+		(c)	use as a Login ID words that are otherwise offensive, vulgar or obscene.
 
-  (b)	[protect and keep your recovery information secure and confidential]; and
+		3.7	SORS reserves the right to refuse registration of, suspend access to, or cancel an Account or a Wallet in its sole discretion.
 
-  (c)	protect access to your Wallet.`,
+		3.8	(a)	You are solely responsible for activity that occurs in your Account or Wallet.
 
-            `8.3	We may change, update or suspend the Services, temporarily or indefinitely, so as to carry out work (including firmware and software updates), maintenance operations, amendments to the servers and bug fixes.  SORS will use reasonable efforts to give you prior notice of any significant disruption of the Services but will not be liable for any such disruption.
+		(b)	You must never use another person’s Account or Wallet.
 
-  8.4	SORS does not guarantee the correct functioning of the Services in the event of the installation or use of programs or applications that do not conform to Service specifications and technical standards. 
+		(c)	You may not create or use an Account or a Wallet in any manner that is not authorised or approved by us.
 
-  8.5	SORS may make obsolete any Service as a whole at any time.
+		(d)	You may not assist others to create or use an Account or a Wallet in an unauthorised manner.
 
-  9.	Risk`,
+		(e)	You must not distribute instructions, software or tools for the purpose of creating or using an Account or Wallet in an unauthorised manner.
 
-            `9.1	You should educate yourself in respect of all the legal norms and technical constraints relating to the proof-of-stake and proof-of-work blockchains, or other cryptographic proof concepts. 
+		(f)	Any Account created or used in an unauthorized manner will result in the immediate suspension or termination of the Account.
 
-  9.2	You acknowledge that you have been informed of the following associated risks:
+		4.	Security
 
-  (a)	Regulatory changes. Blockchain technologies are subject to continuous regulatory changes and scrutiny globally. This includes anti-money laundering and financial regulations. Our Services, or any portion of our Services, could be impacted by one or more changing regulatory requirements.
+		4.1	We may provide you with security alerts from time to time. We will not in any manner be held responsible for any damages or losses arising from or in connection with your failure to properly and fully follow or act upon any security alerts we send you.
 
-  (b)	Tax. Transactions in Cryptocurrencies or other general Cryptocurrencies events (including exchanges, air-drops, forkings and gains arising from staking) may be considered tax events according to legislation under which you are subject to taxation. You should consult your own tax or accounting advisor in relation to these transactions or events.
+		4.2	(a)	If you choose, or you are provided with, a Login ID or Password or any other piece of information as part of our security procedures, you must treat that information as confidential. You must not disclose it to any third party.
 
-  (c)	Technology. Some of the technology supported or made available by SORS is new, untested and outside SORS’s control. Advances in cryptography, or other technical advances such as the development of quantum computers, could present risks to blockchain networks which could result in the theft or loss of Cryptocurrencies. Other adverse changes in the market forces or in the technology may prevent or compromise SORS’s performance under these Terms of Use.
+		(b)	We have no obligation to maintain your Login ID and Password. We will assist you in retrieving your Login ID and Password if you misplace, forget or lose that information but we cannot guarantee the retrieval will be successful.
 
-  (d)	Cybersecurity. Hackers or other groups or organisations may attempt to interfere with SORS’s products and information systems in several ways. This may include denial of service attacks, side-channel attacks, spoofing, smurfing, malware attacks, or consensus-based attacks.
+		4.3	We have the right to disable, temporarily suspend or refuse any access to any Account or Wallet at any time (including to block your internet protocol address for internet access to the Platform), if we believe you have failed to comply with any of the provisions of these Terms of Use.
 
-  (e)	Volatility. Prices of Cryptocurrencies are volatile and can fluctuate significantly in short periods of time, including a single day. There may be large or sudden shifts in value or Cryptocurrencies that may make any Cryptocurrencies to become worthless. There may be significant risk in acquiring or holding Cryptocurrencies.
+		4.4	You must promptly notify us at support@sorted.finance if you know or suspect that anyone other than you knows your Login ID and Password, or if you become aware of any unauthorised use of your Account or Wallet or any other security breach.
 
-  9.3	Notwithstanding the generality of the limitation under these Terms of Use, SORS is not liable for any loss that incurs as a consequence of the risks highlighted in this section.
+		4.5	You are responsible for any activity on our Website, the Platform or in respect of Services arising out of any failure to keep your Account, Login ID or Password confidential, and may be held liable for any losses arising out of such failure. Any compromise of your Login ID and Password may expose your Account and Wallet to unauthorised access by third parties, which may result in loss or theft of Cryptocurrencies in your Wallet. SORS has no obligation to maintain your Account, Login ID or Password. SORS will not be responsible or liable if you misplace, forget or lose your Account name or password.
 
-  10.	Website linkage
+		4.6	You are also responsible for ensuring that all persons who access our Website, the Platform, your Account (through your Login ID and Password) or our Services are aware of these Terms of Use and other applicable terms and conditions, and that they comply with them.  If you (or any person accessing our Website, the Platform, the Wallet or Services through your Account) are in breach, or suspected to be in breach, of these Terms of Use, we may disable, delete, suspend or cancel your Account or Wallet, or block your access to the Account through an internet protocol block.
 
-  10.1	Links from our Website, or the Platform, to other websites and resources provided by third parties are provided for your information only. Links to other websites and resources from our Website or the Platform should not be interpreted as, and are not, recommendations or approval by us of those linked websites or resources, or any information you obtain from them.
+		4.7	You must not sell, trade, assign or otherwise transfer your Account or Wallet to any other person.
 
-  10.2	You acknowledge and accept that we have no right or control over the contents of other websites and resources that are linked from or referred to in our Website or the Platform.
+		4.8	You must not use methods to conceal the location, or the internet protocol address, from which you access the Website, and you must disclose to SORS your accurate and true location when accessing the Website and using our Services.
 
-  10.3	You may link to the Website or Platform, provided you do so in a way that is fair and legal and does not damage our reputation or take advantage of it.
+		5.	Acceptable use
 
-  10.4	You must not establish a link in such a way as to suggest any form of association, approval or endorsement on our part where none exists.
+		5.1	You must not (“Prohibited Acts”):
 
-  10.5	You must not establish a link to our Website or Platform on any website that is not owned by you.
+		(a)	use our Website, our Services, your Account, your Wallet, or the Platform in any way or take any action that causes, or may cause, damage to the Website, our Services, your Account, your Wallet, or the Platform or impairment of the performance, availability or accessibility of the Website, our Services, your Wallet, or the Platform;
 
-  10.6	Our Website must not be framed on any other website, nor may you create a link to any part of our Website other than the home page.
+		(b)	use our Website, our Services, your Account, your Wallet, or the Platform in any way that is unlawful, illegal, fraudulent or harmful, or in connection with any unlawful, illegal, fraudulent or harmful purpose or activity;
 
-  10.7	We reserve the right to withdraw linking permission without notice.
+		(c)	use the Website, our Services, your Account, your Wallet, or the Platform to copy, store, host, transmit, send, use, publish or distribute any material which consists of (or is linked to) any spyware, computer virus, Trojan horse, worm, keystroke logger, rootkit or other malicious computer software;
 
-  10.8	The website in which you are linking must comply in all respects with the content standards set out in our Acceptable Use policy (see paragraph 5 above).
+		(d)	conduct any systematic or automated data collection activities (including scraping, data mining, data extraction, or data harvesting) on or in relation to the Website, our Services, your Account, your Wallet, or the Platform without our express written consent;
 
-  10.9	Please contact [email address] to seek our prior permission to any linkage to our Website that does not comply with this paragraph 10.
+		(e)	access or otherwise interact with the Website, our Services, your Account, your Wallet, or the Platform using any robot, spider or other automated means;
 
-  11.	Intellectual Property Rights
+		(f)	copy, redistribute, publish, reverse engineer, decompile, disassemble, modify, translate or in any manner make any attempt to access the source code (whether to create derivative works of the source code, or otherwise);
 
-  11.1	SORS owns, or is the authorised licensee of, all rights, title and interest in the Website, the Platform, and technology deployed in the Wallet, including any software (in source and object forms), algorithms, user interface designs, architecture, Intellectual Property Right, and documentation (both printed and electronic). You shall not use any Intellectual Property Rights in respect of the Website, the Platform, the Wallet or our Services, except in accordance with these Terms of Use or having first obtained the prior written consent of SORS or such other third parties. All Intellectual Property Rights are reserved.
+		(g)	sell, assign, sublicence, transfer, distribute or lease your access to the Website;
 
-  11.2	Unless otherwise expressly provided, we do not own the Intellectual Property Rights provided by third parties. We make no representation, warranty or guarantee in respect of such Intellectual Property Rights, including whether any distribution or use of content or materials infringes the Intellectual Property Rights of another person. SORS has not examined or verified any third party Intellectual Property Rights.  
+		(h)	violate the directives set out in the robots.txt file for the Website, our Services, your Account, your Wallet, or the Platform;
 
-  11.3	You must notify SORS promptly if you suspect or become aware of any misuse of the Website and the Platform (or any other Service) or any violation, infringement or misappropriation of Intellectual Property Rights by any other users or other third party.
+		(i)	use data collected from the Website, our Services, your Account, your Wallet, or the Platform for any direct marketing activity (including email marketing, SMS marketing, telemarketing or direct mailing);
 
-  11.4	You must not edit or otherwise modify any material on our Website.
-  11.5	If you print off or copy any part of our Website in breach of these Terms of Use, your right to use our Website will cease immediately.  You must, immediately upon our request, return or destroy any copies of the materials you have made.
+		(j)	use data collected from the Website, our Services, your Account, your Wallet, or the Platform to contact individuals, companies or other persons or entities;
 
-  11.6	We reserve the right to restrict access to areas of our Website, or our whole Website, at our discretion. You must not circumvent or bypass, or attempt to circumvent or bypass, any access restriction measures on our Website.`,
-            `12.1	Our Privacy Policy can be reviewed here [link] [TDW Note: Please insert] and forms part of these Terms of Use on which you may access and use our Website, the Platform and our Service.
+		(k)	make the Website available to any third party through a private computer network;
 
-  12.2	You agree that SORS may collect and use personal data which you provide when registering on the Website or through the Platform. The use of personal data collected by us will be limited to granting you access to the Platform, the Website and our Services. You agree we can share your personal data with any external service provider, agents, advisors and consultants for the purpose of creating your Account, Wallet and granting you access to the Platform, the Website and our Services.`,
+		(l)	edit or otherwise modify any content or paper or digital copies of any materials printed off or copied from our Website in any way;
 
-            `12.3	We use cookies on our Website. We also use cookies to track the way you prefer to view our Website. By accepting these Terms of Use you also give consent to our use of cookies for this purpose. More information about cookies is contained in our Privacy Policy. 
+		(m)	use the Website, our Services, your Account, your Wallet, or the Platform in a manner prohibited by any laws or regulations which apply to the use of the Website, our Services, your Account, your Wallet, or the Platform;
 
-  12.4	If you provide us with your personal data, we will process that personal data in accordance with your instructions from time to time and will take appropriate security measures to protect that personal data against unauthorised and unlawful processing and against accidental loss, destruction or damage.
+		(n)	transmit any material that is unlawful, disruptive, threatening, profane, abusive, harassing, embarrassing, tortuous, defamatory, obscene, libelous, is hateful or racially or ethnically offensive;
 
-  13.	Viruses
+		(o)	directly or indirectly, decompile, disassemble, reverse engineer or otherwise attempt to derive the structure of the Services, the Platform or your Account, your Wallet, or the source code from the Services, the Platform or your Account, your Wallet; and
 
-  13.1	We do not guarantee that our Website, Platform or Services will be secure or free from bugs or viruses.
+		(p)	use or access the Website, our Services, your Account, your Wallet, or the Platform in order to build a similar or competitive product or service or disclose to any third party any benchmarking or comparative study involving the Services.
 
-  13.2	You are responsible for configuring your information technology, computer programmes and platform to access our Website, the Platform or Services. You should use your own virus protection software.
+		5.2	You must ensure that all the information you supply to us:
 
-  13.3	You must not misuse our Website, the Platform or Services by knowingly introducing viruses, trojans, worms, logic bombs or other material that is malicious or technologically harmful. 
+		(a)	is true, accurate, current and complete, and is not misleading;
 
-  13.4	You must not attempt to gain unauthorised access to our Website, the Platform or Services, the server on which our Website, the Platform or Services is stored or any server, computer or database connected to our Website or the Platform. 
+		(b)	complies with all applicable laws and regulations;
 
-  13.5	You must not attack our Website, the Platform, our Services or Accounts or Wallets owned by other customers via a denial-of-service attack or a distributed denial-of service attack.`,
+		(c)	does not infringe the privacy, personal data protection, confidentiality or intellectual property rights or other rights of any person; and
 
-            `13.6	If we believe you have breached the provisions of this paragraph, your right to access the Website, the Platform, your Account and your Wallet will cease immediately, and we may disable, delete, suspect or cancel your access to the Platform, your Account and the Wallet at any time. We may report any breach to relevant law enforcement authorities, and will do so if required to do so under applicable laws.`,
-            `14.	Disclaimer
+		(d)	is not offensive, abusive, pornographic, defamatory, unreliable, misleading, illegal or otherwise objectionable.
 
-  14.1	You acknowledge, that to the maximum extent permitted by applicable law, that the Website, the Platform, our Services and any relevant materials provided to you are provided on an “as is” basis. SORS disclaims any and all warranties relating to the Website, the Platform and the Services, and their respective content, express or implied, including but not limited to the implied warranties of non-infringement of third party rights, merchantability and fitness for a particular purpose, if any.
+		5.3	Please e-mail us at wallet@sorted.finance with details if you learn of any material or activity on our Website or in respect of our Services that breaches these Terms of Use or of any Prohibited Acts. You will provide SORS with any reasonable assistance in relation to any investigation that SORS may conduct as a result of the information provided by you in this respect.
 
-  14.2	SORS does not:
+		6.	Wallet and the Platform
 
-  (a)	provide a peer-to-peer marketplace for transactions of Cryptocurrencies;
+		6.1	The Wallet, Website, the Platform, and the information and content available therein are protected worldwide by copyright laws (“Copyrighted Content”). Subject to the terms of these Terms of Use, SORS grants you a limited licence to reproduce portions of Copyrighted Content to access the Account, the Wallet and the Platform, and use our Services for your personal or internal business purposes.
 
-  (b)	provide fiat currencies trading capabilities; or
+		6.2	Upon being successfully registered with SORS, you will be granted access to your Wallet through the Platform, which enables you to:
 
-  (c)	provide conversion, exchange or other facilities between fiat currencies.
+		(a)	access the means to perform operations on various blockchain networks in accordance with their respective protocol rules, including to store, receive, track and transfer certain supported Cryptocurrencies in your Wallet to another wallet;
 
-  14.3	SORS does not represent or warrant that:
+		(b)	view the balance of Cryptocurrencies in your Wallet; and
 
-  (a)	the function contained in the Website, the Platform or Services will meet your requirements;
+		(c)	connect with third party services (subject to whether the third party services are supported by SORS.
 
-  (b)	the operation of the Website, the Platform or the Services will be interrupted, error-free, or absolutely secure from unauthorized access;
+		Subject to these Terms of Use, SORS grants you a non-assignable, non-transferable, non-sublicensable, revocable, and non-exclusive licence and right to use the Platform for your personal or internal business purposes.
 
-  (c)	defects in the Website, the Platform or the Services will be corrected; or
+		6.3	The Platform is locally installed, or the Website will be accessible from your own local device. You are responsible for the security of your device on which the Platform is installed, or the Website is accessed, including ensuring that you keep anti-virus software current and otherwise protect the device against malware. SORS is not responsible for any loss or damages (including loss of Cryptocurrencies) resulting from your failure to keep the device safe and free of any malware.
 
-  (d)	the Website, the Platform or the Services are complete, correct in all respects, accurate in all respects, or fully reliable. 
+		6.4	You may be required to accept or install updates to the Platform, or update third-party software (such as browsers or operating systems), in order to access the Wallet or our Services, or access their latest features, including security updates. SORS may update the Platform and Services at any time, without providing notice.
 
-  14.4	No oral or written information or advice given by SORS creates a warranty or in any way increase the scope of its liability.`,
+		6.5	By accessing the Account and using your Wallet through the Platform, you agree not to:
 
-            `14.5	SORS does not, and does not intend to, market to, sell to, induce, solicit, or advise any person in respect of any purchase, subscription or investment (or any related offer) in securities, Cryptocurrencies, tokens, non-fungible tokens (NFTs) or any physical or virtual assets (whether described as investment opportunities, or otherwise). None of the information made available by SORS constitutes an invitation, offer, opinion or recommendation to purchase, subscribe, invest in or participate in any securities, structured products, Cryptocurrencies, non-fungible tokens (NFTs) or any physical or virtual assets (whether described as investment opportunities, or otherwise).`,
-            `14.6	Your use of the Website, the Platform or Services, or any information, material or content obtained through our Website, the Platform or Services, is at your own risk and discretion.
-  
-  15.	Liability`,
+		(a)	licence, sell, rent, lease, transfer, assign, reproduce, distribute, host or otherwise commercially exploit our Services or the Copyrighted Content, or any portion thereof;
 
-            `15.1	Subject to paragraph 15.13, SORS disclaims all liability to the maximum extent permitted by law, and SORS assumes no responsibility, for losses to you or any other person arising from:
+		(b)	frame or enclose any trademark, logo or other Copyrighted Content (including images, text, page layout or form);
 
-  (a)	third party content or user content;
+		(c)	copy, reproduce, distribute, republish, download, display, post or transmit any Copyrighted Content except as expressly permitted herein; and
 
-  (b)	SORS’s content, and in particular from the accuracy, completeness or current status of SORS’s content;
+		(d)	remove or destroy any copyright notices or other proprietary markings contained on or in the Services or the Copyrighted Content.
 
-  (c)	reliance on information contained or functionality provided on, or through, these Terms of Use or our Website, the Platform or Services;
+		6.6	SORS does not guarantee the correct functioning of the Platform in the event of the installation or use of programs or applications that do not conform to Platform specifications and technical standards.
 
-  (d)	inability to gain access to the Website, the Platform, your Account, your Wallet or the Services (or any part of it) or access is interrupted or partial, or functions with errors, at any time; 
+		6.7	SORS does not guarantee that the Website and Platform will always be available or be uninterrupted. SORS may stop, suspend or withdraw or restrict the availability of all or any part of our Website or the Platform for business or operational reasons, including:
 
-  (e)	any unauthorised access to or alteration of your transmission or data; 
+		(a)	compliance with the terms of any third party contract;
 
-  (f)	any use of your Login ID, Password, Account, Wallet by any third parties, whether authorised or unauthorised by you;
+		(b)	continued provision of the Website or the Platform are illegal or contrary to any law, regulation, guideline or request of any regulatory authority; or
 
-  (f)	any deletion of, corruption of, or failure to store or send or receive your transmissions or data; 
+		(c)	a claim or potential claim that continued provision of the Website or the Platform infringes or violates the rights of any third party.
 
-  (g)	any failure by us to perform, or delay in performing, any obligations, whether or not we give prior notice, if and to the extent that the failure or delay is caused by any circumstance beyond our reasonable control (which includes telecommunications failure, power supply failure, terrorism, fuel strikes, severe weather, computer breakdown, failure of suppliers to meet delivery requirements, industrial disputes and the absence of personnel due to illness or injury), and the time for performance of any obligation, the performance of which is so affected, will be extended accordingly;
+		SORS will use reasonable endeavors to give you reasonable notice of any suspension or withdrawal to the extent that circumstances or applicable laws permit.  You will not be entitled to any compensation or other payment upon the discontinuance, suspension, withdrawal or alteration of the Website or the Platform.
 
-  (h)	any unusual or unforeseeable event that is outside SORS’s reasonable control, including force majeure events, events of war or civil unrest, natural disasters, strike, lock-out, traffic disruption, acts of domestic or foreign governmental authorities, and the pandemic; 
+		6.8	SORS may make obsolete a prior version of the Website and Platform at any time.
 
-  (i)	anything caused by us as a result of complying with applicable laws and court orders; 
+		6.9	SORS will not have any obligation to provide any support to any prior version of the Website and Platform after they are made obsolete.
 
-  (j)	any acts, omissions, faults, failures to provide services or interruptions to services from any third party service providers instructed by SORS; and
+		7.	Cryptocurrencies and blockchain
 
-  (k)	your failure to accept or install updates to the Platform, or update third-party software (such as browsers or operating systems), that are required to access the Wallet or our Services, or access their latest features, including security updates.`,
+		7.1	The Cryptocurrencies that you store in the Wallet may be subject to other terms and conditions that may be imposed by third parties. These third party terms may govern your use, storage and transfer of your Cryptocurrencies. It is your responsibility to understand applicable third party terms and conditions, and whether your use, storage and transfer of your Cryptocurrencies complies with such other terms and conditions or third party terms.
 
-            `15.2	SORS will not be liable to you (whether in contract, tort (including negligence), breach of statutory duty or otherwise) arising out of or in connection with these Terms of Use for any loss of profits, loss of business opportunity, loss of goodwill, loss of anticipated savings or benefits, or for any type of indirect, special or consequential loss, even if that loss or damage was reasonably foreseeable or the relevant party was aware of the possibility of that loss or damage arising. SORS will not be liable for fault on the part of any third party service providers instructed by SORS.`,
-            `15.3	SORS’s liability arising directly or indirectly under these Terms of Use, or that is not otherwise expressly excluded under these Terms of Use, will be limited to and capped at the higher of US$[1,000] or the amount of fees for Services paid by you to SORS in the twelve months immediately before the act or omission alleged to have caused the liability. The amount of this limitation of liability will be reduced by the amount of any unpaid fees.  `,
-            `15.4	Any claim by either party for breach of contract, tort (including negligence), breach of statutory duty or otherwise arising out of or in connection with these Terms of Use must be brought within one year of the act or omission alleged to have caused the loss or cost.
+		7.2	Only certain Cryptocurrencies are supported by our Services. SORS may update the supported Cryptocurrencies from time to time, and will announce such update on the Website and the Platform. SORS will not be responsible to ensure you are informed of the update. You are responsible to keep yourself informed. SORS will not be liable for any losses if you transfer unsupported Cryptocurrencies into the Wallet.
 
-  15.5	Except to the extent that claims cannot be excluded or restricted by law, no claims arising out of or in connection with these Terms of Use may be brought by you personally against any of SORS’s employees, officers, advisors, consultants, external service providers or other representatives involved in the performance of the relevant obligations.`,
+		7.3	You represent and warrant that:
 
-            `15.6	Any disclaimer of liability includes all representations or warranties. All representations or warranties, whether contractual or non-contractual, and all warranties, conditions, terms, undertakings and obligations implied by statute, common law, custom, trade usage, course of dealing or otherwise (including implied undertakings of satisfactory quality, conformity with description and reasonable fitness for purpose) are excluded to the maximum extent permitted by law.`,
+		(a)	 you have the necessary right to use, store, receive, share, display and transfer your Cryptocurrencies, and such use, storage, sharing, displaying, receiving and transferring of your Cryptocurrencies will not infringe the rights of any third party or breach any applicable law;
 
-            `15.7	Only one claim may be brought against us (including our employees, officers or consultants) arising from one act or omission. One act or omission includes one series of related acts or omissions, the same act or omission in a series of related matters or similar acts or omissions in a series of related matters, and includes all claims arising from any one matter.
+		(b)	you have sufficient knowledge and experience in blockchain technology, and sufficient prior experience in buying, selling, storying and holding Cryptocurrencies; and
 
-  15.8	The limitations in this paragraph 15 apply to SORS aggregate liability to you, any group company to which you belong, and all individuals nominated by a corporate user together (including any other third parties to whom we are held liable, with or without our consent) in relation to any one claim, and you and any such other persons may together recover from SORS only once in relation to the same loss.
+		(c)	you have consulted or have been given the time and opportunity to consult your own legal, financial and tax advisors in respect of your use of your Account, Wallet, our Services and in respect of any transactions involving Cryptocurrencies.
 
-  15.9	Where a limitation of liability applies in whatever amount, the limitation applies to the entire performance of services by SORS, and there will not be separate aggregate limits of liability applicable to you, any group company to which you belong, and all individuals nominated by a corporate user.`,
+		7.4	When transferring your Cryptocurrencies from your Wallet, you are responsible for checking and confirming that the recipient wallet address or public key information:
 
-            `15.10	If SORS has joint and several liability to you with another party SORS will only be liable to pay you the proportion which is found to be fairly and reasonably due to SORS’s fault.  SORS will not be liable to pay you the proportion which is due to the fault of another party for which such other party would otherwise be liable.  
+		(a)	supports the storage of your Cryptocurrencies;
 
-  15.11	Any liability due from SORS to you will be reduced by the proportion for which another party would have been found to be liable if either:
+		(b)	is valid and is compatible with the applicable token standard; and
 
-  (a)	you had also brought proceedings or made a claim against that other party; or
+		(c)	is correct.
 
-  (b)	SORS had brought proceedings or made a claim against that other party under the Civil Liability (Contribution) Ordinance (Cap. 377) or similar law under any other relevant jurisdiction.`,
+		SORS is not liable for any losses of your Cryptocurrencies and will not assist you in retrieving such lost Cryptocurrencies if you fail to do so.
 
-            `15.12	In considering whether other parties may be liable to you, no account is to be taken of any inability on your part to enforce remedies against another party by reason of causes of action against that party becoming time-barred, or the party’s lack of means or the party’s reliance on exclusions or limitations of liability or that the other party has ceased to exist.
+		8.	Services
 
-  15.13	No oral or written information given by SORS creates a warranty or in any way increase the scope of SORS liability.`,
-            `15.14	The exclusions and limitations of liability in these Terms of Use do not affect SORS’s liability:
+		8.1	SORS’s Services allow you to:
 
-  (a)	for death or personal injury arising from SORS’s negligence;
+		(a)	manage, change and retrieve your Login ID and Password;
 
-  (b)	for fraud or reckless disregard of professional obligations;
+		(b)	view and access your transaction history;
 
-  (c)	for any other liabilities which cannot be excluded or limited in the jurisdiction to which any relevant claim is subject, including restrictions on SORS’s right to limit SORS’s liability in Hong Kong; and 
+		8.2	Notwithstanding the above, you are responsible to:
 
-  (d)	in any other case, to limit SORS’s liability to less than such minimum amount as may be required in the circumstances under any other law or regulation relevant to the claim, in which case such minimum amount will be deemed substituted for the amount that would otherwise apply.
+		(a)	create and remember a strong Password that you do not use for any other service;
 
-  15.15	These provisions are exhaustive of the remedies of monetary damages for each party or any third party against either party arising out of or in connection with these Terms of Use.`,
+		(b)	[protect and keep your recovery information secure and confidential]; and
 
-            `15.16	It is your sole responsibility to determine whether, and to what extent, any taxes apply to your use of the Wallet, and the ownership of and transaction relating to Cryptocurrencies. You should determine whether to withhold, collect, report and remit the correct amounts of taxes to the appropriate tax authorities. SORS is not obligated to, nor will SORS determine whether taxes apply, or calculate, collect, report, or remit any taxes to any tax authorising arising from any transaction for you.
+		(c)	protect access to your Wallet.
 
-  16.	Indemnity`,
+		8.3	We may change, update or suspend the Services, temporarily or indefinitely, so as to carry out work (including firmware and software updates), maintenance operations, amendments to the servers and bug fixes.  SORS will use reasonable efforts to give you prior notice of any significant disruption of the Services but will not be liable for any such disruption.
 
-            `16.1	You will on demand fully indemnify, and keep fully indemnified, the Indemnified Parties from and against all claims (including any third party claims), costs and losses of any nature whatsoever that the Indemnified Parties may suffer or incur arising out of or in connection with:
+		8.4	SORS does not guarantee the correct functioning of the Services in the event of the installation or use of programs or applications that do not conform to Service specifications and technical standards.
 
-  (a)	any material breach of the provisions of these Terms of Use by you or your representatives;
+		8.5	SORS may make obsolete any Service as a whole at any time.
 
-  (b)	any Prohibited Acts carried by you or your representatives;
+		9.	Risk
 
-  (c)	any infringement or alleged infringement by you or your representatives of any third party’s intellectual property rights;
+		9.1	You should educate yourself in respect of all the legal norms and technical constraints relating to the proof-of-stake and proof-of-work blockchains, or other cryptographic proof concepts.
 
-  (d)	any breach by you of applicable laws;
+		9.2	You acknowledge that you have been informed of the following associated risks:
 
-  (e)	any fraud, negligence, misconduct or reckless carelessness in or about your obligations under these Terms of Use; 
+		(a)	Regulatory changes. Blockchain technologies are subject to continuous regulatory changes and scrutiny globally. This includes anti-money laundering and financial regulations. Our Services, or any portion of our Services, could be impacted by one or more changing regulatory requirements.
 
-  (f)	your or your representatives’ use of our Website, the Platform or Service; and
+		(b)	Tax. Transactions in Cryptocurrencies or other general Cryptocurrencies events (including exchanges, air-drops, forkings and gains arising from staking) may be considered tax events according to legislation under which you are subject to taxation. You should consult your own tax or accounting advisor in relation to these transactions or events.
 
-  (g)	any acts or omissions performed by you or your representatives`,
+		(c)	Technology. Some of the technology supported or made available by SORS is new, untested and outside SORS’s control. Advances in cryptography, or other technical advances such as the development of quantum computers, could present risks to blockchain networks which could result in the theft or loss of Cryptocurrencies. Other adverse changes in the market forces or in the technology may prevent or compromise SORS’s performance under these Terms of Use.
 
-            `16.2	SORS will be entitled to recover from you all expenses SORS reasonably incurs in connection with an indemnified claim, and all such expenses will be payable on demand.
+		(d)	Cybersecurity. Hackers or other groups or organisations may attempt to interfere with SORS’s products and information systems in several ways. This may include denial of service attacks, side-channel attacks, spoofing, smurfing, malware attacks, or consensus-based attacks.
 
-  16.3	The indemnities in this paragraph 16 will survive termination or expiry of these Terms of Use.
+		(e)	Volatility. Prices of Cryptocurrencies are volatile and can fluctuate significantly in short periods of time, including a single day. There may be large or sudden shifts in value or Cryptocurrencies that may make any Cryptocurrencies to become worthless. There may be significant risk in acquiring or holding Cryptocurrencies.
 
-  17.	Variation
+		9.3	Notwithstanding the generality of the limitation under these Terms of Use, SORS is not liable for any loss that incurs as a consequence of the risks highlighted in this section.
 
-  17.1	SORS may amend these Terms of Use from time to time. SORS will give you prior notice of major changes that SORS believes may adversely affect you. SORS will inform you of any changes to these Terms of Use. The Terms of Use in force from time to time will apply to your use of our Website, the Platform and Services.`,
-            `17.2	If you do not agree to any revised Terms of Use, you must stop using our Website, the Platform and Services.`,
+		10.	Website linkage
 
-            `17.3	If you have given your express agreement and consent to these Terms of Use, SORS will ask for your express agreement and consent to any revisions of these Terms of Use before your first use of the Website or Services after the revision comes into effect. If you do not give your express agreement and consent to the revised Terms of Use within such period as we specify, SORS will disable, delete, suspend or cancel your Account or Wallet, including blocking your internet protocol address for internet access to the Platform, and you must stop using the Website, the Platform and the Services. `,
-            `18.	Your breach
+		10.1	Links from our Website, or the Platform, to other websites and resources provided by third parties are provided for your information only. Links to other websites and resources from our Website or the Platform should not be interpreted as, and are not, recommendations or approval by us of those linked websites or resources, or any information you obtain from them.
 
-  18.1	Without prejudice to SORS’s other rights under these Terms of Use, if you breach these Terms of Use in any way, carried out any Prohibited Acts, or if SORS reasonably suspects that you have breached these Terms of Use in any way or carried out any Prohibited Acts, SORS may: 
+		10.2	You acknowledge and accept that we have no right or control over the contents of other websites and resources that are linked from or referred to in our Website or the Platform.
 
-  (a)	send you one or more formal warnings;
+		10.3	You may link to the Website or Platform, provided you do so in a way that is fair and legal and does not damage our reputation or take advantage of it.
 
-  (b)	temporarily suspend your access to our Website, the Platform or Services;
+		10.4	You must not establish a link in such a way as to suggest any form of association, approval or endorsement on our part where none exists.
 
-  (c)	freeze any Cryptocurrencies in your Wallet;
+		10.5	You must not establish a link to our Website or Platform on any website that is not owned by you.
 
-  (d)	permanently prohibit you from accessing or using our Website, the Platform or Services;
+		10.6	Our Website must not be framed on any other website, nor may you create a link to any part of our Website other than the home page.
 
-  (e)	block computers using your IP address from accessing our Website, the Platform or Services;
+		10.7	We reserve the right to withdraw linking permission without notice.
 
-  (f)	contact any or all your internet service providers and request that they block your access to our Website, the Platform or Services;
+		10.8	The website in which you are linking must comply in all respects with the content standards set out in our Acceptable Use policy (see paragraph 5 above).
 
-  (g)	suspend or delete your Account or Wallet; or
+		10.9	Please contact wallet@sorted.finance to seek our prior permission to any linkage to our Website that does not comply with this paragraph 10.
 
-  (h)	commence legal proceedings or other claims against you, whether for breach of contract or otherwise.`,
+		11.	Intellectual Property Rights
 
-            `18.2	If SORS suspends or prohibits or blocks your access to our Website, the Platform or Services, or a part of our Website, the Platform or Services, you must not take any action to circumvent that suspension or prohibition or blocking (including creating or using a different account). SORS is not required to inform you of any action SORS chooses to take, explains reasons for taking any action, or explains SORS’s suspicion.
+		11.1	SORS owns, or is the authorised licensee of, all rights, title and interest in the Website, the Platform, and technology deployed in the Wallet, including any software (in source and object forms), algorithms, user interface designs, architecture, Intellectual Property Right, and documentation (both printed and electronic). You shall not use any Intellectual Property Rights in respect of the Website, the Platform, the Wallet or our Services, except in accordance with these Terms of Use or having first obtained the prior written consent of SORS or such other third parties. All Intellectual Property Rights are reserved.
 
-  18.3	Additionally, SORS may perform all or any of the acts set out in paragraph 18.1 if:
+		11.2	Unless otherwise expressly provided, we do not own the Intellectual Property Rights provided by third parties. We make no representation, warranty or guarantee in respect of such Intellectual Property Rights, including whether any distribution or use of content or materials infringes the Intellectual Property Rights of another person. SORS has not examined or verified any third party Intellectual Property Rights.
 
-  (a)	SORS believes or suspects any activities in association with your Account or Wallet involves illegal activity or that does not comply with applicable laws;
+		11.3	You must notify SORS promptly if you suspect or become aware of any misuse of the Website and the Platform (or any other Service) or any violation, infringement or misappropriation of Intellectual Property Rights by any other users or other third party.
 
-  (b)	SORS is requested to do so by a court order, law enforcement or other government or regulatory order;
+		11.4	You must not edit or otherwise modify any material on our Website.
+		11.5	If you print off or copy any part of our Website in breach of these Terms of Use, your right to use our Website will cease immediately.  You must, immediately upon our request, return or destroy any copies of the materials you have made.
 
-  (c)	if your Account is subject to litigation or investigation; 
+		11.6	We reserve the right to restrict access to areas of our Website, or our whole Website, at our discretion. You must not circumvent or bypass, or attempt to circumvent or bypass, any access restriction measures on our Website.
 
-  (d)	you abuse the Services provided by SORS;
+		12.	Privacy
 
-  (e)	you act in bad faith towards SORS;
+		12.1	Our Privacy Policy can be reviewed here and forms part of these Terms of Use on which you may access and use our Website, the Platform and our Service.
 
-  (f)	any third party service provider (including payment process service providers) refuses to provide services to you; 
+		12.2	You agree that SORS may collect and use personal data which you provide when registering on the Website or through the Platform. The use of personal data collected by us will be limited to granting you access to the Platform, the Website and our Services. You agree we can share your personal data with any external service provider, agents, advisors and consultants for the purpose of creating your Account, Wallet and granting you access to the Platform, the Website and our Services.
 
-  (g)	any force majeure events occur arising from any matter or state of affairs beyond the reasonable control of SORS;
+		12.3	We use cookies on our Website. We also use cookies to track the way you prefer to view our Website. By accepting these Terms of Use you also give consent to our use of cookies for this purpose. More information about cookies is contained in our Privacy Policy.
 
-  (h)	SORS believes you adversely affect or may adversely affect SORS’s reputation; 
+		12.4	If you provide us with your personal data, we will process that personal data in accordance with your instructions from time to time and will take appropriate security measures to protect that personal data against unauthorised and unlawful processing and against accidental loss, destruction or damage.
 
-  (i)	SORS believes your Account is associated with any account that has been suspended or terminated for breach of these Terms of Use or suspended for any other reason; 
+		13.	Viruses
 
-  (j)	you do not provide documents or information upon the request of SORS;
+		13.1	We do not guarantee that our Website, Platform or Services will be secure or free from bugs or viruses.
 
-  (k)	any documents or information you provide SORS is false, misleading or not current or complete, or otherwise meet SORS’s requirements;
+		13.2	You are responsible for configuring your information technology, computer programmes and platform to access our Website, the Platform or Services. You should use your own virus protection software.
 
-  (l)	your Account or any activities connected to your Wallet do not meet SORS's risk tolerance;
+		13.3	You must not misuse our Website, the Platform or Services by knowingly introducing viruses, trojans, worms, logic bombs or other material that is malicious or technologically harmful.
 
-  (m)	you no longer comply fully with all requirements of SORS’s compliance and security procedures and processes; or
+		13.4	You must not attempt to gain unauthorised access to our Website, the Platform or Services, the server on which our Website, the Platform or Services is stored or any server, computer or database connected to our Website or the Platform.
 
-  (n)	you suffer an insolvency or bankruptcy event.`,
-            `19.	Termination and suspension
+		13.5	You must not attack our Website, the Platform, our Services or Accounts or Wallets owned by other customers via a denial-of-service attack or a distributed denial-of service attack.
 
-  19.1	You can stop using the Website, the Platform or Services at any time and you may delete your Account or Wallet by sending an email to [email address]. Upon deletion of your Account or Wallet, all specific Account information will be deleted. However, domain names and a log-register attributable to each deleted Account will be kept for archival and administrative purposes. SORS may also use unidentifiable, aggregated information originating from deleted Accounts in its general business operations. [TDW Note: Client to confirm.]`,
+		13.6	If we believe you have breached the provisions of this paragraph, your right to access the Website, the Platform, your Account and your Wallet will cease immediately, and we may disable, delete, suspect or cancel your access to the Platform, your Account and the Wallet at any time. We may report any breach to relevant law enforcement authorities, and will do so if required to do so under applicable laws.
 
-            `19.2	SORS may suspend the provision of the Website, the Platform or Services or terminate your Account or Wallet at any time, with or without cause, and with or without notice.`,
+		14.	Disclaimer
 
-            `19.3	Without prejudice to paragraph 19.2, SORS may suspend or terminate your Account or Wallet if you are in breach of these Terms of Use, or if your use of the Website or Services would cause or risk causing legal liabilities of any kind, or otherwise disrupt others use of the Website or Services. 
+		14.1	You acknowledge, that to the maximum extent permitted by applicable law, that the Website, the Platform, our Services and any relevant materials provided to you are provided on an “as is” basis. SORS disclaims any and all warranties relating to the Website, the Platform and the Services, and their respective content, express or implied, including but not limited to the implied warranties of non-infringement of third party rights, merchantability and fitness for a particular purpose, if any.
 
-  20.	Effect of termination`,
+		14.2	SORS does not:
 
-            `20.1	Upon termination of these Terms of Use:
+		(a)	provide a peer-to-peer marketplace for transactions of Cryptocurrencies;
 
-  (a)	the licences contained in these Terms of Use will immediately cease and all your rights in respect of the Website, the Platform, Services and your Account and Wallet will cease;
+		(b)	provide fiat currencies trading capabilities; or
 
-  (b)	any requirement of SORS to provide Services or support will immediately cease; and
+		(c)	provide conversion, exchange or other facilities between fiat currencies.
 
-  (c)	you will immediately return or (at SORS direction) destroy all Confidential Information in your possession or power; and
+		14.3	SORS does not represent or warrant that:
 
-  (d)	you must ensure all Cryptocurrencies are withdrawn prior to the effective date of termination. SORS will not be responsible for any delay in withdrawing the Cryptocurrencies.
+		(a)	the function contained in the Website, the Platform or Services will meet your requirements;
 
-  20.2	You will not, in any circumstances whatsoever, have any claim against SORS for compensation for loss of rights, loss of goodwill or any other loss whatsoever on termination of your Account, your Wallet or these Terms of Use for any cause whatsoever.
+		(b)	the operation of the Website, the Platform or the Services will be interrupted, error-free, or absolutely secure from unauthorized access;
 
-  20.3	The termination of these Terms of Use is without prejudice to any other rights which have already accrued to SORS and will not operate to affect such provisions of these Terms of Use as in accordance with their terms are expressed to operate or to have effect thereafter.`,
-            `21.	General provisions`,
+		(c)	defects in the Website, the Platform or the Services will be corrected; or
 
-            `21.1	You may not assign any of your rights under these Terms of Use.`,
+		(d)	the Website, the Platform or the Services are complete, correct in all respects, accurate in all respects, or fully reliable.
 
-            `21.2	The rights, powers and remedies provided in these Terms of Use are (except as expressly provided) cumulative and not exclusive of any rights, powers and remedies provided by law, or otherwise.`,
+		14.4	No oral or written information or advice given by SORS creates a warranty or in any way increase the scope of its liability.
 
-            `21.3 SORS subcontract: 
 
-  (a) 	the hosting of the Website to a third party; 
+		14.5	SORS does not, and does not intend to, market to, sell to, induce, solicit, or advise any person in respect of any purchase, subscription or investment (or any related offer) in securities, Cryptocurrencies, tokens, non-fungible tokens (NFTs) or any physical or virtual assets (whether described as investment opportunities, or otherwise). None of the information made available by SORS constitutes an invitation, offer, opinion or recommendation to purchase, subscribe, invest in or participate in any securities, structured products, Cryptocurrencies, non-fungible tokens (NFTs) or any physical or virtual assets (whether described as investment opportunities, or otherwise).
 
-  (b)	the provision of Services to [Arkane BV]; and
 
-  (c)	the Account and Wallet creation function to [Arkane BV].`,
+		14.6	Your use of the Website, the Platform or Services, or any information, material or content obtained through our Website, the Platform or Services, is at your own risk and discretion.
 
-            `21.4	If the validity or enforceability of any provision of these Terms of Use is in any way limited by any applicable law, that provision will be valid and enforceable to the fullest extent permitted by such law.  The invalidity or unenforceability of any such provision does not affect the validity or enforceability of any other provision.`,
+		15.	Liability
 
-            `21.5	The failure to exercise, or delay in exercising, a right, power or remedy provided by these Terms of Use or by law does not constitute a waiver of that right, power or remedy. If SORS waives a breach of any provision of these Terms of Use, this does not operate as a waiver of a subsequent breach of that provision, or as a waiver of a breach of any other provision.`,
+		15.1	Subject to paragraph 15.13, SORS disclaims all liability to the maximum extent permitted by law, and SORS assumes no responsibility, for losses to you or any other person arising from:
 
-            `21.6	The exercise of the parties’ rights under these Terms of Use is not subject to the consent of any third party.`,
+		(a)	third party content or user content;
 
-            `21.7	These Terms of Use are for SORS’s benefit and your benefit, and are not intended to benefit or be enforceable by any third party.`,
+		(b)	SORS’s content, and in particular from the accuracy, completeness or current status of SORS’s content;
 
-            ` 21.8	These Terms of Use comprise the entire understanding and agreements between you and SORS as to its subject matter, and supersedes any and all prior discussions, agreements and understandings of any kind relating to its subject matter (including any prior versions of these Terms of Use).
+		(c)	reliance on information contained or functionality provided on, or through, these Terms of Use or our Website, the Platform or Services;
 
-  21.9	Both you and SORS are independent contractors. Nothing in these Terms of Use creates any other form of relationship between you and SORS. These Terms of Use are not to be interpreted as evidence of an association, joint venture, partnership, agency or franchise between the parties. You are not authorised to represent SORS in any way, or to incur any obligations on behalf of SORS.
+		(d)	inability to gain access to the Website, the Platform, your Account, your Wallet or the Services (or any part of it) or access is interrupted or partial, or functions with errors, at any time;
 
-  21.10	Terms that are defined in the Companies Ordinance (Chapter 622, Laws of Hong Kong) have the same meaning in these Terms of Use, unless otherwise defined in these Terms of Use`,
-            `21.11	If you have any feedback, questions, complaints relating to our Service, the Website, the Platform, your Account and your Wallet, please submit the same to SORS. SORS will use reasonable effort to respond to you as soon as possible but SORS will not be responsible for any losses and damage incurred during SORS response period.`,
+		(e)	any unauthorised access to or alteration of your transmission or data;
 
-            `21.12	Communications between you and SORS use electronic means, whether made via the Website, the Platform or sent via electronic mail, or whether SORS posts notices on the Website or the Platform. For contractual purposes, you:
+		(f)	any use of your Login ID, Password, Account, Wallet by any third parties, whether authorised or unauthorised by you;
 
-  (a)	consent to receive communications from SORS in an electronic form; and
+		(f)	any deletion of, corruption of, or failure to store or send or receive your transmissions or data;
 
-  (b)	agree that all terms and conditions, agreements, notices, disclosures, and other communication that SORS provides to you electronically satisfy any legal requirement that such communications would satisfy if it were to be in writing. 
+		(g)	any failure by us to perform, or delay in performing, any obligations, whether or not we give prior notice, if and to the extent that the failure or delay is caused by any circumstance beyond our reasonable control (which includes telecommunications failure, power supply failure, terrorism, fuel strikes, severe weather, computer breakdown, failure of suppliers to meet delivery requirements, industrial disputes and the absence of personnel due to illness or injury), and the time for performance of any obligation, the performance of which is so affected, will be extended accordingly;
 
-  22.	Governing law 
+		(h)	any unusual or unforeseeable event that is outside SORS’s reasonable control, including force majeure events, events of war or civil unrest, natural disasters, strike, lock-out, traffic disruption, acts of domestic or foreign governmental authorities, and the pandemic;
 
-  22.1	These Terms of Use, their subject matter and their formation (and any non-contractual disputes or claims) are governed by and construed in accordance with the laws of Hong Kong.`,
-            `22.2	Any dispute, controversy, difference or claim (including non-contractual disputes or claims) arising out of or relating to these Terms of Use, including the existence, validity, interpretation, performance, breach or termination thereof or any dispute regarding non-contractual obligations arising out of or relating to it shall be referred to and finally resolved by arbitration administered by the Hong Kong International Arbitration Centre (HKIAC) under the HKIAC Administered Arbitration Rules in force when the Notice of Arbitration is submitted. The law of this arbitration clause shall be Hong Kong law). The seat of arbitration shall be Hong Kong. The number of arbitrators shall be one. The arbitration proceedings shall be conducted in English.`,
-            `Please email. if you have any questions or concerns about these Terms of Use or our Website.`,
-        ]
+		(i)	anything caused by us as a result of complying with applicable laws and court orders;
+
+		(j)	any acts, omissions, faults, failures to provide services or interruptions to services from any third party service providers instructed by SORS; and
+
+		(k)	your failure to accept or install updates to the Platform, or update third-party software (such as browsers or operating systems), that are required to access the Wallet or our Services, or access their latest features, including security updates.
+
+		15.2	SORS will not be liable to you (whether in contract, tort (including negligence), breach of statutory duty or otherwise) arising out of or in connection with these Terms of Use for any loss of profits, loss of business opportunity, loss of goodwill, loss of anticipated savings or benefits, or for any type of indirect, special or consequential loss, even if that loss or damage was reasonably foreseeable or the relevant party was aware of the possibility of that loss or damage arising. SORS will not be liable for fault on the part of any third party service providers instructed by SORS.
+
+		15.3	SORS’s liability arising directly or indirectly under these Terms of Use, or that is not otherwise expressly excluded under these Terms of Use, will be limited to and capped at the higher of US$500] or the amount of fees for Services paid by you to SORS in the twelve months immediately before the act or omission alleged to have caused the liability. The amount of this limitation of liability will be reduced by the amount of any unpaid fees.
+
+		15.4	Any claim by either party for breach of contract, tort (including negligence), breach of statutory duty or otherwise arising out of or in connection with these Terms of Use must be brought within one year of the act or omission alleged to have caused the loss or cost.
+
+		15.5	Except to the extent that claims cannot be excluded or restricted by law, no claims arising out of or in connection with these Terms of Use may be brought by you personally against any of SORS’s employees, officers, advisors, consultants, external service providers or other representatives involved in the performance of the relevant obligations.
+
+		15.6	Any disclaimer of liability includes all representations or warranties. All representations or warranties, whether contractual or non-contractual, and all warranties, conditions, terms, undertakings and obligations implied by statute, common law, custom, trade usage, course of dealing or otherwise (including implied undertakings of satisfactory quality, conformity with description and reasonable fitness for purpose) are excluded to the maximum extent permitted by law.
+
+		15.7	Only one claim may be brought against us (including our employees, officers or consultants) arising from one act or omission. One act or omission includes one series of related acts or omissions, the same act or omission in a series of related matters or similar acts or omissions in a series of related matters, and includes all claims arising from any one matter.
+
+		15.8	The limitations in this paragraph 15 apply to SORS aggregate liability to you, any group company to which you belong, and all individuals nominated by a corporate user together (including any other third parties to whom we are held liable, with or without our consent) in relation to any one claim, and you and any such other persons may together recover from SORS only once in relation to the same loss.
+
+		15.9	Where a limitation of liability applies in whatever amount, the limitation applies to the entire performance of services by SORS, and there will not be separate aggregate limits of liability applicable to you, any group company to which you belong, and all individuals nominated by a corporate user.
+
+		15.10	If SORS has joint and several liability to you with another party SORS will only be liable to pay you the proportion which is found to be fairly and reasonably due to SORS’s fault.  SORS will not be liable to pay you the proportion which is due to the fault of another party for which such other party would otherwise be liable.
+
+		15.11	Any liability due from SORS to you will be reduced by the proportion for which another party would have been found to be liable if either:
+
+		(a)	you had also brought proceedings or made a claim against that other party; or
+
+		(b)	SORS had brought proceedings or made a claim against that other party under the Civil Liability (Contribution) Ordinance (Cap. 377) or similar law under any other relevant jurisdiction.
+
+		15.12	In considering whether other parties may be liable to you, no account is to be taken of any inability on your part to enforce remedies against another party by reason of causes of action against that party becoming time-barred, or the party’s lack of means or the party’s reliance on exclusions or limitations of liability or that the other party has ceased to exist.
+
+		15.13	No oral or written information given by SORS creates a warranty or in any way increase the scope of SORS’s liability.
+
+		15.14	The exclusions and limitations of liability in these Terms of Use do not affect SORS’s liability:
+
+		(a)	for death or personal injury arising from SORS’s negligence;
+
+		(b)	for fraud or reckless disregard of professional obligations;
+
+		(c)	for any other liabilities which cannot be excluded or limited in the jurisdiction to which any relevant claim is subject, including restrictions on SORS’s right to limit SORS’s liability in Hong Kong; and
+
+		(d)	in any other case, to limit SORS’s liability to less than such minimum amount as may be required in the circumstances under any other law or regulation relevant to the claim, in which case such minimum amount will be deemed substituted for the amount that would otherwise apply.
+
+		15.15	These provisions are exhaustive of the remedies of monetary damages for each party or any third party against either party arising out of or in connection with these Terms of Use.
+
+		15.16	It is your sole responsibility to determine whether, and to what extent, any taxes apply to your use of the Wallet, and the ownership of and transaction relating to Cryptocurrencies. You should determine whether to withhold, collect, report and remit the correct amounts of taxes to the appropriate tax authorities. SORS is not obligated to, nor will SORS determine whether taxes apply, or calculate, collect, report, or remit any taxes to any tax authorising arising from any transaction for you.
+
+		16.	Indemnity
+
+		16.1	You will on demand fully indemnify, and keep fully indemnified, the Indemnified Parties from and against all claims (including any third party claims), costs and losses of any nature whatsoever that the Indemnified Parties may suffer or incur arising out of or in connection with:
+
+		(a)	any material breach of the provisions of these Terms of Use by you or your representatives;
+
+		(b)	any Prohibited Acts carried by you or your representatives;
+
+		(c)	any infringement or alleged infringement by you or your representatives of any third party’s intellectual property rights;
+
+		(d)	any breach by you of applicable laws;
+
+		(e)	any fraud, negligence, misconduct or reckless carelessness in or about your obligations under these Terms of Use;
+
+		(f)	your or your representatives’ use of our Website, the Platform or Service; and
+
+		(g)	any acts or omissions performed by you or your representatives
+
+		16.2	SORS will be entitled to recover from you all expenses SORS reasonably incurs in connection with an indemnified claim, and all such expenses will be payable on demand.
+
+		16.3	The indemnities in this paragraph 16 will survive termination or expiry of these Terms of Use.
+
+		17.	Variation
+
+		17.1	SORS may amend these Terms of Use from time to time. SORS will give you prior notice of major changes that SORS believes may adversely affect you. SORS will inform you of any changes to these Terms of Use. The Terms of Use in force from time to time will apply to your use of our Website, the Platform and Services.
+
+		17.2	If you do not agree to any revised Terms of Use, you must stop using our Website, the Platform and Services.
+
+		17.3	If you have given your express agreement and consent to these Terms of Use, SORS will ask for your express agreement and consent to any revisions of these Terms of Use before your first use of the Website or Services after the revision comes into effect. If you do not give your express agreement and consent to the revised Terms of Use within such period as we specify, SORS will disable, delete, suspend or cancel your Account or Wallet, including blocking your internet protocol address for internet access to the Platform, and you must stop using the Website, the Platform and the Services.
+
+		18.	Your breach
+
+		18.1	Without prejudice to SORS’s other rights under these Terms of Use, if you breach these Terms of Use in any way, carried out any Prohibited Acts, or if SORS reasonably suspects that you have breached these Terms of Use in any way or carried out any Prohibited Acts, SORS may:
+
+		(a)	send you one or more formal warnings;
+
+		(b)	temporarily suspend your access to our Website, the Platform or Services;
+
+		(c)	freeze any Cryptocurrencies in your Wallet;
+
+		(d)	permanently prohibit you from accessing or using our Website, the Platform or Services;
+
+		(e)	block computers using your IP address from accessing our Website, the Platform or Services;
+
+		(f)	contact any or all your internet service providers and request that they block your access to our Website, the Platform or Services;
+
+		(g)	suspend or delete your Account or Wallet; or
+
+		(h)	commence legal proceedings or other claims against you, whether for breach of contract or otherwise.
+
+		18.2	If SORS suspends or prohibits or blocks your access to our Website, the Platform or Services, or a part of our Website, the Platform or Services, you must not take any action to circumvent that suspension or prohibition or blocking (including creating or using a different account). SORS is not required to inform you of any action SORS chooses to take, explains reasons for taking any action, or explains SORS’s suspicion.
+
+		18.3	Additionally, SORS may perform all or any of the acts set out in paragraph 18.1 if:
+
+		(a)	SORS believes or suspects any activities in association with your Account or Wallet involves illegal activity or that does not comply with applicable laws;
+
+		(b)	SORS is requested to do so by a court order, law enforcement or other government or regulatory order;
+
+		(c)	if your Account is subject to litigation or investigation;
+
+		(d)	you abuse the Services provided by SORS;
+
+		(e)	you act in bad faith towards SORS;
+
+		(f)	any third party service provider (including payment process service providers) refuses to provide services to you;
+
+		(g)	any force majeure events occur arising from any matter or state of affairs beyond the reasonable control of SORS;
+
+		(h)	SORS believes you adversely affect or may adversely affect SORS’s reputation;
+
+		(i)	SORS believes your Account is associated with any account that has been suspended or terminated for breach of these Terms of Use or suspended for any other reason;
+
+		(j)	you do not provide documents or information upon the request of SORS;
+
+		(k)	any documents or information you provide SORS is false, misleading or not current or complete, or otherwise meet SORS’s requirements;
+
+		(l)	your Account or any activities connected to your Wallet do not meet SORS's risk tolerance;
+
+		(m)	you no longer comply fully with all requirements of SORS’s compliance and security procedures and processes; or
+
+		(n)	you suffer an insolvency or bankruptcy event.
+
+		19.	Termination and suspension
+
+		19.1	You can stop using the Website, the Platform or Services at any time and you may delete your Account or Wallet by sending an email to wallet@sorted.finance. Upon deletion of your Account or Wallet, all specific Account information will be deleted. However, domain names and a log-register attributable to each deleted Account will be kept for archival and administrative purposes. SORS may also use unidentifiable, aggregated information originating from deleted Accounts in its general business operations.
+
+		19.2	SORS may suspend the provision of the Website, the Platform or Services or terminate your Account or Wallet at any time, with or without cause, and with or without notice.
+
+		19.3	Without prejudice to paragraph 19.2, SORS may suspend or terminate your Account or Wallet if you are in breach of these Terms of Use, or if your use of the Website or Services would cause or risk causing legal liabilities of any kind, or otherwise disrupt others use of the Website or Services.
+
+		20.	Effect of termination
+
+		20.1	Upon termination of these Terms of Use:
+
+		(a)	the licences contained in these Terms of Use will immediately cease and all your rights in respect of the Website, the Platform, Services and your Account and Wallet will cease;
+
+		(b)	any requirement of SORS to provide Services or support will immediately cease; and
+
+		(c)	you will immediately return or (at SORS’s direction) destroy all Confidential Information in your possession or power; and
+
+		(d)	you must ensure all Cryptocurrencies are withdrawn prior to the effective date of termination. SORS will not be responsible for any delay in withdrawing the Cryptocurrencies.
+
+		20.2	You will not, in any circumstances whatsoever, have any claim against SORS for compensation for loss of rights, loss of goodwill or any other loss whatsoever on termination of your Account, your Wallet or these Terms of Use for any cause whatsoever.
+
+		20.3	The termination of these Terms of Use is without prejudice to any other rights which have already accrued to SORS and will not operate to affect such provisions of these Terms of Use as in accordance with their terms are expressed to operate or to have effect thereafter.
+
+		21.	General provisions
+
+		21.1	You may not assign any of your rights under these Terms of Use.
+
+		21.2	The rights, powers and remedies provided in these Terms of Use are (except as expressly provided) cumulative and not exclusive of any rights, powers and remedies provided by law, or otherwise.
+
+		SORS subcontract:
+
+		(a) 	the hosting of the Website to a third party;
+
+		(b)	the provision of Services to Arkane BV; and
+
+		(c)	the Account and Wallet creation function to Arkane BV.
+
+
+
+		21.4	If the validity or enforceability of any provision of these Terms of Use is in any way limited by any applicable law, that provision will be valid and enforceable to the fullest extent permitted by such law.  The invalidity or unenforceability of any such provision does not affect the validity or enforceability of any other provision.
+
+		21.5	The failure to exercise, or delay in exercising, a right, power or remedy provided by these Terms of Use or by law does not constitute a waiver of that right, power or remedy. If SORS waives a breach of any provision of these Terms of Use, this does not operate as a waiver of a subsequent breach of that provision, or as a waiver of a breach of any other provision.
+
+		21.6	The exercise of the parties’ rights under these Terms of Use is not subject to the consent of any third party.
+
+		21.7	These Terms of Use are for SORS’s benefit and your benefit, and are not intended to benefit or be enforceable by any third party.
+
+		21.8	These Terms of Use comprise the entire understanding and agreements between you and SORS as to its subject matter, and supersedes any and all prior discussions, agreements and understandings of any kind relating to its subject matter (including any prior versions of these Terms of Use).
+
+		21.9	Both you and SORS are independent contractors. Nothing in these Terms of Use creates any other form of relationship between you and SORS. These Terms of Use are not to be interpreted as evidence of an association, joint venture, partnership, agency or franchise between the parties. You are not authorised to represent SORS in any way, or to incur any obligations on behalf of SORS.
+
+		21.10	Terms that are defined in the Companies Ordinance (Chapter 622, Laws of Hong Kong) have the same meaning in these Terms of Use, unless otherwise defined in these Terms of Use.
+
+		21.11	If you have any feedback, questions, complaints relating to our Service, the Website, the Platform, your Account and your Wallet, please submit the same to SORS at wallet@sorted.finance.. SORS will use reasonable effort to respond to you as soon as possible but SORS will not be responsible for any losses and damage incurred during SORS’s response period.
+
+		21.12	Communications between you and SORS use electronic means, whether made via the Website, the Platform or sent via electronic mail, or whether SORS posts notices on the Website or the Platform. For contractual purposes, you:
+
+		(a)	consent to receive communications from SORS in an electronic form; and
+
+		(b)	agree that all terms and conditions, agreements, notices, disclosures, and other communication that SORS provides to you electronically satisfy any legal requirement that such communications would satisfy if it were to be in writing.
+
+		22.	Governing law
+
+		22.1	These Terms of Use, their subject matter and their formation (and any non-contractual disputes or claims) are governed by and construed in accordance with the laws of Hong Kong.
+
+		22.2	Any dispute, controversy, difference or claim (including non-contractual disputes or claims) arising out of or relating to these Terms of Use, including the existence, validity, interpretation, performance, breach or termination thereof or any dispute regarding non-contractual obligations arising out of or relating to it shall be referred to and finally resolved by arbitration administered by the Hong Kong International Arbitration Centre (HKIAC) under the HKIAC Administered Arbitration Rules in force when the Notice of Arbitration is submitted. The law of this arbitration clause shall be Hong Kong law). The seat of arbitration shall be Hong Kong. The number of arbitrators shall be one. The arbitration proceedings shall be conducted in English.
+
+		Please email support@sorted.finance if you have any questions or concerns about these Terms of Use or our Website.`
+		]
     }
 }
