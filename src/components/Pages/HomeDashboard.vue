@@ -6,16 +6,21 @@
       <tabs>
         <kaiui-tab-item :name="$t('pages.dashboard.myWallets')">
           <kaiui-separator :title="$t('pages.dashboard.myWallets')" />
-          <list-item
-            v-for="(wallet, index) in getWalletsList()"
-            :key="index"
 
-            :primaryText="wallet.primaryLabel"
-            :secondaryText="wallet.secondaryLabel"
+          <div v-if="getWalletsList().length">
+            <list-item
+              v-for="(wallet, index) in getWalletsList()"
+              :key="index"
 
-            :softkeys="softkeysPhone"
-            v-on:softCenter="showOptionsDialog(wallet.item)"
-          />
+              :primaryText="wallet.primaryLabel"
+              :secondaryText="wallet.secondaryLabel"
+
+              :softkeys="softkeysPhone"
+              v-on:softCenter="showOptionsDialog(wallet.item)"
+            />
+
+            <kai-os-ad />
+          </div>
         </kaiui-tab-item>
 
         <kaiui-tab-item :name="$t('pages.dashboard.settings')">
@@ -26,19 +31,6 @@
           <faq-page />
         </kaiui-tab-item>
       </tabs>
-
-      <div class="ad-container" v-show="adShowing">
-        <div class="ad-container__close">
-          <kaiui-button 
-            :title="$t('closeAd')"
-            :softkeys="{
-              center: $t('closeAd')
-            }"
-            v-on:softCenter="closeAd()"
-          />
-        </div>
-        <div class="ad-container__ad"></div>
-      </div>
     </kaiui-content>
 
     <kaiui-dialog
@@ -103,6 +95,7 @@
 import i18n from '@/lang/setup';
 import SettingsPage from '@/components/Pages/SettingsPage.vue';
 import FaqPage from '@/components/Pages/FAQPage.vue';
+import KaiOSAd from '@/components/common/KaiOSAd.vue';
 
 const { Base64 } = require("js-base64");
 
@@ -110,10 +103,9 @@ export default {
   components: {
     SettingsPage,
     FaqPage,
+    'kai-os-ad': KaiOSAd,
   },
   data: () => ({
-    adShowing: false,
-
     items: [],
     selectedWallet: null,
 
@@ -222,8 +214,6 @@ export default {
         const { data } = response;
 
         this.items = data.wallets || [];
-
-        this.showAd();
       } catch(err) {
         this.showDialog(i18n.t('genericErrorTitle'), err.generic);
       } finally {
@@ -254,40 +244,6 @@ export default {
 
       return walletsForDisplay;
     },
-
-    showAd(timeout = 10 * 1000)  {
-      // eslint-disable-next-line no-undef
-      getKaiAd({
-        publisher: process.env.VUE_APP_KAI_AD_PUBLISHER_ID,
-        app: process.env.VUE_APP_KAI_AD_APP,
-        slot: process.env.VUE_APP_KAI_AD_SLOT,
-        test: parseInt(process.env.VUE_APP_KAI_AD_TEST),
-        timeout,
-
-        container: document.querySelector('.ad-container__ad'),
-
-        h: 50,
-        w: 240,
-
-        onerror: err => {
-          console.error(err);
-          // this.showDialog('Ad error', err);
-        },
-        onready: ad => {
-          this.adShowing = true;
-
-          ad.call('display', {
-            tabindex: 0,
-            display: 'block'
-          })
-        },
-      })
-    },
-    closeAd() {
-      this.adShowing = false;
-      
-      this.$root.$emit("update-softkeys-unregister");
-    }
   },
   mounted() {
     this.getWallets();
@@ -311,34 +267,4 @@ export default {
 .qrcode img {
   width: 100%;
 }
-</style>
-
-<style>
-.ad-container {
-  width: 100%;
-
-  position: absolute;
-  bottom: 30px;
-
-  z-index: 9999;
-}
-  .ad-container__ad {
-    height: 50px;
-  }
-  .ad-container__close {
-    background-color: #cccccc;
-  }
-    .ad-container__close .kaiui-button {
-      margin: 0 !important;
-      background-color: transparent !important;
-      min-height: auto !important;
-    }
-    .ad-container__close .kaiui-button .kaiui-button-title  {
-      font-size: 12px;
-      text-decoration: underline;
-      text-align: right !important;
-    }
-    .ad-container__close .kaiui-button[nav-selected="true"] .kaiui-button-title  {
-      color: #000 !important;
-    }
 </style>

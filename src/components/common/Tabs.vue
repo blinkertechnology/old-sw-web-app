@@ -57,13 +57,11 @@ export default {
          */
         onClick(tab, index) {
             this.selectTab(tab);
-            /**
-             * @private
-             */
-            this.$root.$emit(
-                "set-tab-element-selected",
-                this.$refs[`tabs_${this.refId}_${index}`][0]
-            );
+
+            // this.$root.$emit(
+            //     "set-tab-element-selected",
+            //     this.$refs[`tabs_${this.refId}_${index}`][0]
+            // );
         },
     },
 };
