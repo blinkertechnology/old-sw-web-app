@@ -2,7 +2,7 @@
     <div class="ad-container" 
         v-show="adShowing"
         v-bind:nav-selectable="true" 
-        tabindex="0" 
+        tabindex="1" 
         v-on:focus="handleFocusChange(true)"
         v-on:blur="handleFocusChange(false)"
     >
@@ -17,16 +17,17 @@ export default {
     data: () => ({
         adShowing: false,
         softkeys: {
-            center: i18n.t('view') 
+            center: i18n.t('view')
         },
+        ad: null,
     }),
 
     mounted() {
-        console.log('KaiOSAd mounted');
         this.showAd();
 
         this.$on("softkey-center-pressed", () => {
-           console.log('softkey-center-pressed');
+            this.ad.call('click');
+            this.closeAd();
         });
     },
 
@@ -37,7 +38,7 @@ export default {
                 publisher: process.env.VUE_APP_KAI_AD_PUBLISHER_ID,
                 app: process.env.VUE_APP_KAI_AD_APP,
                 slot: process.env.VUE_APP_KAI_AD_SLOT,
-                test: 0,
+                test: parseInt(process.env.VUE_APP_KAI_AD_TEST),
                 timeout,
 
                 container: document.querySelector('.ad-container__ad'),
@@ -48,18 +49,12 @@ export default {
                 onerror: err => console.error(err),
                 onready: ad => {
                     this.adShowing = true;
+                    this.ad = ad;
 
                     ad.call('display', {
                         tabindex: 5,
                         display: 'block'
-                    })
-
-                    this.src = document.querySelector('.ad-container__ad iframe').src;
-
-                    console.log(this.src);
-
-                    // const iframe = document.querySelector('.ad-container__ad iframe');
-                    // console.log(iframe);
+                    });
                 },
             })
         },

@@ -6,13 +6,11 @@
       <img src="/assets/loader.gif" />
     </div>
 
-    <div class="dialog">
-      <kaiui-dialog :title="dialogData.title" v-model="dialogShowing" :softkeys="{
-        right: $t('ok'),
-      }" v-on:softRight="closeDialog">
-        <kaiui-text :text="dialogData.message" />
-      </kaiui-dialog>
-    </div>
+    <kaiui-dialog :title="dialogData.title" v-model="dialogShowing" :softkeys="{
+      right: $t('ok'),
+    }" v-on:softRight="closeDialog">
+      <kaiui-text :text="dialogData.message" />
+    </kaiui-dialog>
   </div>
 </template>
 
@@ -192,18 +190,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-
-.dialog {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  height: 100%;
-
-  z-index: 9999;
 }
 
 .loading-overlay {

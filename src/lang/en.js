@@ -17,7 +17,6 @@ export default {
     success: 'Success',
     ok: 'OK',
     next: 'Next',
-    closeAd: 'Close ad',
 
     login: 'Login',
     register: 'Register',
