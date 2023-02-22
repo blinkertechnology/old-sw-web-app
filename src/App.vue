@@ -22,6 +22,7 @@ export default {
   name: "app",
   data: () => ({
     dialogOpen: false,
+    internalBrowserOpen: false,
 
     isLoading: false,
 
@@ -81,6 +82,13 @@ export default {
       this.dialogOpen = false;
     });
 
+    this.$root.$on('internal-browser-opened', () => {
+      this.internalBrowserOpen = true;
+    });
+    this.$root.$on('internal-browser-closed', () => {
+      this.internalBrowserOpen = false;
+    });
+
     this.$root.$on('show-dialog', ({ title, message }) => {
       this.dialogShowing = true;
 
@@ -138,6 +146,15 @@ export default {
      */
     onKeyDown(event) {
       if (event.key === 'Backspace' || event.key === '`') {
+        /**
+         * Internal browser is open, emit event to close it
+         */
+        if(this.internalBrowserOpen) {
+          event.preventDefault();
+
+          return this.$root.$emit('close-internal-browser');
+        }
+
         /**
          * Main dialog is open, close it
          */

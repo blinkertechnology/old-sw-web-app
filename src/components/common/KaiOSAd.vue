@@ -29,6 +29,12 @@ export default {
             this.ad.call('click');
             this.closeAd();
         });
+
+        this.$root.$on('close-internal-browser', () => {
+            this.closeAd();
+
+            this.$root.$emit('internal-browser-closed');
+        })
     },
 
     methods: {
@@ -55,6 +61,10 @@ export default {
                         tabindex: 5,
                         display: 'block'
                     });
+
+                    ad.on('click', () => {
+                        this.$root.$emit('internal-browser-opened');
+                    })
                 },
             })
         },
