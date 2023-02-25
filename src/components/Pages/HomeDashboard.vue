@@ -57,7 +57,7 @@
       <div v-if="showQRCodeDialog">
         <div v-if="selectedWallet" class="qrcode">
           <qr-code
-            :size="180"
+            :size="170"
             :text="selectedWallet.address"
             style="display: block"
             class="m-auto"
