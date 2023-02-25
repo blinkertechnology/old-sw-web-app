@@ -10,6 +10,7 @@
             :value="value"
             ref="input"
 
+            v-on:keydown="onKeyDown"
             v-on:click="onClick" 
             v-on:focus="handleFocusChange(true)"
             v-on:blur="handleFocusChange(false)"
@@ -49,7 +50,12 @@ export default {
         },
         disabled: {
             type: Boolean,
-            require: false,
+            required: false,
+            default: false,
+        },
+        digitsOnly: {
+            type: Boolean,
+            required: false,
             default: false,
         }
     },
@@ -86,6 +92,18 @@ export default {
          */
         onInput($event) {
             this.$emit("input", $event.target.value);
+        },
+        onKeyDown($event) {
+            /**
+             * KaiOS doesn't seem to support input[type="number"] properly,
+             * thus filter out non-digit keys on input instead
+             */
+            if(this.digitsOnly) {
+                const re = new RegExp("[0-9]|[.]|[,]");
+                if(!re.test($event.key)) {
+                    event.preventDefault();
+                }
+            }
         },
         handleFocusChange(isNowFocused) {
             if (isNowFocused) {

@@ -11,55 +11,52 @@
       </svg>
     </div>
 
-    <div v-if="loading" class="loader">
-      <img src="/assets/loader.gif" />
-    </div>
-    <div v-else>
-      <form method="POST">
-        <kaiui-button 
-          :title="$t('pages.makeTransaction.upload')" 
-          v-on:softCenter="pickImage" 
-          v-bind:softkeys="softkeysPhoneTwo" 
-          v-on:softLeft="goback" 
-        />
-        <kaiui-button 
-          :title="$t('pages.makeTransaction.scan')" 
-          v-on:softCenter="openCam" 
-          v-bind:softkeys="softkeysPhoneTwo" 
-          v-on:softLeft="goback" 
-        />
+    <form method="POST">
+      <kaiui-button 
+        :title="$t('pages.makeTransaction.upload')" 
+        v-on:softCenter="pickImage" 
+        v-bind:softkeys="softkeysPhoneTwo" 
+        v-on:softLeft="goback" 
+      />
+      <kaiui-button 
+        :title="$t('pages.makeTransaction.scan')" 
+        v-on:softCenter="openCam" 
+        v-bind:softkeys="softkeysPhoneTwo" 
+        v-on:softLeft="goback" 
+      />
 
-        <custom-input
-          type="text"
-          :label="$t('pages.makeTransaction.destination')" 
-          v-model="transaction.toAddress" 
-          :placeholder="$t('pages.makeTransaction.destination')"
-        />
+      <custom-input
+        type="text"
+        :label="$t('pages.makeTransaction.destination')" 
+        v-model="transaction.toAddress" 
+        :placeholder="$t('pages.makeTransaction.destination')"
+      />
 
-        <custom-input
-          type="tel" 
-          :label="$t('pages.makeTransaction.amount')"
-          :placeholder="$t('pages.makeTransaction.amount')" 
-          v-model="transaction.amount" 
-        />
+      <custom-input
+        type="text"
+        digits-only
+        :label="$t('pages.makeTransaction.amount')"
+        :placeholder="$t('pages.makeTransaction.amount')" 
+        v-model="transaction.amount" 
+      />
 
-        <custom-input 
-          type="tel" 
-          :label="$t('pages.makeTransaction.pin')" 
-          v-model="transaction.pincode"
-          :placeholder="$t('pages.makeTransaction.pin')" pattern="[0-9]+" 
-        />
+      <custom-input 
+        type="tel" 
+        :label="$t('pages.makeTransaction.pin')" 
+        v-model="transaction.pincode"
+        :placeholder="$t('pages.makeTransaction.pin')" 
+        pattern="[0-9]+" 
+      />
 
-        <kaiui-button 
-          :title="$t('pages.makeTransaction.submit')" 
-          v-bind:softkeys="softkeysPhoneTwo" 
-          v-on:softCenter="submit" 
-          v-on:softLeft="goback" 
-        />
+      <kaiui-button 
+        :title="$t('pages.makeTransaction.submit')" 
+        v-bind:softkeys="softkeysPhoneTwo" 
+        v-on:softCenter="submit" 
+        v-on:softLeft="goback" 
+      />
 
-        <img id="img1" src="" style="display:none" alt="qr code" />
-      </form>
-    </div>
+      <img id="img1" src="" style="display:none" alt="qr code" />
+    </form>
     
     <SoftKey 
       :softkeys.sync="softkeys" 
@@ -94,7 +91,6 @@ export default {
         left: i18n.t('back'),
       },
 
-      loading: false,
       transactionSuccess: false,
     };
   },
@@ -120,7 +116,7 @@ export default {
         return this.showDialog('', 'Pincode Length shound be greater than 3');
       }
 
-      this.loading = true;
+      this.showLoading();
 
       try {
         const response = await this.$http.post(`wallet/${this.$route.params.id}/execute`, {
@@ -144,7 +140,7 @@ export default {
         console.error(err);
         this.showDialog('Error', err.generic);
       } finally {
-        this.loading = false;
+        this.hideLoading();
       }
     },
 
@@ -170,7 +166,8 @@ export default {
       let self = this;
 
       activity.onsuccess = function success() {
-        this.loading = true;
+        this.showLoading();
+
         self.launchActivity = false;
         let blob = this.result.blob;
         if (blob) {
@@ -188,15 +185,15 @@ export default {
                 await qr.decodeFromImage(img1).then((res) => {
                   if (res.data === undefined) {
                     alert("No QR code found. Please upload again.");
-                    this.loading = false;
+                    this.hideLoading();
                   } else {
                     this.transaction.toAddress = res.data;
                     alert("QR Data readed successfully.")
-                    this.loading = false
+                    this.hideLoading();
                   }
                 }).catch((err) => {
                   alert("Something went wrong. Please try again later.");
-                  this.loading = false;
+                  this.hideLoading();
                 })
               } catch (error) {
                 return error;
@@ -206,7 +203,7 @@ export default {
 
         } else {
           this.showNotice("", "Error", "Error scanning file.");
-          this.loading = false;
+          this.hideLoading();
         }
       };
       activity.onerror = () => {
