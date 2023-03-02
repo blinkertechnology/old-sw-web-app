@@ -16,36 +16,39 @@
           v-on:softLeft="goBack"
         />
       </div>
-      <div
-        v-else
-        v-for="item in transactions"
-        :key="item['hash']"
-        class="customclass row lead border mb-3"
-        nav-selectable="true"
-      >
-        <div class="col-sm-5 col-md-6">Secret Type: <b>Ethereum</b></div>
-        <div class="col-sm-5 col-md-6">
-          Status:
-          <b>{{ item["txreceipt_status"] === "1" ? "Success" : "Fail" }}</b>
-        </div>
-        <div class="col-sm-5 col-md-6">
-          Amount: <b>{{ item["value"] / 1000000000000000000 }}</b>
-        </div>
-        <div class="col-sm-5 col-md-6">Transaction From:</div>
-        <div class="address">
-          <b>{{ item["from"] }}</b>
-        </div>
-        <div class="col-sm-5 col-md-6">Transaction To:</div>
-        <div class="address">
-          <b>{{ item["to"] }}</b>
-        </div>
-        <div class="col-sm-5 col-md-6">Transaction At:</div>
-        <div class="address">
-          <b>{{ new Date(item["timeStamp"] * 1000).toLocaleString() }}</b>
-        </div>
+      
+      <div v-else>
+        <list-item 
+          v-for="item in transactions"
+          :softkeys="softkeysListItem"
+          v-on:softLeft="goBack"
+          v-on:softCenter="$event => viewDetails(item)"
+          :key="item['hash']"
+          :primaryText="`${new Date(item['timeStamp'] * 1000).toLocaleString()}`"
+          :secondaryText="`To: ${item['to']}`"
+          :tertiaryText="item['txreceipt_status'] === '1' ? 'Success' : 'Failed'"
+        />
       </div>
     </div>
+
+    <kaiui-dialog
+      title="Transaction details"
+      v-model="showTransactionInfoDialog"
+      :softkeys="softkeys"
+      v-on:softLeft="closeTransactionInfoDialog"
+    >
+      <div v-if="selectedTransaction">
+        <kaiui-text :text="`Status: ${selectedTransaction['txreceipt_status'] === '1' ? 'Success' : 'Failed'} `" />
+        <kaiui-text :text="`Hash: ${selectedTransaction['hash']} `" />
+        <kaiui-text :text="`Value: ${selectedTransaction['value']}`" />
+        <kaiui-text :text="`Gas: ${selectedTransaction['gas']}`" />
+        <kaiui-text :text="`From: ${selectedTransaction['from']}`" />
+        <kaiui-text :text="`To: ${selectedTransaction['to']}`" />
+      </div>
+    </kaiui-dialog>
+
     <SoftKey 
+      v-if="!selectedTransaction"
       :softkeys.sync="softkeys" 
       v-on:softLeft="goBack"
     />
@@ -62,11 +65,18 @@ export default {
   },
   data() {
     return {
+      showTransactionInfoDialog: false,
+      selectedTransaction: null,
+
       items: null,
       loading: true,
       softkeysButton: {
         left: i18n.t('back'),
         center: i18n.t('select')
+      },
+      softkeysListItem: {
+        left: i18n.t('back'),
+        center: i18n.t('view')
       },
       softkeys: {
         left: i18n.t('back'),
@@ -89,6 +99,14 @@ export default {
           id: this.$route.params.id
         }
       });
+    },
+    viewDetails(item) {
+      this.selectedTransaction = item;
+      this.showTransactionInfoDialog = true;
+    },
+    closeTransactionInfoDialog() {
+      this.showTransactionInfoDialog = false;
+      this.selectedTransaction = null;
     }
   },
   async mounted () {
@@ -128,9 +146,6 @@ export default {
   word-wrap: break-word;
   word-break: break-word;
   hyphens: auto;
-}
-.customclass {
-  text-align: center;
 }
 
 .no-transactions {

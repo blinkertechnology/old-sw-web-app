@@ -9,6 +9,7 @@
         <div class="kaiui-listitem-text-wrapper">
             <span class="kaiui-p_pri kaiui-listitem-primary-text">{{ primaryText }}</span>
             <span class="kaiui-p_sec kaiui-listitem-secondary-text">{{ secondaryText }}</span>
+            <span class="kaiui-p_thi kaiui-listitem-tertiary-text">{{ tertiaryText }}</span>
         </div>
 
         <div v-if="iconRight" class="listitem-icon">
@@ -165,6 +166,10 @@ export default {
 }
 
 .kaiui-listitem[nav-selected="true"] .kaiui-listitem-secondary-text {
+    color: var(--listitem-selected-text-color);
+}
+
+.kaiui-listitem[nav-selected="true"] .kaiui-listitem-tertiary-text {
     color: var(--listitem-selected-text-color);
 }
 
