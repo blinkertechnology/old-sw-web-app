@@ -122,7 +122,10 @@ export default {
         const response = await this.$http.post(`wallet/${this.$route.params.id}/execute`, {
           'pin': this.transaction.pincode,
           'amount': parseFloat(this.transaction.amount),
-          'to': this.transaction.toAddress
+          'to': this.transaction.toAddress,
+          ...(this.$route.params.token
+							? { token: this.$route.params.token }
+							: {}),
         });
 
         this.showNotice('', 'Success', 'Your transaction was successful.');
@@ -149,6 +152,7 @@ export default {
         name: "camera",
         params: { 
           id: this.$route.params.id,
+          ...(this.$route.params.token ? { token: this.$route.params.token } : {})
         }
       });
     },

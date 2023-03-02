@@ -83,7 +83,7 @@ const router = new Router({
       }
     },
     {
-      path: "/wallet/:id/tx",
+      path: "/wallet/:id/:token?/tx",
       name: "maketransaction",
       component: maketransaction,
       props: true,
@@ -93,7 +93,7 @@ const router = new Router({
       }
     },
     {
-      path: "/wallet/:id/tx/camera",
+      path: "/wallet/:id/:token?/tx/camera",
       name: "camera",
       component: camerapage,
       meta: {
@@ -104,7 +104,7 @@ const router = new Router({
       }
     },
     {
-      path: "/wallet/:id/txs",
+      path: "/wallet/:id/:token?/txs",
       name: "transactionslist",
       component: transactionslist,
       meta: {

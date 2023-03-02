@@ -184,7 +184,8 @@ export default {
       this.$router.push({
         name: "maketransaction",
         params: { 
-          walletId: this.$route.params.id, 
+          id: this.$route.params.id, 
+          ...(this.$route.params.token ? { token: this.$route.params.token } : {})
         }
       });
     }

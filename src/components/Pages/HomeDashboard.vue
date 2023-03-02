@@ -187,6 +187,7 @@ export default {
         name: "maketransaction",
         params: { 
           id: this.selectedWallet.id,
+          ...(this.selectedWallet.symbol ? { token: this.selectedWallet.symbol } : {})
         }
       });
     },
@@ -195,6 +196,7 @@ export default {
         name: "transactionslist",
         params: { 
           id: this.selectedWallet.id,
+          ...(this.selectedWallet.symbol ? { token: this.selectedWallet.symbol } : {})
         }
       });
     },
@@ -236,7 +238,11 @@ export default {
             walletsForDisplay.push({
               primaryLabel: i18n.t(`wallets.${item.secretType.toLowerCase()}_${token.symbol.toLowerCase()}`),
               secondaryLabel: `Balance: ${token.balance} ($US ${token.usd})`,
-              item: item,
+              item: {
+                ...token,
+                id: item.id,
+                address: item.address,
+              },
             })
           })
         }

@@ -93,7 +93,14 @@ export default {
   },
   async mounted () {
     try {
-      const response = await this.$http.get(`wallet/${this.$route.params.id}/transactions`);
+      const response = await this.$http.get(
+        `wallet/${this.$route.params.id}/transactions`,
+        {
+          params: {
+            ...(this.$route.params.token ? { token: this.$route.params.token } : {})
+          }
+        }
+      );
       const { wallet, transactions } = response.data;
 
       this.wallet = wallet;
