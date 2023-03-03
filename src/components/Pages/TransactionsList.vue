@@ -24,9 +24,9 @@
           v-on:softLeft="goBack"
           v-on:softCenter="$event => viewDetails(item)"
           :key="item['hash']"
-          :primaryText="`${new Date(item['timeStamp'] * 1000).toLocaleString()}`"
-          :secondaryText="`Amount: ${item['value']}`"
-          :tertiaryText="item['txreceipt_status'] === '1' ? 'Success' : 'Failed'"
+          :primaryText="`${item['date']}`"
+          :secondaryText="`Amount: ${item['amount']}`"
+          :tertiaryText="item['status']"
         />
       </div>
     </div>
@@ -40,12 +40,12 @@
       <div v-if="selectedTransaction">
         <div class="transaction-value" v-bind:nav-selectable="true" >
           <div class="transaction-value--t">Date</div>
-          <div class="transaction-value--v">{{ new Date(selectedTransaction['timeStamp'] * 1000).toLocaleString() }}</div>
+          <div class="transaction-value--v">{{ selectedTransaction['date'] }}</div>
         </div>
 
         <div class="transaction-value" v-bind:nav-selectable="true">
           <div class="transaction-value--t">Amount</div>
-          <div class="transaction-value--v">{{ selectedTransaction['value'] }}</div>
+          <div class="transaction-value--v">{{ selectedTransaction['amount'] }}</div>
         </div>
 
         <div class="transaction-value" v-bind:nav-selectable="true">
@@ -55,12 +55,12 @@
 
         <div class="transaction-value" v-bind:nav-selectable="true">
           <div class="transaction-value--t">From</div>
-          <div class="transaction-value--v">{{ selectedTransaction['from'] }}</div>
+          <div class="transaction-value--v">{{ selectedTransaction['fromAddress'] }}</div>
         </div>
 
         <div class="transaction-value" v-bind:nav-selectable="true">
           <div class="transaction-value--t">To</div>
-          <div class="transaction-value--v">{{ selectedTransaction['to'] }}</div>
+          <div class="transaction-value--v">{{ selectedTransaction['toAddress'] }}</div>
         </div>
       </div>
     </kaiui-dialog>
