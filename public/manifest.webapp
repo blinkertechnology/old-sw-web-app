@@ -1,7 +1,7 @@
 {
-  "version": "2.2.49",
+  "version": "2.2.67",
   "name": "Sorted Wallet",
-  "description": "Sorted Wallet",
+  "description": "Sorted Wallet is the first crypto wallet on KaiOS. Our mission is to make Web3 accessible to everyone! With Sorted Wallet, you can store, send & receive Bitcoin, MATIC and USDC for free. Simple register using your email ID or phone number and start your digital asset journey.",
   "type": "privileged",
   "launch_path": "/index.html",
   "icons": {
