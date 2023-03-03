@@ -38,12 +38,35 @@
       v-on:softLeft="closeTransactionInfoDialog"
     >
       <div v-if="selectedTransaction">
-        <kaiui-text :text="`Status: ${selectedTransaction['txreceipt_status'] === '1' ? 'Success' : 'Failed'} `" />
-        <kaiui-text :text="`Hash: ${selectedTransaction['hash']} `" />
-        <kaiui-text :text="`Value: ${selectedTransaction['value']}`" />
-        <kaiui-text :text="`Gas: ${selectedTransaction['gas']}`" />
-        <kaiui-text :text="`From: ${selectedTransaction['from']}`" />
-        <kaiui-text :text="`To: ${selectedTransaction['to']}`" />
+        <div class="transaction-value" v-bind:nav-selectable="true" >
+          <div class="transaction-value--t">Status</div>
+          <div class="transaction-value--v">{{ selectedTransaction['txreceipt_status'] === '1' ? 'Success' : 'Failed' }}</div>
+        </div>
+
+        <div class="transaction-value" v-bind:nav-selectable="true" >
+          <div class="transaction-value--t">Hash</div>
+          <div class="transaction-value--v">{{ selectedTransaction['hash'] }}</div>
+        </div>
+
+        <div class="transaction-value" v-bind:nav-selectable="true">
+          <div class="transaction-value--t">Value</div>
+          <div class="transaction-value--v">{{ selectedTransaction['value'] }}</div>
+        </div>
+
+        <div class="transaction-value" v-bind:nav-selectable="true">
+          <div class="transaction-value--t">Gas</div>
+          <div class="transaction-value--v">{{ selectedTransaction['gas'] }}</div>
+        </div>
+
+        <div class="transaction-value" v-bind:nav-selectable="true">
+          <div class="transaction-value--t">From</div>
+          <div class="transaction-value--v">{{ selectedTransaction['from'] }}</div>
+        </div>
+
+        <div class="transaction-value" v-bind:nav-selectable="true">
+          <div class="transaction-value--t">To</div>
+          <div class="transaction-value--v">{{ selectedTransaction['to'] }}</div>
+        </div>
       </div>
     </kaiui-dialog>
 
@@ -142,7 +165,14 @@ export default {
 .loader {
   text-align: center;
 }
-.address {
+
+.transaction-value {
+  padding: 10px;
+}
+.transaction-value--t {
+  font-weight: 700;
+}
+.transaction-value--v {
   word-wrap: break-word;
   word-break: break-word;
   hyphens: auto;
