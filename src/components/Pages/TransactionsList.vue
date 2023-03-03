@@ -25,7 +25,7 @@
           v-on:softCenter="$event => viewDetails(item)"
           :key="item['hash']"
           :primaryText="`${new Date(item['timeStamp'] * 1000).toLocaleString()}`"
-          :secondaryText="`To: ${item['to']}`"
+          :secondaryText="`Amount: ${item['value']}`"
           :tertiaryText="item['txreceipt_status'] === '1' ? 'Success' : 'Failed'"
         />
       </div>
@@ -39,17 +39,12 @@
     >
       <div v-if="selectedTransaction">
         <div class="transaction-value" v-bind:nav-selectable="true" >
-          <div class="transaction-value--t">Status</div>
-          <div class="transaction-value--v">{{ selectedTransaction['txreceipt_status'] === '1' ? 'Success' : 'Failed' }}</div>
-        </div>
-
-        <div class="transaction-value" v-bind:nav-selectable="true" >
-          <div class="transaction-value--t">Hash</div>
-          <div class="transaction-value--v">{{ selectedTransaction['hash'] }}</div>
+          <div class="transaction-value--t">Date</div>
+          <div class="transaction-value--v">{{ new Date(selectedTransaction['timeStamp'] * 1000).toLocaleString() }}</div>
         </div>
 
         <div class="transaction-value" v-bind:nav-selectable="true">
-          <div class="transaction-value--t">Value</div>
+          <div class="transaction-value--t">Amount</div>
           <div class="transaction-value--v">{{ selectedTransaction['value'] }}</div>
         </div>
 
@@ -124,6 +119,8 @@ export default {
       });
     },
     viewDetails(item) {
+      console.log(item);
+
       this.selectedTransaction = item;
       this.showTransactionInfoDialog = true;
     },
