@@ -1,7 +1,7 @@
 {
   "version": "2.2.69",
   "name": "Sorted Wallet",
-  "description": "Sorted Wallet is the first crypto wallet on KaiOS. Our mission is to make Web3 accessible to everyone! With Sorted Wallet, you can store, send & receive Bitcoin, MATIC and USDC for free. Simple register using your email ID or phone number and start your digital asset journey.",
+  "description": "Send & receive Bitcoin, USDT, USDC and Matic with the Sorted Wallet. Simply register using your email or phone number. Please note USDT, USDC and Matic are on the Polygon Network, for the lowest gas fee transfers.",
   "type": "privileged",
   "launch_path": "/index.html",
   "icons": {
@@ -16,7 +16,7 @@
     "en-US": {
       "name": "Sorted Wallet",
       "subtitle": "Sorted Wallet is the first crypto wallet on KaiOS. ",
-      "description": "Our mission is to make Web3 accessible to everyone! With Sorted Wallet, you can store, send & receive Bitcoin, MATIC and USDC for free. Simple register using your email ID or phone number and start your digital asset journey."
+      "description": "Send & receive Bitcoin, USDT, USDC and Matic with the Sorted Wallet. Simply register using your email or phone number. Please note USDT, USDC and Matic are on the Polygon Network, for the lowest gas fee transfers."
     }
   },
   "default_locale": "en-US",
