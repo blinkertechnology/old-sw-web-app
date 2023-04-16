@@ -41,6 +41,7 @@
                 :softkeys="{
                     left: $t('cancel'),
                     center: $t('select'),
+                    right: $t('agree'),
                 }"
             >
                 <custom-input
@@ -61,8 +62,10 @@
                         :softkeys="{
                             left: $t('cancel'),
                             center: $t('select'),
+                            right: $t('agree'),
                         }"
                         v-on:softLeft="closeCountryDialog"
+                        v-on:softRight="closeCountryDialog"
                     />
                 </kaiui-radiogroup>
             </kaiui-dialog>
@@ -94,8 +97,10 @@
         <SoftKey 
             :softkeys="{
                 left: $t('back'),
+                
             }" 
             v-on:softLeft="sendBack"
+           
         />
     </kaiui-content>
 </template>
@@ -145,19 +150,21 @@ export default {
         },
         closeCountryDialog() {
             this.showCountryDialog = false;
+            this.allCountries = countries
             this.$nextTick(() => {
                 this.$refs.phoneNumber.focus();
             })
         },
 
         onSearch(search) {
+            // console.log(search)
             if(!search.length) {
                 this.allCountries = countries;
                 return;
             }
 
             this.allCountries = countries.filter(c => {
-                return c.name.includes(search) || c.dialCode.includes(search) || c.isoCode.includes(search);
+                return c.name.includes(search) || c.name.toLowerCase().includes(search) || c.dialCode.includes(search) || c.isoCode.includes(search);
             })
         },
 

@@ -17,6 +17,7 @@ export default {
     success: 'Success',
     ok: 'OK',
     next: 'Next',
+	agree: 'Agree',//Ani added
 
     login: 'Login',
     register: 'Register',
@@ -66,7 +67,9 @@ export default {
                 length: 'Pin must be between 3 and 7 digits'
             }
         },
-
+		firstpage:{
+			choose: 'Choose your language'
+		},
         homepage: {
             intro: {
                 title: 'Welcome to Sorted Wallet',

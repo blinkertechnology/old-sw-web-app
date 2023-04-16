@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import FirstPage from '../components/FirstPage'
 import TermsAndConditions from '../components/TermsAndConditions';
 import HomePage from "@/components/HomePage";
 import forgotpass from "@/components/Auth/ForgotPass";
@@ -26,6 +27,16 @@ const router = new Router({
   routes: [
     {
       path: "/",
+      name: "FirstPage",
+      component: FirstPage
+    },
+    {
+      path: "/first",
+      name: "FirstPage",
+      component: FirstPage
+    },
+    {
+      path: "/terms",
       name: "TermsAndConditions",
       component: TermsAndConditions
     },
