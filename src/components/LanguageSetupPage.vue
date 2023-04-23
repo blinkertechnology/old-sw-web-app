@@ -1,28 +1,19 @@
 <template>
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
-
+  
     <div v-if="loader" class="loader">
       <img src="/assets/loader.gif" />
     </div>
     <div v-else>
       <div class="intro">
         <img src="/assets/icons/kaios_112.png" />
-        <h1>{{ $t("pages.homepage.intro.title") }}</h1>
-        <h2>{{ $t("pages.firstpage.choose") }}</h2>
+        <kaiui-text :text="$t('pages.homepage.intro.title')" />
+        <kaiui-text :text="$t('pages.firstpage.choose')" />
+        
       </div>
     </div>
-    <!-- <kaiui-separator :title="$t('pages.settings.changeLanguage')" /> -->
-    <kaiui-button
-      :title="$t('pages.settings.changeLanguage')"
-      v-on:softCenter="openLanguageDialog"
-      v-bind:softkeys="softkeysPhone"
-    />
-    <kaiui-dialog
-      :title="$t('select')"
-      v-model="showLanguageSelectorDialog"
-      :softkeys="softkeysDialog"
-    >
+    <div>
       <kaiui-radiogroup v-model="$i18n.locale">
         <kaiui-radiobutton
           v-for="(key, value) in supportedLanguages"
@@ -32,13 +23,15 @@
           v-on:softCenter="onLanguageSelect"
         />
       </kaiui-radiogroup>
-    </kaiui-dialog>
-    <kaiui-button
-      :title="$t('ok')"
-      v-on:softCenter="onSoftRight"
-      v-bind:softkeys="softkeysPhone"
-    />
-    <SoftKey :softkeys="softkeys" v-on:softRight="onSoftRight()" />
+    </div>
+    <div>
+      <kaiui-button
+        :title="$t('ok')"
+        v-on:softCenter="onSoftRight"
+        v-bind:softkeys="softkeysPhone"
+      />
+    </div>
+    <SoftKey :softkeys.sync="softkeys" v-on:softRight="onSoftRight" />
   </kaiui-content>
 </template>
 
@@ -56,7 +49,7 @@ export default {
       right: i18n.t("next"),
     },
     supportedLanguages: supportedLanguages,
-    showLanguageSelectorDialog: false,
+    // showLanguageSelectorDialog: false,
   }),
   mounted() {
     this.$root.$on("close-dialog", () => {
@@ -78,20 +71,14 @@ export default {
       // return this.$router.push({ name: "homepage" });
       // return this.$router.push({ name: "homepage" });
     },
-    openLanguageDialog() {
-      this.showLanguageSelectorDialog = true;
-
-      this.$root.$emit("dialog-opened");
-    },
-    closeLanguageDialog() {
-      this.$root.$emit("dialog-closed");
-      this.showLanguageSelectorDialog = false;
-    },
   },
 };
 </script>
 
 <style scoped>
+.abc {
+  overflow-y: scroll;
+}
 .intro {
   padding: 10px;
 
