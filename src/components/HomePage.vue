@@ -12,7 +12,7 @@
         <h2>{{ $t('pages.homepage.intro.sub') }}</h2>
       </div>
     </div>
-
+    <!-- v-model for two way binding that is when input changes then data changes and vice versa -->
     <kaiui-dialog
       :title="$t('login')"
       v-model="showLoginDialog"

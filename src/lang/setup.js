@@ -21,8 +21,8 @@ const i18n = new VueI18n({
 
 export const supportedLanguages = {
     'en': 'English',
-    'ur': 'Urdu',
+    'ur': 'اردو',
     'ha': 'Hausa',
-    'vi': 'Vietnamese'
+    'vi': 'Tiếng Việt'
 };
 export default i18n;

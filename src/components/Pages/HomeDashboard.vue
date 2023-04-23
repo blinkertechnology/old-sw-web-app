@@ -125,7 +125,7 @@ export default {
     },
 
     softkeysPhone: () => ({
-      left: null,
+      // left: null,
       center: i18n.t('options')
     }),
     softkeysDialog: () => ({

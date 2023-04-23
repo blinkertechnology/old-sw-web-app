@@ -64,11 +64,12 @@ export default {
       }
 
       this.$cookies.set("TAC_agreed", true, { expires: "90D" });
-      this.$router.push({ name: "homepage" });
+      // this.$router.push({ name: "homepage" });
     },
     onSelect() {
       this.agree = !this.agree;
     },
+   
     sendBottom() {
       let pageBottom = document.querySelector(".exacthere");
       pageBottom.scrollIntoView({ behavior: "smooth" });
@@ -78,7 +79,7 @@ export default {
   created() {
     setTimeout(() => (this.loader = false), 1200);
     if(this.$cookies.get("TAC_agreed")) {
-      this.$router.push({ name: "homepage" });
+      // this.$router.push({ name: "homepage" });
     }
   },
 };
