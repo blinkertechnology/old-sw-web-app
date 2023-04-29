@@ -6,11 +6,11 @@ const manifest = fs.readFileSync('./public/manifest.webapp', {
 const parsed = JSON.parse(manifest);
 
 module.exports = {
-    'VUE_APP_ENV': 'staging',
+    'VUE_APP_ENV': 'development',
     'VUE_APP_VERSION': parsed['version'],
 
     'VUE_APP_TITLE': 'Sorted Wallet',
-    'VUE_APP_URL': 'https://staging-api.sorted.finance',
+    'VUE_APP_URL': 'http://localhost:8082/',
 
     'VUE_APP_KAI_AD_PUBLISHER_ID': 'bc1327d6-abc0-427e-be35-c1e9f5c4ec57',
     'VUE_APP_KAI_AD_APP': 'sorted-wallet',
