@@ -68,7 +68,7 @@ export default {
             }
         },
 		firstpage:{
-			choose: 'Choose your language'
+			choose: 'Scroll to choose your language'
 		},
         homepage: {
             intro: {
