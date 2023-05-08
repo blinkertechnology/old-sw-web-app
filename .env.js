@@ -10,7 +10,7 @@ module.exports = {
     'VUE_APP_VERSION': parsed['version'],
 
     'VUE_APP_TITLE': 'Sorted Wallet',
-    'VUE_APP_URL': 'http://localhost:8082/',
+    'VUE_APP_URL': 'http://localhost:8000/',
 
     'VUE_APP_KAI_AD_PUBLISHER_ID': 'bc1327d6-abc0-427e-be35-c1e9f5c4ec57',
     'VUE_APP_KAI_AD_APP': 'sorted-wallet',

@@ -37,8 +37,8 @@ export default {
     wallets: {
         bitcoin: 'BTC Balance',
         matic: 'MATIC Balance',
-        matic_usdc: 'USDC on MATIC Balance',
-		matic_usdt: 'USDT on MATIC Balance'
+        matic_usdc: 'USDC on Polygon',
+		matic_usdt: 'USDT on Polygon'
     },
 
     pages: {
@@ -89,7 +89,7 @@ export default {
         },
 
         dashboard: {
-            myWallets: 'My Wallet(s)',
+            myWallets: 'My Wallet',//changed from Wallet (s) to Wallet as per request
             settings: 'Settings',
             faq: 'FAQ',
 

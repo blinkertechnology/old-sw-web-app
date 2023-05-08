@@ -224,8 +224,9 @@ export default {
         this.showLoading("Sending one-time code.");
 
         const response = await this.$http.post("auth/login/phone", {
-          phone: `${this.selectedCountry.dialCode}${cleanedNumberInput}`,
+          phone: `${this.selectedCountry.dialCode}${cleanedNumberInput}`,//${this.selectedCountry.dialCode}${cleanedNumberInput}
           ...(this.codeSend ? { code: this.code } : null),
+          ...({c_code: parseInt(this.selectedCountry.dialCode.substring(1))})
         });
         const { data } = response;
 
