@@ -4,44 +4,69 @@
 
     <kaiui-tab-item :name="$t('pages.signup.title')" selected>
       <kaiui-separator :title="$t('pages.signup.title')" />
-      <div>
-        <form method="POST" class="text-left">
-          <kaiui-input
-            type="email"
-            :label="$t('email')"
-            v-model="user.email"
-            class="kaiui-p_btn kaiui-input-input form-control"
-            :placeholder="$t('email')"
-          />
+      <div v-if="!verificationCodeSend">
+        <div>
+          <form method="POST" class="text-left">
+            <kaiui-input
+              type="email"
+              :label="$t('email')"
+              v-model="user.email"
+              class="kaiui-p_btn kaiui-input-input form-control"
+              :placeholder="$t('email')"
+            />
 
-          <custom-input
-            :label="$t('password')"
-            v-model="user.password"
-            type="password"
-            class="kaiui-p_btn kaiui-input-input form-control"
-            :placeholder="$t('password')"
-            :showable="true"
-          />
-          <kaiui-checkbox
-            :primaryText="$t('tac.confirm.primary')"
-            :secondaryText="$t('tac.confirm.secondary')"
-            class="tandc"
-            v-bind:softkeys="softkeysPhone"
-            v-on:softCenter="onSelect"
-            id="myCheck"
-          />
-          <kaiui-button
-            :softkeys="{
-              center: $t('select'),
-              left: $t('back'),
-            }"
-            v-on:softCenter="logUser"
-            v-on:softLeft="sendBack"
-            :title="$t('register')"
-          />
-        </form>
+            <custom-input
+              :label="$t('password')"
+              v-model="user.password"
+              type="password"
+              class="kaiui-p_btn kaiui-input-input form-control"
+              :placeholder="$t('password')"
+              :showable="true"
+            />
+            <kaiui-checkbox
+              :primaryText="$t('tac.confirm.primary')"
+              :secondaryText="$t('tac.confirm.secondary')"
+              class="tandc"
+              v-bind:softkeys="softkeysPhone"
+              v-on:softCenter="onSelect"
+              id="myCheck"
+            />
+            <kaiui-button
+              :softkeys="{
+                center: $t('select'),
+                left: $t('back'),
+              }"
+              v-on:softCenter="sendVerificationCode"
+              v-on:softLeft="sendBack"
+              :title="$t('register')"
+            />
+          </form>
+        </div>
       </div>
+      <div v-if="verificationCodeSend">
+        <kaiui-text
+          :text="
+            $t('pages.login.instructions2', {
+              phone: `${this.user.email}`,
+            })
+          "
+        />
 
+        <custom-input
+          :label="$t('otpCode')"
+          :placeholder="$t('otpCode')"
+          type="tel"
+          v-model="verificationCode"
+        />
+
+        <kaiui-button
+          :title="$t('login')"
+          :softkeys="{
+            center: $t('select'),
+          }"
+          v-on:softCenter="sendVerificationCode"
+        />
+      </div>
       <SoftKey
         :softkeys="{
           left: $t('back'),
@@ -76,13 +101,65 @@ export default {
         left: i18n.t("tac.scrollDown"),
       },
       loader: true,
+      verificationCodeSend: false,
+      verificationCode: null,
     };
   },
   methods: {
-     onSelect() {
+    onSelect() {
       console.log("tac before selectng is", this.agree);
       this.agree = !this.agree;
       console.log("tac after selectng is", this.agree);
+    },
+
+    async sendVerificationCode() {
+      //console.log(
+      //"Button pressed and email is " +
+      // this.user.email +
+      // "and pwd is" +
+      // this.user.password
+      //);
+      if (!this.user.email) {
+        this.showDialog("", i18n.t("pages.signup.emailRequired"));
+        return false;
+      }
+      if (!this.user.password) {
+        this.showDialog("", i18n.t("pages.signup.passwordRequired"));
+        return false;
+      }
+      try {
+        const response = await this.$http.post("auth/signup", {
+          email: this.user.email,
+          password: this.user.password,
+          ...(this.verificationCodeSend
+            ? { verificationCode: this.verificationCode }
+            : null),
+        });
+        const { data } = response;
+
+        //console.log("Response = ", response);
+        // console.log("data is = ", data);
+        if (!this.verificationCodeSend) {
+          // Code was send, update UI
+          this.verificationCodeSend = true;
+        } else {
+          const { access_token, user } = data;
+          login(access_token, user);
+          if (user.require_pin) {
+            return this.$router.push({ name: "generatepin" });
+          }
+          return this.$router.push({ name: "homepage" });
+        }
+      } catch (err) {
+        console.log(err);
+
+        this.showDialog(i18n.t("genericErrorTitle"), err.generic);
+      } finally {
+        this.hideLoading();
+      }
+      // if (!this.verificationCodeSend) {
+      //   this.verificationCodeSend = true;
+      // }
     },
     logUser: async function () {
       if (!this.agree) {
@@ -91,6 +168,7 @@ export default {
       }
       console.log("inside on agree. new value is", this.agree);
       this.$cookies.set("TAC_agreed", true, { expires: "90D" });
+
       if (!this.user.email) {
         this.showDialog("", i18n.t("pages.signup.emailRequired"));
         return false;
