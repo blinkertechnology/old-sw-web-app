@@ -1,15 +1,12 @@
 <template>
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
-    
+
     <div id="camera-wapper">
       <span id="message"></span>
       <video id="viewfinder" autoplay></video>
     </div>
-    <SoftKey 
-      :softkeys.sync="softkeys" 
-      v-on:softLeft="goBack" 
-    />
+    <SoftKey :softkeys.sync="softkeys" v-on:softLeft="goBack" />
   </kaiui-content>
 </template>
 
@@ -18,16 +15,16 @@ import _ from "lodash";
 import QrcodeDecoder from "qrcode-decoder";
 var qr = new QrcodeDecoder();
 import SoftKey from "../SoftKey";
-import i18n from '@/lang/setup';
+import i18n from "@/lang/setup";
 
 export default {
   components: {
-    SoftKey
+    SoftKey,
   },
   data() {
     return {
       softkeys: {
-        left: i18n.t('back'),
+        left: i18n.t("back"),
       },
       loading: true,
       cameraOptions: "",
@@ -58,7 +55,9 @@ export default {
     async gotCamera(params) {
       let camera = (this._cameraObj = params.camera);
       let config = {
-        pictureSize: this.getProperPictureSize(camera.capabilities.pictureSizes)
+        pictureSize: this.getProperPictureSize(
+          camera.capabilities.pictureSizes
+        ),
       };
       camera.setConfiguration(config);
 
@@ -87,7 +86,7 @@ export default {
       this.viewfinder.play();
 
       const code = await this.scanQRCode();
-      if(code.data) {
+      if (code.data) {
         this.qrcodeData = code.data;
         this.showNotice("", "", "The QR code is scanned successfully.");
         this.deInit();
@@ -95,10 +94,13 @@ export default {
           name: "maketransaction",
           params: {
             id: this.$route.params.id,
+            ...(this.$route.params.token
+              ? { token: this.$route.params.token }
+              : {}),
           },
-          query: { 
+          query: {
             toAddress: code.data,
-          }
+          },
         });
       }
       this.cameraOptions = camera;
@@ -183,12 +185,14 @@ export default {
 
       this.$router.push({
         name: "maketransaction",
-        params: { 
-          id: this.$route.params.id, 
-          ...(this.$route.params.token ? { token: this.$route.params.token } : {})
-        }
+        params: {
+          id: this.$route.params.id,
+          ...(this.$route.params.token
+            ? { token: this.$route.params.token }
+            : {}),
+        },
       });
-    }
+    },
   },
   mounted() {
     this.createCameraElement();
