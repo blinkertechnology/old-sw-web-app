@@ -1,5 +1,5 @@
 {
-  "version": "2.2.73",
+  "version": "2.2.83",
   "name": "Sorted Wallet",
   "description": "Send & receive Bitcoin, USDT, USDC and Matic with the Sorted Wallet. Simply register using your email or phone number. Please note USDT, USDC and Matic are on the Polygon Network, for the lowest gas fee transfers.",
   "type": "privileged",
@@ -26,10 +26,10 @@
       "privileged": "PROMPT_ACTION",
       "certified": "ALLOW_ACTION"
     },
-    "device-storage:videos":{ "access": "readonly" },
-    "device-storage:pictures":{ "access": "readwrite" },
-    "device-storage:apps":{ "access": "readwrite" },
-    "device-storage:sdcard":{ "access": "readwrite" },
+    "device-storage:videos": { "access": "readonly" },
+    "device-storage:pictures": { "access": "readwrite" },
+    "device-storage:apps": { "access": "readwrite" },
+    "device-storage:sdcard": { "access": "readwrite" },
     "systemXHR": {
       "description": "Required to download podcasts."
     }
