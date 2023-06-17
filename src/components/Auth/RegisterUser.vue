@@ -107,18 +107,10 @@ export default {
   },
   methods: {
     onSelect() {
-      console.log("tac before selectng is", this.agree);
       this.agree = !this.agree;
-      console.log("tac after selectng is", this.agree);
     },
 
     async sendVerificationCode() {
-      //console.log(
-      //"Button pressed and email is " +
-      // this.user.email +
-      // "and pwd is" +
-      // this.user.password
-      //);
       if (!this.user.email) {
         this.showDialog("", i18n.t("pages.signup.emailRequired"));
         return false;
@@ -137,8 +129,6 @@ export default {
         });
         const { data } = response;
 
-        //console.log("Response = ", response);
-        // console.log("data is = ", data);
         if (!this.verificationCodeSend) {
           // Code was send, update UI
           this.verificationCodeSend = true;
@@ -157,9 +147,6 @@ export default {
       } finally {
         this.hideLoading();
       }
-      // if (!this.verificationCodeSend) {
-      //   this.verificationCodeSend = true;
-      // }
     },
     logUser: async function () {
       if (!this.agree) {
