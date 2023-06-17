@@ -17,7 +17,7 @@ export default {
     success: 'Success',
     ok: 'OK',
     next: 'Next',
-	agree: 'Agree',//Ani added
+	agree: 'Agree',
 
     login: 'Login',
     register: 'Register',
@@ -89,7 +89,7 @@ export default {
         },
 
         dashboard: {
-            myWallets: 'My Wallet',//changed from Wallet (s) to Wallet as per request
+            myWallets: 'My Wallet',
             settings: 'Settings',
             faq: 'FAQ',
 

@@ -54,7 +54,6 @@
           type="text"
           v-on:input="onSearch"
           label="text"
-          
         />
 
         <kaiui-radiogroup v-model="selectedCountryId">
@@ -104,12 +103,11 @@
     <SoftKey
       :softkeys="{
         left: $t('back'),
-        
       }"
     />
   </kaiui-content>
 </template>
-<!-- v-on:softLeft="sendBack" -->
+
 <script>
 import SoftKey from "../SoftKey";
 import i18n from "@/lang/setup";
@@ -157,12 +155,7 @@ export default {
   },
   methods: {
     onSelect() {
-      console.log("tac before selectng is", this.agree);
       this.agree = !this.agree;
-      console.log("tac after selectng is", this.agree);
-    },
-    onDelete() {
-      console.log("in delete function");
     },
     sendBack() {
       if (this.codeSend) {
@@ -182,8 +175,6 @@ export default {
     },
 
     onSearch(search) {
-      console.log("hello");
-      console.log("search is ", search);
       if (!search.length) {
         this.allCountries = countries;
         return;
@@ -224,9 +215,9 @@ export default {
         this.showLoading("Sending one-time code.");
 
         const response = await this.$http.post("auth/login/phone", {
-          phone: `${this.selectedCountry.dialCode}${cleanedNumberInput}`,//${this.selectedCountry.dialCode}${cleanedNumberInput}
+          phone: `${this.selectedCountry.dialCode}${cleanedNumberInput}`,
           ...(this.codeSend ? { code: this.code } : null),
-          ...({c_code: parseInt(this.selectedCountry.dialCode.substring(1))})
+          ...{ c_code: parseInt(this.selectedCountry.dialCode.substring(1)) },
         });
         const { data } = response;
 

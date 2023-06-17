@@ -1,7 +1,7 @@
 <template>
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
-  
+
     <div v-if="loader" class="loader">
       <img src="/assets/loader.gif" />
     </div>
@@ -10,7 +10,6 @@
         <img src="/assets/icons/kaios_112.png" />
         <kaiui-text :text="$t('pages.homepage.intro.title')" />
         <kaiui-text :text="$t('pages.firstpage.choose')" />
-        
       </div>
     </div>
     <div>
@@ -45,11 +44,9 @@ export default {
   },
   data: () => ({
     softkeys: {
-      // left: i18n.t('register'),
       right: i18n.t("next"),
     },
     supportedLanguages: supportedLanguages,
-    // showLanguageSelectorDialog: false,
   }),
   mounted() {
     this.$root.$on("close-dialog", () => {
@@ -57,19 +54,13 @@ export default {
     });
   },
   methods: {
-    // onSoftLeft() {
-
-    // },
     onSoftRight() {
       return this.$router.push({ name: "homepage" });
     },
     onLanguageSelect() {
       this.closeLanguageDialog();
-      console.log("language selected is", this.selectedLanguage);
       this.$cookies.set("lang", i18n.locale);
       this.softkeys.right = i18n.t("next");
-      // return this.$router.push({ name: "homepage" });
-      // return this.$router.push({ name: "homepage" });
     },
   },
 };
@@ -80,8 +71,7 @@ export default {
   overflow-y: scroll;
 }
 .intro {
-  
-  padding: 5px; 
+  padding: 5px;
 
   text-align: center;
 }
