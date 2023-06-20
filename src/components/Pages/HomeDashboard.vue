@@ -11,15 +11,12 @@
             <list-item
               v-for="(wallet, index) in getWalletsList()"
               :key="index"
-
               :primaryText="wallet.primaryLabel"
               :secondaryText="wallet.secondaryLabel"
-
               :softkeys="softkeysPhone"
               v-on:softCenter="showOptionsDialog(wallet.item)"
             />
-
-            <kai-os-ad />
+            <kai-os-ad :isFullAd="isFullAdVisible" />
           </div>
         </kaiui-tab-item>
 
@@ -40,13 +37,13 @@
       v-on:softLeft="closeDialogs"
     >
       <div v-if="showShareDialog">
-        <list-item 
+        <list-item
           :primaryText="$t('pages.dashboard.shareEmail')"
           :softkeys="softkeysListItem"
           v-on:softCenter="shareViaEmail"
           v-on:softLeft="closeDialogs"
         />
-        <list-item 
+        <list-item
           :primaryText="$t('pages.dashboard.shareMessage')"
           :softkeys="softkeysListItem"
           v-on:softCenter="shareViaMessage"
@@ -66,22 +63,22 @@
       </div>
 
       <div v-if="!showShareDialog && !showQRCodeDialog">
-        <list-item 
+        <list-item
           :primaryText="$t('pages.dashboard.makeTransaction')"
           v-on:softCenter="toMakeTransaction"
           v-on:softLeft="closeDialogs"
         />
-        <list-item 
+        <list-item
           :primaryText="$t('pages.dashboard.qrCode')"
           v-on:softCenter="showQRCode"
           v-on:softLeft="closeDialogs"
         />
-        <list-item 
+        <list-item
           :primaryText="$t('pages.dashboard.transactionRecords')"
           v-on:softCenter="toTransactionList"
           v-on:softLeft="closeDialogs"
         />
-        <list-item 
+        <list-item
           :primaryText="$t('pages.dashboard.share')"
           v-on:softCenter="showShare"
           v-on:softLeft="closeDialogs"
@@ -92,10 +89,10 @@
 </template>
 
 <script>
-import i18n from '@/lang/setup';
-import SettingsPage from '@/components/Pages/SettingsPage.vue';
-import FaqPage from '@/components/Pages/FAQPage.vue';
-import KaiOSAd from '@/components/common/KaiOSAd.vue';
+import i18n from "@/lang/setup";
+import SettingsPage from "@/components/Pages/SettingsPage.vue";
+import FaqPage from "@/components/Pages/FAQPage.vue";
+import KaiOSAd from "@/components/common/KaiOSAd.vue";
 
 const { Base64 } = require("js-base64");
 
@@ -103,54 +100,58 @@ export default {
   components: {
     SettingsPage,
     FaqPage,
-    'kai-os-ad': KaiOSAd,
+    "kai-os-ad": KaiOSAd,
   },
   data: () => ({
     items: [],
     selectedWallet: null,
-
+    showFullAd: false,
     showActionDialog: false,
     showQRCodeDialog: false,
     showShareDialog: false,
   }),
+
   computed: {
+    isFullAdVisible() {
+      console.log("show full ad in computed", this.showFullAd);
+      return this.showFullAd;
+    },
     actionDialogTitle() {
-      if(this.showQRCodeDialog) {
-        return i18n.t('pages.dashboard.qrCode');
+      if (this.showQRCodeDialog) {
+        return i18n.t("pages.dashboard.qrCode");
       }
-      if(this.showShareDialog) {
-        return i18n.t('pages.dashboard.share');
+      if (this.showShareDialog) {
+        return i18n.t("pages.dashboard.share");
       }
-      return i18n.t('options')
+      return i18n.t("options");
     },
 
     softkeysPhone: () => ({
-      // left: null,
-      center: i18n.t('options')
+      center: i18n.t("options"),
     }),
     softkeysDialog: () => ({
-      left: i18n.t('cancel'),
+      left: i18n.t("cancel"),
     }),
     softkeysListItem: () => ({
-      left: i18n.t('cancel'),
-      center: i18n.t('select'),
+      left: i18n.t("cancel"),
+      center: i18n.t("select"),
     }),
   },
   methods: {
     showOptionsDialog(wallet) {
       this.selectedWallet = wallet;
-      
+
       this.showActionDialog = true;
       this.showQRCodeDialog = false;
       this.showShareDialog = false;
 
-      this.$root.$emit('dialog-opened');
+      this.$root.$emit("dialog-opened");
     },
 
     closeDialogs() {
-      if(this.showShareDialog) {        
+      if (this.showShareDialog) {
         this.showShareDialog = false;
-      } else if(this.showQRCodeDialog) {
+      } else if (this.showQRCodeDialog) {
         this.showQRCodeDialog = false;
       } else {
         this.showActionDialog = false;
@@ -158,7 +159,7 @@ export default {
         this.showShareDialog = false;
         this.selectedWallet = null;
 
-        this.$root.$emit('dialog-closed');
+        this.$root.$emit("dialog-closed");
       }
     },
 
@@ -167,7 +168,7 @@ export default {
       this.showActionDialog = true;
       this.showQRCodeDialog = true;
 
-      this.$root.$emit('dialog-opened');
+      this.$root.$emit("dialog-opened");
     },
 
     showShare() {
@@ -175,7 +176,7 @@ export default {
       this.showShareDialog = true;
       this.showQRCodeDialog = false;
 
-      this.$root.$emit('dialog-opened');
+      this.$root.$emit("dialog-opened");
     },
 
     backToDashboard() {
@@ -185,19 +186,23 @@ export default {
     toMakeTransaction() {
       this.$router.push({
         name: "maketransaction",
-        params: { 
+        params: {
           id: this.selectedWallet.id,
-          ...(this.selectedWallet.symbol ? { token: this.selectedWallet.symbol } : {})
-        }
+          ...(this.selectedWallet.symbol
+            ? { token: this.selectedWallet.symbol }
+            : {}),
+        },
       });
     },
     toTransactionList() {
       this.$router.push({
         name: "transactionslist",
-        params: { 
+        params: {
           id: this.selectedWallet.id,
-          ...(this.selectedWallet.symbol ? { token: this.selectedWallet.symbol } : {})
-        }
+          ...(this.selectedWallet.symbol
+            ? { token: this.selectedWallet.symbol }
+            : {}),
+        },
       });
     },
 
@@ -212,12 +217,12 @@ export default {
       this.showLoading();
 
       try {
-        const response = await this.$http.get('wallets');
+        const response = await this.$http.get("wallets");
         const { data } = response;
 
         this.items = data.wallets || [];
-      } catch(err) {
-        this.showDialog(i18n.t('genericErrorTitle'), err.generic);
+      } catch (err) {
+        this.showDialog(i18n.t("genericErrorTitle"), err.generic);
       } finally {
         this.hideLoading();
       }
@@ -226,35 +231,47 @@ export default {
     getWalletsList() {
       const walletsForDisplay = [];
 
-      this.items.forEach(item => {
+      this.items.forEach((item) => {
         walletsForDisplay.push({
           primaryLabel: i18n.t(`wallets.${item.secretType.toLowerCase()}`),
           secondaryLabel: `Balance: ${item.balance.balance} ($US ${item.usd})`,
           item: item,
-        })
+        });
 
-        if(item.tokens.length) {
-          item.tokens.forEach(token => {
+        if (item.tokens.length) {
+          item.tokens.forEach((token) => {
             walletsForDisplay.push({
-              primaryLabel: i18n.t(`wallets.${item.secretType.toLowerCase()}_${token.symbol.toLowerCase()}`),
+              primaryLabel: i18n.t(
+                `wallets.${item.secretType.toLowerCase()}_${token.symbol.toLowerCase()}`
+              ),
               secondaryLabel: `Balance: ${token.balance} ($US ${token.usd})`,
               item: {
                 ...token,
                 id: item.id,
                 address: item.address,
               },
-            })
-          })
+            });
+          });
         }
-      })
+      });
 
       return walletsForDisplay;
     },
   },
-  mounted() {
-    this.getWallets();
 
-    this.$root.$on('close-dialog', () => {
+  created() {
+    this.$root.$on("close-ad", () => {
+      this.showFullAd = !this.showFullAd;
+      console.log("new show full ad after catching emitted", this.showFullAd);
+    });
+  },
+  mounted() {
+    console.log("Mounted");
+    console.log("old show full ad in mounted", this.showFullAd);
+    this.showFullAd = !this.showFullAd;
+    console.log("new show full ad in mounted", this.showFullAd);
+    this.getWallets();
+    this.$root.$on("close-dialog", () => {
       this.closeDialogs();
     });
   },
