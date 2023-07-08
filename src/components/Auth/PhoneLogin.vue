@@ -10,7 +10,7 @@
       <br />
 
       <list-item
-        :primaryText="selectedCountry.name"
+        :primaryText="this.selectedCountryId? selectedCountry.name: 'Please select country code'"
         :secondaryText="selectedCountry.dialCode"
         :icon-right="true"
         :icon-left="true"
@@ -53,7 +53,7 @@
           placeholder="search"
           type="text"
           v-on:input="onSearch"
-          label="text"
+          label="Please select country code"
         />
 
         <kaiui-radiogroup v-model="selectedCountryId">
@@ -104,6 +104,7 @@
       :softkeys="{
         left: $t('back'),
       }"
+      v-on:softLeft="sendBack"
     />
   </kaiui-content>
 </template>
@@ -144,14 +145,14 @@ export default {
     selectedCountry() {
       return (
         this.allCountries.find((c) => c.isoCode === this.selectedCountryId) ||
-        this.allCountries[0]
+        {dialCode: null, name: null, isoCode: null}
       );
     },
   },
   mounted() {
     logout();
 
-    this.selectedCountryId = this.allCountries[0].isoCode;
+    // this.selectedCountryId = this.allCountries[0].isoCode;
   },
   methods: {
     onSelect() {
@@ -194,16 +195,19 @@ export default {
      * Send the verification code to the inputted phone
      */
     async sendCode() {
-      if (!this.agree) {
-        this.showNotice("", "", i18n.t("tac.error"));
-        return false;
-      }
-    
       this.$cookies.set("TAC_agreed", true, { expires: "90D" });
+      if(this.selectedCountry.dialCode=="None"){
+        return this.showDialog("Error", "Select a valid country code.");
+      }
       if (!this.phoneNumber || this.phoneNumber.length < 1) {
         return this.showDialog("Error", "Enter a valid phone number.");
       }
 
+      if (!this.agree) {
+        this.showNotice("", "", i18n.t("tac.error"));
+        return false;
+      }
+     
       if (this.codeSend && !this.code && this.code.length != 6) {
         return this.showDialog("Error", "Enter a valid one-time code.");
       }

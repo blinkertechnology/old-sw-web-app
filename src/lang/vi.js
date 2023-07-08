@@ -18,6 +18,7 @@ export default {
     ok: 'Vâng',
     next: 'Tiếp theo',
     closeAd: 'đóng quảng cáo',
+    agree: 'Đồng ý',
 
     login: 'đăng nhập',
     register: 'Đăng ký',
@@ -44,7 +45,10 @@ export default {
             title: 'Register',
             emailRequired: 'E-mail là bắt buộc',
             passwordRequired: 'mật khẩu là bắt buộc',
-            passwordLength: 'Độ dài mật khẩu không được ít hơn 5 ký tự.'
+            passwordLength: 'Độ dài mật khẩu không được ít hơn 5 ký tự.',
+            cCodeRequired: 'Quốc gia bắt buộc!',
+            instructions1:'Sorted Wallet sẽ gửi cho bạn mật khẩu một lần để xác minh địa chỉ email của bạn.',
+            instructions2:'Vui lòng nhập mã gồm 6 chữ số đã được gửi đến',
         },
 
         login: {
@@ -65,7 +69,9 @@ export default {
                 length: 'Pin phải có từ 3 đến 7 chữ số'
             }
         },
-
+firstpage: {
+      choose: "Cuộn để chọn ngôn ngữ của bạne",
+    },
         homepage: {
             intro: {
                 title: 'Chào mừng bạn đến Sorted Wallet',

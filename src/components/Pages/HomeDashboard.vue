@@ -12,6 +12,7 @@
               v-for="(wallet, index) in getWalletsList()"
               :key="index"
               :primaryText="wallet.primaryLabel"
+              :primarySecondaryText="wallet.primarySecondaryLabel"
               :secondaryText="wallet.secondaryLabel"
               :softkeys="softkeysPhone"
               v-on:softCenter="showOptionsDialog(wallet.item)"
@@ -54,7 +55,7 @@
       <div v-if="showQRCodeDialog">
         <div v-if="selectedWallet" class="qrcode">
           <qr-code
-            :size="170"
+            :size="140"
             :text="selectedWallet.address"
             style="display: block"
             class="m-auto"
@@ -140,7 +141,6 @@ export default {
   methods: {
     showOptionsDialog(wallet) {
       this.selectedWallet = wallet;
-
       this.showActionDialog = true;
       this.showQRCodeDialog = false;
       this.showShareDialog = false;
@@ -232,19 +232,31 @@ export default {
       const walletsForDisplay = [];
 
       this.items.forEach((item) => {
+
+        let usdAmount = item.usd.toFixed(2);
         walletsForDisplay.push({
-          primaryLabel: i18n.t(`wallets.${item.secretType.toLowerCase()}`),
-          secondaryLabel: `Balance: ${item.balance.balance} ($US ${item.usd})`,
+          primaryLabel:
+            item.balance.balance +
+            " " +
+            i18n.t(`wallets.${item.secretType.toLowerCase()}`),
+          primarySecondaryLabel: "",
+          secondaryLabel: `$${usdAmount} USD`,
           item: item,
         });
-
         if (item.tokens.length) {
           item.tokens.forEach((token) => {
+            usdAmount = token.usd.toFixed(2);
             walletsForDisplay.push({
-              primaryLabel: i18n.t(
-                `wallets.${item.secretType.toLowerCase()}_${token.symbol.toLowerCase()}`
+              primaryLabel:
+                token.balance +
+                " " +
+                i18n.t(
+                  `wallets.${item.secretType.toLowerCase()}_${token.symbol.toLowerCase()}`
+                ),
+              primarySecondaryLabel: i18n.t(
+                `wallets.${item.secretType.toLowerCase()}_alternate`
               ),
-              secondaryLabel: `Balance: ${token.balance} ($US ${token.usd})`,
+              secondaryLabel: `$${usdAmount} USD`,
               item: {
                 ...token,
                 id: item.id,
