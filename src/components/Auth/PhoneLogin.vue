@@ -195,7 +195,6 @@ export default {
      * Send the verification code to the inputted phone
      */
     async sendCode() {
-     
       this.$cookies.set("TAC_agreed", true, { expires: "90D" });
       if(this.selectedCountry.dialCode=="None"){
         return this.showDialog("Error", "Select a valid country code.");

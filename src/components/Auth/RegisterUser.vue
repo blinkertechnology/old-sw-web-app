@@ -240,7 +240,7 @@ export default {
         this.showNotice("", "", i18n.t("tac.error"));
         return false;
       }
-     
+
       this.$cookies.set("TAC_agreed", true, { expires: "90D" });
 
       if (!this.user.email) {
