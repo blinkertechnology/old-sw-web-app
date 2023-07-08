@@ -32,7 +32,6 @@ export default {
     },
   },
   mounted() {
-    console.log("isFull ad passed prop is-> ", this.isFullAd);
     this.showAd();
 
     this.$on("softkey-center-pressed", () => {
@@ -83,7 +82,7 @@ export default {
             display: "block",
           });
           if (this.isFullAd) {
-            console.log("INSIDE full ad");
+      
             ad.call("display", {
               position: "absolute",
               tabindex: 5,
@@ -118,7 +117,7 @@ export default {
      * @private
      */
     handleFocusChange(isNowFocused) {
-      console.log("handleFocusChange");
+  
 
       if (this.isDestroyed) return;
 

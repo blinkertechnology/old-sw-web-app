@@ -113,7 +113,7 @@ export default {
 
   computed: {
     isFullAdVisible() {
-      console.log("show full ad in computed", this.showFullAd);
+  
       return this.showFullAd;
     },
     actionDialogTitle() {
@@ -262,14 +262,10 @@ export default {
   created() {
     this.$root.$on("close-ad", () => {
       this.showFullAd = !this.showFullAd;
-      console.log("new show full ad after catching emitted", this.showFullAd);
     });
   },
   mounted() {
-    console.log("Mounted");
-    console.log("old show full ad in mounted", this.showFullAd);
     this.showFullAd = !this.showFullAd;
-    console.log("new show full ad in mounted", this.showFullAd);
     this.getWallets();
     this.$root.$on("close-dialog", () => {
       this.closeDialogs();

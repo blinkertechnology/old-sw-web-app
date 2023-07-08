@@ -101,8 +101,6 @@ export default {
       this.$emit("input", $event.target.value);
     },
     onKeyLeft($event){
-            console.log("on key left pressed")
-            console.log("input is ", $event.target.value , "and key is", $event.key);
             event.preventDefault()
     },
     onKeyDown($event) {

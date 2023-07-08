@@ -153,7 +153,7 @@ export default {
         this.showNotice("", "", i18n.t("tac.error"));
         return false;
       }
-      console.log("inside on agree. new value is", this.agree);
+      
       this.$cookies.set("TAC_agreed", true, { expires: "90D" });
 
       if (!this.user.email) {
