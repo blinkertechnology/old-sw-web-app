@@ -49,16 +49,21 @@ export default {
     supportedLanguages: supportedLanguages,
   }),
   mounted() {
+    if(this.$cookies.get("lang")) {
+      return this.$router.push({ name: "homepage" });
+    }
     this.$root.$on("close-dialog", () => {
       this.closeLanguageDialog();
     });
   },
   methods: {
     onSoftRight() {
+      if (!this.$cookies.get("lang")){
+        this.$cookies.set("lang", i18n.locale);
+      }
       return this.$router.push({ name: "homepage" });
     },
     onLanguageSelect() {
-      this.closeLanguageDialog();
       this.$cookies.set("lang", i18n.locale);
       this.softkeys.right = i18n.t("next");
     },

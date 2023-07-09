@@ -7,7 +7,7 @@
         v-on:click="onClick"
     >
         <div class="kaiui-listitem-text-wrapper">
-            <span class="kaiui-p_pri kaiui-listitem-primary-text">{{ primaryText }}</span>
+            <span class="kaiui-p_pri kaiui-listitem-primary-text">{{ primaryText }}<span class="kaiui-listitem-primary-secondary-text">{{ primarySecondaryText }}</span></span>
             <span class="kaiui-p_sec kaiui-listitem-secondary-text">{{ secondaryText }}</span>
             <span class="kaiui-p_thi kaiui-listitem-tertiary-text">{{ tertiaryText }}</span>
         </div>
@@ -43,6 +43,10 @@ export default {
         primaryText: {
             type: String,
             required: true,
+        },
+        primarySecondaryText: {
+            type: String,
+            required: false,
         },
         /**
          * The Secondary Text
@@ -179,6 +183,10 @@ export default {
 }
 .kaiui-listitem[nav-selected="true"] .listitem-icon svg {
     color: var(--listitem-selected-text-color);
+}
+
+.kaiui-listitem-primary-secondary-text {
+    font-size: small;
 }
 </style>
   

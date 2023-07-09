@@ -17,6 +17,7 @@ export default {
     success: `Nasara`,
     ok: `Lafiya`,
     next: `Na gaba`,
+    agree: 'Yarda',
     closeAd: `Rufe talla`,
 
     login: `Shiga`,
@@ -45,6 +46,9 @@ export default {
             emailRequired: `Ana buƙatar Imel!`,
             passwordRequired: `Ana Bukatar Kalmar wucewa!`,
             passwordLength: `Tsawon kalmar sirri ba zai iya zama ƙasa da haruffa 5 ba.`,
+            cCodeRequired: 'Kasar da ake bukata!',
+            instructions1: 'Sorted Wallet zai aiko muku da lambar wucewa ta lokaci ɗaya don tabbatar da adireshin imel ɗin ku.' ,
+            instructions2: 'Da fatan za a shigar da lambar lambobi 6 da aka aika zuwa',
         },
 
         login: {
@@ -65,7 +69,9 @@ export default {
                 length: `Pin dole ne ya kasance tsakanin lambobi 3 zuwa 7`,
             }
         },
-
+        firstpage: {
+            choose: "Gungura don zaɓar yaren ku",
+          },
         homepage: {
             intro: {
                 title: `Barka da zuwa Sorted Wallet`,

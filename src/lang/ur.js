@@ -17,6 +17,7 @@ export default {
     success: 'کامیابی',
     ok: 'ٹھیک ہے',
     next: 'اگلے',
+    agree: 'متفق',
     closeAd: 'اشتہار بند کریں۔',
 
     login: 'لاگ ان',
@@ -44,7 +45,10 @@ export default {
             title: 'رجسٹر کریں۔',
             emailRequired: 'ای میل کی ضرورت ہے!',
             passwordRequired: 'پاس ورڈ درکار ہے!',
-            passwordLength: 'پاس ورڈ کی لمبائی 5 ہندسوں سے کم نہیں ہونی چاہیے۔.'
+            passwordLength: 'پاس ورڈ کی لمبائی 5 ہندسوں سے کم نہیں ہونی چاہیے۔.',
+            cCodeRequired: 'براہ کرم اپنا ملک منتخب کریں۔',
+            instructions1: 'آپ کے ای میل ایڈریس کی توثیق کرنے کے لیے Sorted Wallet آپ کو ایک بار کا پاس کوڈ بھیجے گا۔',
+            instructions2: 'براہ کرم 6 ہندسوں کا کوڈ درج کریں جس پر بھیجا گیا تھا۔',
         },
 
         login: {
@@ -65,7 +69,9 @@ export default {
                 length: 'پن 3 اور 7 ہندسوں کے درمیان ہونا چاہیے۔'
             }
         },
-
+        firstpage: {
+            choose: "اپنی زبان منتخب کرنے کے لیے اسکرول کریں۔",
+          },
         homepage: {
             intro: {
                 title: `'Sorted Wallet' میں خوش آمدید`,
