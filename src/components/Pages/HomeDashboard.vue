@@ -114,7 +114,6 @@ export default {
 
   computed: {
     isFullAdVisible() {
-  
       return this.showFullAd;
     },
     actionDialogTitle() {
@@ -232,7 +231,6 @@ export default {
       const walletsForDisplay = [];
 
       this.items.forEach((item) => {
-
         let usdAmount = item.usd.toFixed(2);
         walletsForDisplay.push({
           primaryLabel:
@@ -272,15 +270,16 @@ export default {
   },
 
   created() {
-    this.$root.$on("close-ad", () => {
-      this.showFullAd = !this.showFullAd;
-    });
+    
   },
   mounted() {
     this.showFullAd = !this.showFullAd;
     this.getWallets();
     this.$root.$on("close-dialog", () => {
       this.closeDialogs();
+    });
+    this.$root.$on("close-ad", () => {
+      this.showFullAd = !this.showFullAd;
     });
   },
 };
