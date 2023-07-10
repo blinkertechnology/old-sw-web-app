@@ -21,6 +21,7 @@ export default {
     adShowing: false,
     softkeys: {
       center: i18n.t("view"),
+      left: i18n.t("cancel") 
     },
     ad: null,
     adContainer: null,
@@ -41,7 +42,10 @@ export default {
       this.showAd();
     });
     
-
+    this.$on("softkey-left-pressed", () => {
+    this.adClicked=true
+    this.closeAd();
+    });
     this.$on("softkey-center-pressed", () => {
       this.ad.call("click");
       this.adClicked = true;
@@ -54,13 +58,12 @@ export default {
       this.$root.$emit("internal-browser-closed");
     });
   },
-
   methods: {
     showAd(timeout = 10 * 1000) {
       // Get the ad container element.
       if (this.isFullAd) {
         const adContainerElement = document.querySelector(".ad-container");
-
+        
         // Set the CSS properties of the ad container element.
         adContainerElement.style.width = "100%";
         adContainerElement.style.height = "100%";
@@ -78,7 +81,7 @@ export default {
         timeout,
         container: this.isFullAd? this.$refs.adContainer.querySelector(".ad-container__ad"): document.querySelector(".ad-container__ad"),
 
-        h: this.isFullAd ? window.innerHeight : 50,
+        h: this.isFullAd? window.innerHeight - 30 : 50,
         w: this.isFullAd ? window.innerWidth : 240,
 
         onerror: (err) => console.error(err),
@@ -131,7 +134,7 @@ export default {
      */
     handleFocusChange(isNowFocused) {
       if (this.isDestroyed) return;
-
+      
       if (isNowFocused) {
         /**
          * @private
