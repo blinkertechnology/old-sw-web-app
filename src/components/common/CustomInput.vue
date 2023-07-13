@@ -12,6 +12,7 @@
       ref="input"
       v-on:keydown="onKeyDown"
      v-on:keydown.left="onKeyLeft"
+     v-on:keydown.right="onKeyRight"
       v-on:click="onClick"
       v-on:focus="handleFocusChange(true)"
       v-on:blur="handleFocusChange(false)"
@@ -82,6 +83,7 @@ export default {
     }),
   },
   mounted() {
+    console.log("inside custom input.vue")
     this.inputType = this.type;
 
     if (this.showable) {
@@ -98,17 +100,35 @@ export default {
      */
     
     onInput($event) {
+      console.log("on input in custom input and event target value is", $event.target.value)
       this.$emit("input", $event.target.value);
     },
     onKeyLeft($event){
-            event.preventDefault()
+      console.log("on key left in custom input and prevented default and event.key is", $event.key)
+      const inputElement = this.$refs.input;
+      console.log("input elementon key left is", inputElement)
+      const caretPosition = inputElement.selectionStart;
+      console.log("caret position is", caretPosition)
+      inputElement.setSelectionRange(caretPosition - 1, caretPosition - 1);
+      $event.stopPropagation();
+      $event.preventDefault()
+    },
+    onKeyRight($event){
+      console.log("on key right in custom input and prevented default and event.key is", $event.key)
+      const inputElement = this.$refs.input;
+      console.log("input elementon key right is", inputElement)
+      const caretPosition = inputElement.selectionStart;
+      console.log("caret position is", caretPosition)
+      inputElement.setSelectionRange(caretPosition + 1, caretPosition + 1);
+      $event.stopPropagation();
+      $event.preventDefault()
     },
     onKeyDown($event) {
       /**
        * KaiOS doesn't seem to support input[type="number"] properly,
        * thus filter out non-digit keys on input instead
        */
-
+      console.log("on key down pressed and key is",$event.key)
       if (this.digitsOnly) {
         const re = new RegExp("[0-9]|[.]|[,]"
         );
