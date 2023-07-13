@@ -36,7 +36,7 @@ export default {
     if(this.isFullAd){
       this.adContainer = this.$refs.adContainer;
       this.softkeys = {
-        left: i18n.t("close"),
+        left: i18n.t("cancel"),
         center: i18n.t("view"),
       };
     }

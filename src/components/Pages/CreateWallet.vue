@@ -35,7 +35,7 @@
               </kaiui-radiogroup>
             </kaiui-dialog>
 
-            <kaiui-input
+            <custom-input
               label="Pin Code"
               type="text"
               v-model="wallet.pincode"
@@ -46,7 +46,7 @@
               (The pin that will encrypt and decrypt the wallet. Important for
               transaction between wallets.)
             </div>
-            <kaiui-input
+            <custom-input
               label="Description"
               type="text"
               v-model="wallet.description"
