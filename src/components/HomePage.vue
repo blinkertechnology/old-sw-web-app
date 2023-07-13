@@ -17,6 +17,7 @@
       :title="$t('login')"
       v-model="showLoginDialog"
       :softkeys="dialogSoftkeys"
+      v-on:softLeft="onSoftLeft('dialog')"
     >
       <list-item 
         :primaryText="$t('pages.homepage.emailLogin')"
@@ -33,6 +34,7 @@
       :title="$t('register')"
       v-model="showSignupDialog"
       :softkeys="dialogSoftkeys"
+      v-on:softLeft="onSoftLeft('dialog')"
     >
       <list-item 
         :primaryText="$t('pages.homepage.emailLogin')"
@@ -47,8 +49,8 @@
 
     <SoftKey
       :softkeys="softkeys"
-      v-on:softLeft="onSoftLeft"
-      v-on:softRight="onSoftRight"
+      v-on:softLeft="onSoftLeft('normal')"
+      v-on:softRight="onSoftRight('normal')"
     />
   </kaiui-content>
 </template>
@@ -67,6 +69,7 @@ export default {
       left: i18n.t('register'),
       right: i18n.t('login')
     },
+    cancelCalled:false,
 
     dialogSoftkeys: {
       left: i18n.t('cancel'),
@@ -76,10 +79,19 @@ export default {
     showSignupDialog: false,
   }),
   methods: {
-    onSoftLeft() {
-      this.showSignupDialog = true;
+    onSoftLeft(source) {
+      if(source==="dialog"){
+        this.cancelCalled = true
+      }else if(this.cancelCalled && source==="normal"){
+        this.cancelCalled = false
+      }else{
+        this.showSignupDialog = true
+        this.cancelCalled = false
+      }
+    
+
     },
-    onSoftRight() {
+    onSoftRight(source) {
       this.showLoginDialog = true;
     },
 

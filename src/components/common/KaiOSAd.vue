@@ -20,8 +20,7 @@ export default {
   data: () => ({
     adShowing: false,
     softkeys: {
-      center: i18n.t("view"),
-      left: i18n.t("cancel") 
+      center: i18n.t("view") 
     },
     ad: null,
     adContainer: null,
@@ -36,6 +35,10 @@ export default {
   mounted() {
     if(this.isFullAd){
       this.adContainer = this.$refs.adContainer;
+      this.softkeys = {
+        left: i18n.t("cancel"),
+        center: i18n.t("view"),
+      };
     }
 
     this.$nextTick(() => {

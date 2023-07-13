@@ -4,7 +4,8 @@
     
     <kaiui-separator title="Login" />
     <form method="POST" class="text-left">
-      <kaiui-input
+      <custom-input
+        type="text"
         :label="$t('email')"
         v-model="user.email"
         class="kaiui-p_btn kaiui-input-input form-control"

@@ -12,6 +12,7 @@
       ref="input"
       v-on:keydown="onKeyDown"
      v-on:keydown.left="onKeyLeft"
+     v-on:keydown.right="onKeyRight"
       v-on:click="onClick"
       v-on:focus="handleFocusChange(true)"
       v-on:blur="handleFocusChange(false)"
@@ -82,6 +83,7 @@ export default {
     }),
   },
   mounted() {
+
     this.inputType = this.type;
 
     if (this.showable) {
@@ -98,17 +100,28 @@ export default {
      */
     
     onInput($event) {
+    
       this.$emit("input", $event.target.value);
     },
     onKeyLeft($event){
-            event.preventDefault()
+      const inputElement = this.$refs.input;
+      const caretPosition = inputElement.selectionStart;
+      inputElement.setSelectionRange(caretPosition - 1, caretPosition - 1);
+      $event.stopPropagation();
+      $event.preventDefault()
+    },
+    onKeyRight($event){
+      const inputElement = this.$refs.input;
+      const caretPosition = inputElement.selectionStart;
+      inputElement.setSelectionRange(caretPosition + 1, caretPosition + 1);
+      $event.stopPropagation();
+      $event.preventDefault()
     },
     onKeyDown($event) {
       /**
        * KaiOS doesn't seem to support input[type="number"] properly,
        * thus filter out non-digit keys on input instead
        */
-
       if (this.digitsOnly) {
         const re = new RegExp("[0-9]|[.]|[,]"
         );
