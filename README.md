@@ -5,7 +5,12 @@
 
 `yarn serve`
 
-## Build
-`yarn build` 
+## Create packaged app for KaiOS app store
 
-or, you can run this shell script, which will also output a zipped package. `./tools/publish.sh`
+`yarn publish:staging` or `yarn publish:prod`
+
+### KaiOS 2.5
+https://developer.kaiostech.com/docs/getting-started/main-concepts/manifest
+
+### KaiOS 3.0
+https://developer.kaiostech.com/docs/sfp-3.0/getting-started/main-concepts/manifest
