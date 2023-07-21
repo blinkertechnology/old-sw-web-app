@@ -23,7 +23,7 @@
         "version": "<%= version %>",
         "developer": {
             "name": "Sors Technology Limited",
-            "url": "https://sorted.finance"
+            "url": "https://sortedwallet.com/"
         },
         "camera": {
             "app": "DENY_ACTION",
