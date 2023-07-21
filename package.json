@@ -8,9 +8,10 @@
     "serve:prod": "env-cmd -f ./.env.prod.js vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "publish": "env-cmd -f ./.env.js ./tools/publish.sh",
-    "publish:staging": "env-cmd -f ./.env.staging.js ./tools/publish.sh",
-    "publish:prod": "env-cmd -f ./.env.prod.js ./tools/publish.sh"
+    "publish": "env-cmd -f ./.env.js yarn build && npm run release",
+    "publish:staging": "env-cmd -f ./.env.staging.js yarn build  && npm run release",
+    "publish:prod": "env-cmd -f ./.env.prod.js yarn build  && npm run release",
+    "release": "gulp -f ./tools/gulpfile.js --target 2.5 && gulp -f ./tools/gulpfile.js --target 3"
   },
   "dependencies": {
     "@nuintun/qrcode": "^3.3.0",
@@ -50,11 +51,17 @@
     "@vue/cli-plugin-babel": "~5.0.4",
     "@vue/cli-plugin-eslint": "~5.0.4",
     "@vue/cli-service": "^5.0.8",
+    "del": "^7.0.0",
     "env-cmd": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-template": "^5.0.0",
+    "gulp-zip": "^5.1.0",
     "http-server": "^0.12.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "yargs": "^17.7.2"
   },
   "eslintConfig": {
     "root": true,

@@ -1,13 +1,13 @@
 const fs = require('fs');
 
-const manifest = fs.readFileSync('./public/manifest.webapp', {
+const version = fs.readFileSync('./VERSION.txt', {
     encoding: 'utf-8'
 });
-const parsed = JSON.parse(manifest);
+
 
 module.exports = {
     'VUE_APP_ENV': 'production',
-    'VUE_APP_VERSION': parsed['version'],
+    'VUE_APP_VERSION': version,
 
     'VUE_APP_TITLE': 'Sorted Wallet',
     'VUE_APP_URL': 'https://api.sorted.finance',
