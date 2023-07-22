@@ -51,4 +51,14 @@ function createZip() {
         .pipe(dest(TMP));
 }
 
-exports.default = series(copyBuild, copyManifest, createZip);
+function cleanup() {
+    return src(Object.values(configs).map(c => c.out), {
+        read: false,
+        allowEmpty: true,
+    })
+        .pipe(clean({
+            force: true
+        }));
+}
+
+exports.default = series(copyBuild, copyManifest, createZip, cleanup);
