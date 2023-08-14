@@ -2,16 +2,12 @@
   <kaiui-content>
     <kaiui-header :title="$t('title')" />
 
-    <div v-if="loader" class="loader">
-      <img src="/assets/loader.gif" />
+    <div class="intro">
+      <img src="/assets/icons/kaios_112.png" />
+      <kaiui-text :text="$t('pages.homepage.intro.title')" />
+      <kaiui-text :text="$t('pages.firstpage.choose')" />
     </div>
-    <div v-else>
-      <div class="intro">
-        <img src="/assets/icons/kaios_112.png" />
-        <kaiui-text :text="$t('pages.homepage.intro.title')" />
-        <kaiui-text :text="$t('pages.firstpage.choose')" />
-      </div>
-    </div>
+
     <div>
       <kaiui-radiogroup v-model="$i18n.locale">
         <kaiui-radiobutton
