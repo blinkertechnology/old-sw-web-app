@@ -48,7 +48,7 @@
     </kaiui-dialog>
 
     <SoftKey
-      :softkeys="softkeys"
+      :softkeys.sync="softkeys"
       v-on:softLeft="onSoftLeft('normal')"
       v-on:softRight="onSoftRight('normal')"
     />

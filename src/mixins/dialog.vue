@@ -1,10 +1,13 @@
 <script>
 export default {
     methods: {
-        showDialog(title, message) {
+        showDialog(title, message, softkeys, onSoftLeft, onSoftRight) {
             this.$root.$emit('show-dialog', {
                 title,
                 message,
+                softkeys,
+                onSoftLeft,
+                onSoftRight
             });
         },
         hideDialog() {

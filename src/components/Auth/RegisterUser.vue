@@ -190,16 +190,16 @@ export default {
     },
 
     async sendVerificationCode() {
-
       if(this.selectedCountry.dialCode == null){
-        
         this.showDialog("", i18n.t("pages.signup.cCodeRequired"));
         return false;
       }
+
       if (!this.user.email) {
         this.showDialog("", i18n.t("pages.signup.emailRequired"));
         return false;
       }
+      
       if (!this.user.password) {
         this.showDialog("", i18n.t("pages.signup.passwordRequired"));
         return false;

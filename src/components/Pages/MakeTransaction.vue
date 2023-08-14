@@ -76,7 +76,7 @@ export default {
     SoftKey
   },
   data() {
-    return {
+    return {      
       transaction: {
         amount: null,
         toAddress: null,
@@ -101,6 +101,90 @@ export default {
       });
     },
 
+    closeGasFeesDialog($event) {
+      console.log('closeGasFeesDialog');
+      console.log($event);
+
+      this.gasFeesDialogShowing = false;
+      this.gasFee = null;
+    },
+
+    acceptGasFees() {
+      console.log('acceptGasFees');
+      this.gasFeesDialogShowing = false;
+    },
+
+    /**
+     * Show gas fees to the user
+     */
+    async getGasFees() {
+      this.showLoading();
+
+      try {
+        const response = await this.$http.post(`wallet/${this.$route.params.id}/transact/fees`, {
+          'pin': this.transaction.pincode,
+          'amount': parseFloat(this.transaction.amount),
+          'to': this.transaction.toAddress,
+          ...(this.$route.params.token
+							? { token: this.$route.params.token }
+							: {}),
+        });
+
+        const { fees, wallet } = response.data;
+        const { gasPrice, gas, value } = fees;
+
+        this.gasFee = (gasPrice * gas) / 1000000000000000000;
+
+        this.showDialog(i18n.t('pages.gasFees.title'), i18n.t('pages.gasFees.body', {
+          gas: this.gasFee
+        }), {
+          left: i18n.t('cancel'),
+          right: i18n.t('agree')
+        }, () => this.gasFee = null, () => this.submit());
+      } catch(err) {
+        console.error(err);
+        this.showDialog('Error', err.generic);
+      } finally {
+        this.hideLoading();
+      }
+    },
+
+    /**
+     * Submit the transaction
+     */
+    async submitTransaction() {
+      this.showLoading();
+
+      try {
+        const response = await this.$http.post(`wallet/${this.$route.params.id}/execute`, {
+          'pin': this.transaction.pincode,
+          'amount': parseFloat(this.transaction.amount),
+          'to': this.transaction.toAddress,
+          ...(this.$route.params.token
+							? { token: this.$route.params.token }
+							: {}),
+        });
+
+        this.showNotice('', 'Success', 'Your transaction was successful.');
+
+        // Show complete animation, and redirect to transaction list
+        this.transactionSuccess = true;
+        setTimeout(() => {
+          this.$router.push({
+            name: "transactionslist",
+            params: {
+              id: this.$route.params.id,
+            }
+          });
+        }, 2000);
+      } catch(err) {
+        console.error(err);
+        this.showDialog('Error', err.generic);
+      } finally {
+        this.hideLoading();
+      }
+    },
+
     async submit() {
       if(Number.isInteger(parseInt(this.transaction.amount)) !== true) {
         return this.showDialog('', 'Amount Need to be Numeric.');
@@ -116,34 +200,13 @@ export default {
         return this.showDialog('', 'Pincode Length shound be greater than 3');
       }
 
-      this.showLoading();
-
-      try {
-        const response = await this.$http.post(`wallet/${this.$route.params.id}/execute`, {
-          'pin': this.transaction.pincode,
-          'amount': parseFloat(this.transaction.amount),
-          'to': this.transaction.toAddress,
-          ...(this.$route.params.token
-							? { token: this.$route.params.token }
-							: {}),
-        });
-
-        this.showNotice('', 'Success', 'Your transaction was successful.');
-
-        this.transactionSuccess = true;
-        setTimeout(() => {
-          this.$router.push({
-            name: "transactionslist",
-            params: {
-              id: this.$route.params.id,
-            }
-          });
-        }, 2000);
-      } catch (err) {
-        console.error(err);
-        this.showDialog('Error', err.generic);
-      } finally {
-        this.hideLoading();
+      // Either calculate gas fees, or submit the transaction
+      if(!this.gasFee) {
+        console.log('Calculate gas fees');
+        this.getGasFees();
+      } else {
+        console.log('Submit transaction');
+        this.submitTransaction();
       }
     },
 

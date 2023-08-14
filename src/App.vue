@@ -6,9 +6,13 @@
       <img src="/assets/loader.gif" />
     </div>
 
-    <kaiui-dialog :title="dialogData.title" v-model="dialogShowing" :softkeys="{
-      right: $t('ok'),
-    }" v-on:softRight="closeDialog">
+    <kaiui-dialog 
+      :title="dialogData.title" 
+      v-model="dialogShowing" 
+      :softkeys="dialogData.softkeys"
+      v-on:softRight="onDialogSoftRight"
+      v-on:softLeft="onDialogSoftLeft"
+    >
       <kaiui-text :text="dialogData.message" />
     </kaiui-dialog>
   </div>
@@ -30,6 +34,11 @@ export default {
     dialogData: {
       title: "",
       message: "",
+      softkeys: {
+        right: i18n.t('ok')
+      },
+      onSoftLeft: null,
+      onSoftRight: null,
     },
   }),
   beforeDestroy() {
@@ -89,16 +98,33 @@ export default {
       this.internalBrowserOpen = false;
     });
 
-    this.$root.$on('show-dialog', ({ title, message }) => {
+    this.$root.$on('show-dialog', ({ title, message, softkeys, onSoftLeft, onSoftRight }) => {
       this.dialogShowing = true;
 
       this.dialogData = {
         title,
-        message
+        message,
+        ...(softkeys ? { softkeys } : {
+          softkeys: {
+            right: i18n.t('ok')
+          }
+        }),
+        onSoftLeft,
+        onSoftRight,
       }
     })
     this.$root.$on('hide-dialog', () => {
       this.dialogShowing = false;
+
+      this.dialogData = {
+        title: '',
+        message: '',
+        softkeys: {
+          right: i18n.t('ok')
+        },
+        onSoftLeft: null,
+        onSoftRight: null,
+      }
     });
 
     this.$root.$on('show-loading', () => {
@@ -189,7 +215,16 @@ export default {
       }
     },
 
-    closeDialog() {
+    onDialogSoftLeft() {
+      const { onSoftLeft } = this.dialogData;
+      if(onSoftLeft) onSoftLeft();
+
+      this.$root.$emit('hide-dialog');
+    },
+    onDialogSoftRight() {
+      const { onSoftRight } = this.dialogData;
+      if(onSoftRight) onSoftRight();
+
       this.$root.$emit('hide-dialog');
     }
   }
