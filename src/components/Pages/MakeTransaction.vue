@@ -130,10 +130,13 @@ export default {
 							: {}),
         });
 
-        const { fees, wallet } = response.data;
-        const { gasPrice, gas, value } = fees;
+        const { gas } = response.data;
 
-        this.gasFee = (gasPrice * gas) / 1000000000000000000;
+        if(!gas) {
+          throw new Error('Failed to calculate gas fees.')
+        }
+
+        this.gasFee = gas;
 
         this.showDialog(i18n.t('pages.gasFees.title'), i18n.t('pages.gasFees.body', {
           gas: this.gasFee
