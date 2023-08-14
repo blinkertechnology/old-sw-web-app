@@ -30,11 +30,6 @@ const router = new Router({
       name: "LanguageSetupPage",
       component: LanguageSetupPage
     },
-    // {
-    //   path: "/first",
-    //   name: "FirstPage",
-    //   component: FirstPage
-    // },
     {
       path: "/terms",
       name: "TermsAndConditions",
