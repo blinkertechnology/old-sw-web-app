@@ -73,9 +73,11 @@ export default {
         length: "Pin must be between 3 and 7 digits",
       },
     },
+
     firstpage: {
       choose: "Scroll to choose your language",
     },
+
     homepage: {
       intro: {
         title: "Welcome to Sorted Wallet",
@@ -98,6 +100,7 @@ export default {
       myWallets: "My Wallet",
       settings: "Settings",
       faq: "FAQ",
+	  contacts: "Contacts",
 
       qrCode: "QR Code",
       transactionRecords: "Transaction Records",
@@ -111,6 +114,7 @@ export default {
       title: "Make Transaction",
       upload: "Upload Image (QR Code)",
       scan: "Scan QR (Wallet Address)",
+	  selectContact: "Select contact",
       destination: "Destination Wallet Address",
       amount: "Amount",
       pin: "Pin Code",
@@ -127,6 +131,16 @@ export default {
       title: "Transaction records",
       noTransactions: "No Transactions yet.",
     },
+
+	contacts: {
+		title: "My Contacts",
+		new: "New",
+		newContact: "New Contact",
+		name: "Name",
+		address: "Address",
+		create: "Save contact",
+		delete: "Delete contact",
+	}
   },
 
   faq: {

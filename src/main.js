@@ -46,8 +46,7 @@ Vue.component(ListItem.name, ListItem);
 Vue.component(Tabs.name, Tabs);
 
 Vue.mixin(DialogMixin);
-Vue.mixin(LoadingMixin);
-
+Vue.mixin(LoadingMixin); 
 new Vue({
   render: (h) => h(App),
   router,

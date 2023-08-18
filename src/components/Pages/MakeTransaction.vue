@@ -24,6 +24,13 @@
         v-bind:softkeys="softkeysPhoneTwo" 
         v-on:softLeft="goback" 
       />
+      <kaiui-button 
+        :title="$t('pages.makeTransaction.selectContact')" 
+        v-on:softCenter="selectContact" 
+        v-bind:softkeys="softkeysPhoneTwo" 
+        v-on:softLeft="goback" 
+      />
+
 
       <custom-input
         type="text"
@@ -205,10 +212,8 @@ export default {
 
       // Either calculate gas fees, or submit the transaction
       if(!this.gasFee) {
-        console.log('Calculate gas fees');
         this.getGasFees();
       } else {
-        console.log('Submit transaction');
         this.submitTransaction();
       }
     },
@@ -221,6 +226,17 @@ export default {
           ...(this.$route.params.token ? { token: this.$route.params.token } : {})
         }
       });
+    },
+
+    selectContact() {
+      this.$router.push({
+        name: 'dashboard',
+        query: {
+          tab: 1,
+          walletId: this.$route.params.id,
+          ...(this.$route.params.token ? { walletToken: this.$route.params.token } : {})
+        }
+      })
     },
 
     pickImage() {

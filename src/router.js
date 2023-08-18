@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import LanguageSetupPage from '../components/LanguageSetupPage'
-import TermsAndConditions from '../components/TermsAndConditions';
+import LanguageSetupPage from '@/components/LanguageSetupPage'
+import TermsAndConditions from '@/components/TermsAndConditions';
 import HomePage from "@/components/HomePage";
 import forgotpass from "@/components/Auth/ForgotPass";
 import login from "@/components/Auth/UserLogin";
@@ -12,6 +12,7 @@ import transactionslist from "@/components/Pages/TransactionsList";
 import camerapage from "@/components/Pages/CameraPage";
 import maketransaction from "@/components/Pages/MakeTransaction";
 import generatepin from "@/components/Pages/GeneratePin";
+import newContactPage from "@/components/Pages/NewContactPage";
 
 import offlinePage from '@/components/Pages/OfflinePage.vue';
 
@@ -126,6 +127,15 @@ const router = new Router({
       meta: {
         prev: 'login',
         require_auth: true,
+      }
+    },
+    {
+      path: "/new-contact",
+      name: "newcontact",
+      component: newContactPage,
+      meta: {
+        require_auth: true,
+        prev: 'dashboard'
       }
     },
     {

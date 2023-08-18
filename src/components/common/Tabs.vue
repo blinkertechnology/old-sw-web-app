@@ -2,10 +2,12 @@
     <div class="kaiui-tabs-wrapper">
         <div class="kaiui-tabs-header">
             <div 
+                v-for="(tab, index) in tabs"
+                v-bind:key="index" 
                 class="kaiui-tabs-header-tab" 
-                tabindex="0" 
-                v-bind:tab-selectable="true" v-for="(tab, index) in tabs"
-                v-bind:key="index" v-bind:ref="`tabs_${refId}_${index}`" 
+                :tabindex="index" 
+                v-bind:tab-selectable="true" 
+                v-bind:ref="`tabs_${refId}_${index}`" 
                 v-on:focus="selectTab(tab)"
                 v-on:click="onClick(tab, index)">
                     <span class="kaiui-tabs-header-tab-text">{{ tab.name }}</span>
@@ -13,7 +15,7 @@
         </div>
         <div class="kaiui-tabs-slot-content">
             <!-- Use this slot to set `<kaiui-tab-item>` components. -->
-            <slot>Add some &#60;kaiui-tab-item&#62; items!</slot>
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -21,17 +23,21 @@
 <script>
 export default {
     name: "tabs",
+    props: {
+        activeTab: {
+            default: 0,
+            type: Number,
+            required: false,
+        },
+    },
     mounted() {
         this.tabs = this.$children;
     },
     updated() {
-        /**
-         * Make sure the first tab is selected by default
-         */
-        const activeTab = this.tabs.filter(tab => tab.isActive);
-        if(!activeTab.length) {
-            this.onClick(this.tabs[0], 0);
-        }
+        this.$nextTick(() => {
+            this.selectTab(this.tabs[this.activeTab]);
+            this.onClick(this.tabs[this.activeTab], this.activeTab)
+        });
     },
     data: () => ({
         /**
@@ -48,6 +54,9 @@ export default {
          * @private
          */
         selectTab(selectedTab) {
+            console.log('Tabs.selectTab');
+            console.log(selectedTab);
+
             this.tabs.forEach((tab) => {
                 tab.isActive = tab.name == selectedTab.name;
             });
@@ -56,12 +65,12 @@ export default {
          * @private
          */
         onClick(tab, index) {
-            this.selectTab(tab);
+            this.selectTab(tab, index);
 
-            // this.$root.$emit(
-            //     "set-tab-element-selected",
-            //     this.$refs[`tabs_${this.refId}_${index}`][0]
-            // );
+            this.$root.$emit(
+                "set-tab-element-selected",
+                this.$refs[`tabs_${this.refId}_${index}`][0]
+            );
         },
     },
 };
