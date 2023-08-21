@@ -222,7 +222,8 @@ export default {
     openCam() {
       this.$router.push({
         name: "camera",
-        params: { 
+        query: {
+          type: "transaction",
           id: this.$route.params.id,
           ...(this.$route.params.token ? { token: this.$route.params.token } : {})
         }

@@ -100,7 +100,16 @@ const router = new Router({
       }
     },
     {
-      path: "/wallet/:id/:token?/tx/camera",
+      path: "/wallet/:id/:token?/txs",
+      name: "transactionslist",
+      component: transactionslist,
+      meta: {
+        require_auth: true,
+        prev: 'dashboard'
+      }
+    },
+    {
+      path: "camera",
       name: "camera",
       component: camerapage,
       meta: {
@@ -108,15 +117,6 @@ const router = new Router({
         prev: (router) => {
           router.go(-1);
         }
-      }
-    },
-    {
-      path: "/wallet/:id/:token?/txs",
-      name: "transactionslist",
-      component: transactionslist,
-      meta: {
-        require_auth: true,
-        prev: 'dashboard'
       }
     },
     {

@@ -5,16 +5,37 @@
         <kaiui-separator :title="$t('pages.contacts.newContact')" />
 
         <form method="POST">
-            <custom-input type="text" :label="$t('pages.contacts.name')" v-model="contact.name"
-                :placeholder="$t('pages.contacts.name')" />
+            <custom-input 
+                type="text" 
+                :label="$t('pages.contacts.name')" 
+                v-model="contact.name"
+                :placeholder="$t('pages.contacts.name')" 
+            />
 
-            <custom-input type="text" :label="$t('pages.contacts.address')" v-model="contact.address"
-                :placeholder="$t('pages.contacts.address')" />
+            <kaiui-button 
+                :title="$t('pages.contacts.scan')" 
+                v-on:softCenter="openCam" 
+                v-bind:softkeys="{
+                    center: $t('select')
+                }"
+            />
 
-            <kaiui-button :title="$t('pages.contacts.create')" v-bind:softkeys="{
-                center: $t('select'),
-                left: $t('back')
-            }" v-on:softCenter="saveContact" v-on:softLeft="goback" />
+            <custom-input 
+                type="text" 
+                :label="$t('pages.contacts.address')" 
+                v-model="contact.address"
+                :placeholder="$t('pages.contacts.address')" 
+            />
+
+            <kaiui-button 
+                :title="$t('pages.contacts.create')" 
+                v-bind:softkeys="{
+                    center: $t('select'),
+                    left: $t('back')
+                }" 
+                v-on:softCenter="saveContact" 
+                v-on:softLeft="goback" 
+            />
         </form>
 
         <SoftKey :softkeys="{
@@ -36,6 +57,12 @@ export default {
             address: null,
         }
     }),
+    mounted() {
+        const { address } = this.$route.query;
+        if(address) {
+            this.contact.address = address;
+        }
+    },
     methods: {
         async saveContact() {
             if(!this.contact.name || this.contact.name.length < 1) {
@@ -66,6 +93,15 @@ export default {
             } finally {
                 this.hideLoading();
             }
+        },
+
+        openCam() {
+            this.$router.push({
+                name: "camera",
+                query: {
+                    type: "contact"
+                }
+            })
         },
 
         goback() {

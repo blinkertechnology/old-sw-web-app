@@ -6,7 +6,7 @@
       <span id="message"></span>
       <video id="viewfinder" autoplay></video>
     </div>
-    <SoftKey :softkeys.sync="softkeys" v-on:softLeft="goBack" />
+    <SoftKey :softkeys.sync="softkeys" v-on:softLeft="goBack(null)" />
   </kaiui-content>
 </template>
 
@@ -23,6 +23,8 @@ export default {
   },
   data() {
     return {
+      type: 'transaction',
+
       softkeys: {
         left: i18n.t("back"),
       },
@@ -90,18 +92,8 @@ export default {
         this.qrcodeData = code.data;
         this.showNotice("", "", "The QR code is scanned successfully.");
         this.deInit();
-        this.$router.push({
-          name: "maketransaction",
-          params: {
-            id: this.$route.params.id,
-            ...(this.$route.params.token
-              ? { token: this.$route.params.token }
-              : {}),
-          },
-          query: {
-            toAddress: code.data,
-          },
-        });
+
+        this.goBack(code.data);
       }
       this.cameraOptions = camera;
     },
@@ -180,22 +172,40 @@ export default {
         );
       }
     },
-    goBack() {
+
+    goBack(data) {
       this.deInit();
 
-      this.$router.push({
-        name: "maketransaction",
-        params: {
-          id: this.$route.params.id,
-          ...(this.$route.params.token
-            ? { token: this.$route.params.token }
-            : {}),
-        },
-      });
+      if(this.type === 'contact') {
+        // return to contacts page
+        this.$router.push({
+          name: "newcontact",
+          query: {
+            address: data,
+          }
+        })
+      } else {
+        // return to transaction page
+        this.$router.push({
+          name: "maketransaction",
+          params: {
+            id: this.$route.query.id,
+            ...(this.$route.query.token
+              ? { token: this.$route.query.token }
+              : {}),
+          },
+          query: {
+            toAddress: data,
+          },
+        });
+      }
     },
   },
   mounted() {
     this.createCameraElement();
+
+    const { type } = this.$route.query || 'transaction';
+    this.type = type;
   },
 };
 </script>

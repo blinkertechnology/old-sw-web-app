@@ -140,6 +140,7 @@ export default {
 		address: "Address",
 		create: "Save contact",
 		delete: "Delete contact",
+		scan: "Scan QR (Wallet Address)"
 	}
   },
 
