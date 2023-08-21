@@ -54,9 +54,6 @@ export default {
          * @private
          */
         selectTab(selectedTab) {
-            console.log('Tabs.selectTab');
-            console.log(selectedTab);
-
             this.tabs.forEach((tab) => {
                 tab.isActive = tab.name == selectedTab.name;
             });
