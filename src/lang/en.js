@@ -123,7 +123,7 @@ export default {
 
 	gasFees: {
 		title: 'Gas fees',
-		body: 'This transaction will require {gas} in gas fees.',
+		body: 'This transaction will require {type} {gas} in gas fees.',
 	},
 
     transactions: {

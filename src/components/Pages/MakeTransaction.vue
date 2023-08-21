@@ -137,7 +137,7 @@ export default {
 							: {}),
         });
 
-        const { gas } = response.data;
+        const { gas, token } = response.data;
 
         if(!gas) {
           throw new Error('Failed to calculate gas fees.')
@@ -146,7 +146,8 @@ export default {
         this.gasFee = gas;
 
         this.showDialog(i18n.t('pages.gasFees.title'), i18n.t('pages.gasFees.body', {
-          gas: this.gasFee
+          gas: gas,
+          type: token
         }), {
           left: i18n.t('cancel'),
           right: i18n.t('agree')
