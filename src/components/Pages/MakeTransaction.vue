@@ -175,6 +175,7 @@ export default {
 							? { token: this.$route.params.token }
 							: {}),
         });
+        const { transaction, wallet, saved_contact } = response.data;
 
         this.showNotice('', 'Success', 'Your transaction was successful.');
 
@@ -185,6 +186,9 @@ export default {
             name: "transactionslist",
             params: {
               id: this.$route.params.id,
+            },
+            query: {
+              ...(!saved_contact ? { requestSaveContact: this.transaction.toAddress } : {})
             }
           });
         }, 2000);

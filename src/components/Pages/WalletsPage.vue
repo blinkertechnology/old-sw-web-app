@@ -22,54 +22,54 @@
             :softkeys="softkeysDialog"
             v-on:softLeft="closeDialogs"
         >
-        <div v-if="showShareDialog">
-            <list-item
-                :primaryText="$t('pages.dashboard.shareEmail')"
-                :softkeys="softkeysListItem"
-                v-on:softCenter="shareViaEmail"
-                v-on:softLeft="closeDialogs"
-            />
-            <list-item
-                :primaryText="$t('pages.dashboard.shareMessage')"
-                :softkeys="softkeysListItem"
-                v-on:softCenter="shareViaMessage"
-                v-on:softLeft="closeDialogs"
-            />
-        </div>
-
-        <div v-if="showQRCodeDialog">
-            <div v-if="selectedWallet" class="qrcode">
-            <qr-code
-                :size="140"
-                :text="selectedWallet.address"
-                style="display: block"
-                class="m-auto"
-            />
+            <div v-if="showShareDialog">
+                <list-item
+                    :primaryText="$t('pages.dashboard.shareEmail')"
+                    :softkeys="softkeysListItem"
+                    v-on:softCenter="shareViaEmail"
+                    v-on:softLeft="closeDialogs"
+                />
+                <list-item
+                    :primaryText="$t('pages.dashboard.shareMessage')"
+                    :softkeys="softkeysListItem"
+                    v-on:softCenter="shareViaMessage"
+                    v-on:softLeft="closeDialogs"
+                />
             </div>
-        </div>
 
-        <div v-if="!showShareDialog && !showQRCodeDialog">
-            <list-item
-            :primaryText="$t('pages.dashboard.makeTransaction')"
-            v-on:softCenter="toMakeTransaction"
-            v-on:softLeft="closeDialogs"
-            />
-            <list-item
-            :primaryText="$t('pages.dashboard.qrCode')"
-            v-on:softCenter="showQRCode"
-            v-on:softLeft="closeDialogs"
-            />
-            <list-item
-            :primaryText="$t('pages.dashboard.transactionRecords')"
-            v-on:softCenter="toTransactionList"
-            v-on:softLeft="closeDialogs"
-            />
-            <list-item
-            :primaryText="$t('pages.dashboard.share')"
-            v-on:softCenter="showShare"
-            v-on:softLeft="closeDialogs"
-            />
-        </div>
+            <div v-if="showQRCodeDialog">
+                <div v-if="selectedWallet" class="qrcode">
+                <qr-code
+                    :size="140"
+                    :text="selectedWallet.address"
+                    style="display: block"
+                    class="m-auto"
+                />
+                </div>
+            </div>
+
+            <div v-if="!showShareDialog && !showQRCodeDialog">
+                <list-item
+                :primaryText="$t('pages.dashboard.makeTransaction')"
+                v-on:softCenter="toMakeTransaction"
+                v-on:softLeft="closeDialogs"
+                />
+                <list-item
+                :primaryText="$t('pages.dashboard.qrCode')"
+                v-on:softCenter="showQRCode"
+                v-on:softLeft="closeDialogs"
+                />
+                <list-item
+                :primaryText="$t('pages.dashboard.transactionRecords')"
+                v-on:softCenter="toTransactionList"
+                v-on:softLeft="closeDialogs"
+                />
+                <list-item
+                :primaryText="$t('pages.dashboard.share')"
+                v-on:softCenter="showShare"
+                v-on:softLeft="closeDialogs"
+                />
+            </div>
         </kaiui-dialog>
     </div>
 </template>
@@ -244,10 +244,10 @@ export default {
             this.$router.push({
                 name: "transactionslist",
                 params: {
-                id: this.selectedWallet.id,
-                ...(this.selectedWallet.symbol
-                    ? { token: this.selectedWallet.symbol }
-                    : {}),
+                    id: this.selectedWallet.id,
+                    ...(this.selectedWallet.symbol
+                        ? { token: this.selectedWallet.symbol }
+                        : {}),
                 },
             });
         },

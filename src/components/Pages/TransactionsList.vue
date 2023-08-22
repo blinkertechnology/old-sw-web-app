@@ -64,23 +64,13 @@
         </div>
       </div>
     </kaiui-dialog>
-
-    <SoftKey 
-      v-if="!selectedTransaction"
-      :softkeys.sync="softkeys" 
-      v-on:softLeft="goBack"
-    />
   </kaiui-content>
 </template>
 
 <script>
-import SoftKey from "../SoftKey";
 import i18n from '@/lang/setup';
 
 export default {
-  components: {
-    SoftKey
-  },
   data() {
     return {
       showTransactionInfoDialog: false,
@@ -105,6 +95,28 @@ export default {
     }
   },
   methods: {
+    async getTransactions() {
+      try {
+        const response = await this.$http.get(
+          `wallet/${this.$route.params.id}/transactions`,
+          {
+            params: {
+              ...(this.$route.params.token ? { token: this.$route.params.token } : {})
+            }
+          }
+        );
+        const { wallet, transactions } = response.data;
+
+        this.wallet = wallet;
+        this.transactions = Array.isArray(transactions) ? transactions : [];
+      } catch(err) {
+        console.log(err);
+        this.showDialog(i18n.t('genericErrorTitle'), err.generic);
+      } finally {
+        this.loading = false;
+      }
+    },
+
     goBack() {
       this.$router.push({
         name: "dashboard",
@@ -130,24 +142,24 @@ export default {
     }
   },
   async mounted () {
-    try {
-      const response = await this.$http.get(
-        `wallet/${this.$route.params.id}/transactions`,
-        {
-          params: {
-            ...(this.$route.params.token ? { token: this.$route.params.token } : {})
-          }
-        }
-      );
-      const { wallet, transactions } = response.data;
+    const { requestSaveContact } = this.$route.query;
 
-      this.wallet = wallet;
-      this.transactions = Array.isArray(transactions) ? transactions : [];
-    } catch(err) {
-      console.log(err);
-      this.showDialog(i18n.t('genericErrorTitle'), err.generic);
-    } finally {
-      this.loading = false;
+    this.getTransactions();
+
+    // If requestSaveContact was set in the query params,
+    // show a popup to ask the user if they want to save this address as a new contact
+    if(requestSaveContact) {
+      this.showDialog(i18n.t('pages.contacts.create'), i18n.t('pages.contacts.saveRequest'), {
+        left: i18n.t('cancel'),
+        right: i18n.t('agree')
+      }, () => this.gasFee = null, () => {
+        this.$router.push({
+          name: 'newcontact',
+          query: {
+            address: requestSaveContact
+          }
+        })
+      });
     }
   },
 };
