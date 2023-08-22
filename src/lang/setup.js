@@ -1,13 +1,13 @@
 import Vue from "vue";
 import VueI18n from 'vue-i18n';
 
-import en from './en';
-import ur from './ur';
-import vi from './vi';
-import ha from './ha';
-import fr from './fr';
-import ar from './ar';
-import es from './es';
+import en from './en.json';
+import ur from './ur.json';
+import vi from './vi.json';
+import ha from './ha.json';
+import fr from './fr.json';
+import ar from './ar.json';
+import es from './es.json';
 
 Vue.use(VueI18n);
 
