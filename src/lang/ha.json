@@ -1,6 +1,6 @@
 {
     "title": "Sorted Wallet",
-    "username": "'Sunan mai amfani'",
+    "username": "Sunan mai amfani",
     "email": "Imel",
     "password": "Kalmar wucewa",
     "phoneNumber": "Lambar tarho",
@@ -97,10 +97,25 @@
         "pin": "Lambar Pin",
         "submit": "Sallama"
       },
+      "gasFees": {
+        "title": "Kayyade wuta",
+        "body": "Wannan girman za a buɗe {type} {gas} a cikin kayyade wuta."
+      },
       "transactions": {
         "makeTransaction": "Yi Ma'amala",
         "title": "Littafin ciniki",
         "noTransactions": "Babu Ma'amaloli tukuna."
+      },
+      "contacts": {
+        "title": "Mutanen naku",
+        "new": "Sabuwar",
+        "newContact": "Sabuwar mutane",
+        "name": "Suna",
+        "address": "Adireshin akwatin kudi",
+        "create": "Enan mutane",
+        "delete": "Kashe mutane",
+        "scan": "Gane lamba QR",
+        "saveRequest": "Kuna so ku sake hannuwan wannan adireshi gaba daya?"
       }
     },
     "tac": {

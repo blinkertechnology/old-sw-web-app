@@ -97,10 +97,25 @@
         "pin": "Pin Code",
         "submit": "Gửi đi"
       },
+      "gasFees": {
+        "title": "Phí gas",
+        "body": "Giao dịch này sẽ yêu cầu {type} {gas} phí gas."
+      },
       "transactions": {
         "makeTransaction": "Thực hiện giao dịch",
         "title": "Hồ sơ giao dịch",
         "noTransactions": "Chưa có giao dịch nào."
+      },
+      "contacts": {
+        "title": "Liên hệ của tôi",
+        "new": "Mới",
+        "newContact": "Liên hệ mới",
+        "name": "Tên",
+        "address": "Địa chỉ Ví tiền",
+        "create": "Lưu liên hệ",
+        "delete": "Xóa liên hệ",
+        "scan": "Quét mã QR",
+        "saveRequest": "Bạn có muốn lưu địa chỉ này như một liên hệ không?"
       }
     },
     "tac": {

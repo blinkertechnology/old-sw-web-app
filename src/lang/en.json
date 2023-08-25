@@ -90,7 +90,8 @@
         "makeTransaction": "Make Transaction",
         "share": "Share Wallet Address",
         "shareEmail": "Email",
-        "shareMessage": "Message"
+        "shareMessage": "Message",
+        "selectWallet": "Select a wallet"
       },
       "makeTransaction": {
         "title": "Make Transaction",
@@ -100,6 +101,7 @@
         "destination": "Destination Wallet Address",
         "amount": "Amount",
         "pin": "Pin Code",
+        "invalidPin": "Invalid PIN code",
         "submit": "Submit"
       },
       "gasFees": {
@@ -120,7 +122,8 @@
         "create": "Save contact",
         "delete": "Delete contact",
         "scan": "Scan QR (Wallet Address)",
-        "saveRequest": "Do you want to save this address as a contact?"
+        "saveRequest": "Do you want to save this address as a contact?",
+        "makeTransaction": "Make transaction"
       }
     },
     "faq": {

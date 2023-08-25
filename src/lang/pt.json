@@ -1,0 +1,136 @@
+{
+  "title": "Sorted Wallet",
+  "username": "Username",
+  "email": "E-Mail",
+  "password": "Senha",
+  "phoneNumber": "Número de telefone",
+  "otpCode": "Código de 6 dígitos",
+  "select": "Selecionar",
+  "back": "Voltar",
+  "view": "Ver",
+  "cancel": "Cancelar",
+  "actions": "Ações",
+  "options": "Opções",
+  "error": "Erro",
+  "success": "Sucesso",
+  "ok": "OK",
+  "next": "Próximo",
+  "agree": "Concordo",
+  "closeAd": "Rufe talla",
+  "login": "Entrar",
+  "register": "Registrar",
+  "logout": "Sair",
+  "forgotPassword": "Esqueceu a senha?",
+  "genericErrorTitle": "Algo deu errado.",
+  "genericError": "Algo deu errado. Por favor, tente novamente em breve.",
+  "loggedOut": "Você foi desconectado. Por favor, faça login novamente.",
+  "offline": {
+    "title": "Você está offline",
+    "text": "Parece haver um problema com a sua conexão. Por favor, verifique sua conexão de rede.",
+    "refresh": "Atualizar"
+  },
+  "wallets": {
+    "bitcoin": "BTC",
+    "matic": "MATIC",
+    "matic_usdc": "USDC",
+    "matic_usdt": "USDT",
+    "matic_alternate": " (Polygon)"
+  },
+  "pages": {
+    "signup": {
+      "title": "Registrar",
+      "emailRequired": "E-mail é obrigatório!",
+      "passwordRequired": "Senha é obrigatória!",
+      "passwordLength": "A senha não deve ter menos de 5 caracteres.",
+      "cCodeRequired": "País é obrigatório!",
+      "instructions1": "O Sorted Wallet enviará um código de uso único para verificar o seu endereço de e-mail.",
+      "instructions2": "Por favor, insira o código de 6 dígitos que foi enviado para {email}"
+    },
+    "login": {
+      "title": "Login",
+      "instructions1": "O Sorted Wallet enviará um código de uso único para verificar o seu número de telefone.",
+      "instructions2": "Por favor, insira o código de 6 dígitos que foi enviado para {phone}"
+    },
+    "setupPIN": {
+      "title": "Crie o seu código PIN",
+      "instructions1": "Lembre-se dele e mantenha-o seguro para transações futuras na carteira.",
+      "submit": "Enviar",
+      "pinInput": "PIN",
+      "confirmPinInput": "Confirmar PIN",
+      "errors": {
+        "required": "Por favor, insira um código PIN numérico.",
+        "match": "O PIN inserido não coincide",
+        "length": "O PIN deve ter entre 3 e 7 dígitos"
+      }
+    },
+    "firstpage": {
+      "choose": "Role para escolher o seu idioma"
+    },
+    "homepage": {
+      "intro": {
+        "title": "Bem-vindo à Sorted Wallet",
+        "sub": "Por favor, registre-se ou faça login para continuar."
+      },
+      "emailLogin": "E-mail e Senha",
+      "phoneLogin": "Número de Telefone"
+    },
+    "forgotPassword": {
+      "title": "Esqueceu a Senha?",
+      "resetPassword": "Redefinir senha"
+    },
+    "settings": {
+      "changeLanguage": "Mudar idioma"
+    },
+    "dashboard": {
+      "myWallets": "Minhas Carteiras",
+      "settings": "Configurações",
+      "qrCode": "Código QR",
+      "faq": "Perguntas Frequentes",
+      "contacts": "Contatos",
+      "transactionRecords": "Registros de Transação",
+      "makeTransaction": "Realizar Transação",
+      "share": "Compartilhar Endereço da Carteira",
+      "shareEmail": "E-mail",
+      "shareMessage": "Mensagem"
+    },
+    "makeTransaction": {
+      "title": "Realizar Transação",
+      "upload": "Enviar Código QR",
+      "scan": "Escanear Código QR",
+      "selectContact": "Selecionar Contato",
+      "destination": "Endereço da Carteira de Destino",
+      "amount": "Quantia",
+      "pin": "Código PIN",
+      "submit": "Enviar"
+    },
+    "gasFees": {
+      "title": "Taxas de Gás",
+      "body": "Esta transação exigirá {type} {gas} em taxas de gás."
+    },
+    "transactions": {
+      "makeTransaction": "Realizar transação",
+      "title": "Registros de transação",
+      "noTransactions": "Ainda não há transações."
+    },
+    "contacts": {
+      "title": "Meus Contatos",
+      "new": "Novo",
+      "newContact": "Novo Contato",
+      "name": "Nome",
+      "address": "Endereço da Carteira",
+      "create": "Salvar contato",
+      "delete": "Excluir contato",
+      "scan": "Escanear Código QR",
+      "saveRequest": "Deseja salvar este endereço como um contato?"
+    }
+  },
+  "tac": {
+    "agree": "Concordo",
+    "scrollDown": "Role para Baixo'",
+    "error": "Por favor, concorde com os Termos e Condições.",
+    "confirm": {
+      "primary": "Eu li e concordo",
+      "secondary": "aos Termos e Condições"
+    }
+  }
+}

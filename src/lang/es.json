@@ -100,10 +100,25 @@
         "pin": "Código PIN",
         "submit": "Enviar"
       },
+      "gasFees": {
+        "title": "Tarifas de gas",
+        "body": "Esta transacción requerirá {type} {gas} en tarifas de gas."
+      },
       "transactions": {
         "makeTransaction": "Realizar transacción",
         "title": "Registros de transacciones",
         "noTransactions": "Aún no hay transacciones."
+      },
+      "contacts": {
+        "title": "Mis contactos",
+        "new": "Nuevo",
+        "newContact": "Nuevo contacto",
+        "name": "Nombre",
+        "address": "Dirección de billetera",
+        "create": "Guardar contacto",
+        "delete": "Borrar contacto",
+        "scan": "Escanear código QR",
+        "saveRequest": "¿Deseas guardar esta dirección como contacto?"
       }
     },
     "faq": {

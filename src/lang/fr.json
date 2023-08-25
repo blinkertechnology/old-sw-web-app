@@ -100,10 +100,26 @@
         "pin": "Code Pin",
         "submit": "Soumettre"
       },
+      "gasFees": {
+        "title": "Gas fees",
+        "body": "This transaction will require {type} {gas} in gas fees."
+      },
       "transactions": {
         "makeTransaction": "Effectuer une transaction",
         "title": "Enregistrements de transactions",
         "noTransactions": "Pas encore de transactions"
+      },
+      "contacts": {
+        "title": "My Contacts",
+        "new": "New",
+        "newContact": "New Contact",
+        "name": "Name",
+        "address": "Address",
+        "create": "Save contact",
+        "delete": "Delete contact",
+        "scan": "Scan QR (Wallet Address)",
+        "saveRequest": "Do you want to save this address as a contact?",
+        "makeTransaction": "Make transaction"
       }
     },
     "tac": {

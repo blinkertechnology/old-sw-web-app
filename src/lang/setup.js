@@ -8,6 +8,7 @@ import ha from './ha.json';
 import fr from './fr.json';
 import ar from './ar.json';
 import es from './es.json';
+import pt from './pt.json';
 
 Vue.use(VueI18n);
 
@@ -21,7 +22,8 @@ const i18n = new VueI18n({
         vi,
         fr,
         ar,
-        es
+        es,
+        pt
     }
 });
 
@@ -32,6 +34,7 @@ export const supportedLanguages = {
     'vi': 'Tiếng Việt',
     'fr': 'Français',
     'es': 'Español',
-    'ar': 'عربي'
+    'ar': 'عربي',
+    'pt': 'Português'
 };
 export default i18n;
