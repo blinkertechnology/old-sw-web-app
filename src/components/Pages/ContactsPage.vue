@@ -34,6 +34,14 @@
             v-on:softLeft="closeOptionsDialog"
         >
             <list-item
+                :primaryText="$t('pages.contacts.makeTransaction')"
+                :softkeys="{
+                    center: $t('select')
+                }"
+                v-on:softCenter="makeTransaction"
+            />
+
+            <list-item
                 :primaryText="$t('pages.contacts.delete')"
                 :softkeys="{
                     center: $t('select')
@@ -106,6 +114,18 @@ export default {
         closeOptionsDialog() {
             this.selectedContact = null;
             this.optionsDialogShowing = false;
+        },
+
+        makeTransaction() {
+            this.$router.push({
+                name: 'dashboard',
+                query: {
+                    tab: 0,
+                    toAddress: this.selectedContact.address,
+                }
+            });
+
+            this.closeOptionsDialog();
         },
 
         toTransaction(contact) {

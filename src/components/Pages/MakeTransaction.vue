@@ -128,7 +128,7 @@ export default {
       this.showLoading();
 
       try {
-        const response = await this.$http.post(`wallet/${this.$route.params.id}/transact/fees`, {
+        const response = await this.$http.post(`wallet/${this.$route.params.id}/transact/prepare`, {
           'pin': this.transaction.pincode,
           'amount': parseFloat(this.transaction.amount),
           'to': this.transaction.toAddress,
@@ -137,13 +137,22 @@ export default {
 							: {}),
         });
 
-        const { gas, token } = response.data;
+        const { gas, token, show_fees } = response.data;
 
-        if(!gas) {
+        if(!show_fees) {
+          // No need to display gas fees to the user, ignore
+          this.gasFee = -1000;
+          this.submit();
+          return;
+        }
+
+        if(!gas && show_fees) {
           throw new Error('Failed to calculate gas fees.')
         }
 
         this.gasFee = gas;
+
+        this.hideLoading();
 
         this.showDialog(i18n.t('pages.gasFees.title'), i18n.t('pages.gasFees.body', {
           gas: gas,
@@ -155,7 +164,6 @@ export default {
       } catch(err) {
         console.error(err);
         this.showDialog('Error', err.generic);
-      } finally {
         this.hideLoading();
       }
     },
@@ -210,9 +218,9 @@ export default {
 
       const pincode = this.transaction.pincode.length;
       if(pincode > 6) {
-        return this.showDialog('', 'Pincode Length shound be less than 7');
+        return this.showDialog('', i18n.t('pages.makeTransaction.invalidPin'));
       } else if (pincode < 4) {
-        return this.showDialog('', 'Pincode Length shound be greater than 3');
+        return this.showDialog('', i18n.t('pages.makeTransaction.invalidPin'));
       }
 
       // Either calculate gas fees, or submit the transaction
@@ -243,6 +251,16 @@ export default {
           ...(this.$route.params.token ? { walletToken: this.$route.params.token } : {})
         }
       })
+    },
+
+    normalizeAddress(address) {
+      [
+        'ethereum:',
+      ].forEach(function(s) {
+        address = address.replace(s, '');
+      })
+      
+      return address;
     },
 
     pickImage() {
@@ -279,7 +297,7 @@ export default {
                     alert("No QR code found. Please upload again.");
                     this.hideLoading();
                   } else {
-                    this.transaction.toAddress = res.data;
+                    this.transaction.toAddress = this.normalizeAddress(res.data);
                     alert("QR Data readed successfully.")
                     this.hideLoading();
                   }

@@ -49,6 +49,21 @@ export default {
          */
         refId: Math.random(),
     }),
+    watch: {
+        $route() {
+            const { tab } = this.$route.query;
+            const activeTabIndex = this.tabs.findIndex(function(tab) {
+                return tab.isActive;
+            });
+
+            if(tab !== activeTabIndex) {
+                this.$nextTick(() => {
+                    this.selectTab(this.tabs[tab]);
+                    this.onClick(this.tabs[tab], tab);
+                });
+            }
+        }
+    },
     methods: {
         /**
          * @private

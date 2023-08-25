@@ -10,7 +10,7 @@
                 :primarySecondaryText="wallet.primarySecondaryLabel"
                 :secondaryText="wallet.secondaryLabel"
                 :softkeys="softkeysPhone"
-                v-on:softCenter="showOptionsDialog(wallet.item)"
+                v-on:softCenter="toTransactionData ? toMakeTransaction(wallet.item) : showOptionsDialog(wallet.item)"
             />
             
             <kai-os-ad :isFullAd="isFullAdVisible" />
@@ -51,7 +51,7 @@
             <div v-if="!showShareDialog && !showQRCodeDialog">
                 <list-item
                 :primaryText="$t('pages.dashboard.makeTransaction')"
-                v-on:softCenter="toMakeTransaction"
+                v-on:softCenter="toMakeTransaction(selectedWallet)"
                 v-on:softLeft="closeDialogs"
                 />
                 <list-item
@@ -85,6 +85,8 @@ export default {
     data: () => ({
         items: [],
 
+        toTransactionData: null,
+
         selectedWallet: null,
         showActionDialog: false,
         showQRCodeDialog: false,
@@ -106,9 +108,11 @@ export default {
             return i18n.t("options");
         },
 
-        softkeysPhone: () => ({
-            center: i18n.t("options"),
-        }),
+        softkeysPhone() {
+            return {
+                center: this.toTransactionData ? i18n.t('select') : i18n.t("options"),
+            }
+        },
         softkeysDialog: () => ({
             left: i18n.t("cancel"),
         }),
@@ -118,6 +122,16 @@ export default {
         }),
     },
     mounted() {
+        const { toAddress } = this.$route.query;
+        if(toAddress) {
+            this.showNotice('', '', i18n.t('pages.dashboard.selectWallet'))
+            this.toTransactionData = {
+                toAddress
+            }
+        }
+
+        console.log(this.toTransactionData);
+
         this.getWallets();
 
         this.showFullAd = !this.showFullAd;
@@ -229,15 +243,16 @@ export default {
             this.$router.push({ name: "dashboard" });
         },
 
-        toMakeTransaction() {
+        toMakeTransaction(wallet) {
             this.$router.push({
                 name: "maketransaction",
                 params: {
-                id: this.selectedWallet.id,
-                ...(this.selectedWallet.symbol
-                    ? { token: this.selectedWallet.symbol }
-                    : {}),
+                    id: wallet.id,
+                    ...(wallet.symbol ? { token: wallet.symbol } : {}),
                 },
+                query: {
+                    ...this.toTransactionData,
+                }
             });
         },
         toTransactionList() {
