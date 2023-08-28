@@ -9,7 +9,6 @@ import register from "@/components/Auth/RegisterUser";
 import dashboard from "@/components/Pages/HomeDashboard";
 import createwallet from "@/components/Pages/CreateWallet";
 import transactionslist from "@/components/Pages/TransactionsList";
-import camerapage from "@/components/Pages/CameraPage";
 import maketransaction from "@/components/Pages/MakeTransaction";
 import generatepin from "@/components/Pages/GeneratePin";
 import newContactPage from "@/components/Pages/NewContactPage";
@@ -106,17 +105,6 @@ const router = new Router({
       meta: {
         require_auth: true,
         prev: 'dashboard'
-      }
-    },
-    {
-      path: "camera",
-      name: "camera",
-      component: camerapage,
-      meta: {
-        require_auth: true,
-        prev: (router) => {
-          router.go(-1);
-        }
       }
     },
     {
