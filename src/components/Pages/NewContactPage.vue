@@ -13,11 +13,11 @@
             />
 
             <kaiui-button 
-                :title="$t('pages.contacts.scan')" 
-                v-on:softCenter="openCam" 
+                :title="$t('pages.contacts.scanQR')" 
+                v-on:softCenter="pickImage" 
                 v-bind:softkeys="{
                     center: $t('select')
-                }"
+                }" 
             />
 
             <custom-input 
@@ -33,19 +33,25 @@
                     center: $t('select'),
                     left: $t('back')
                 }" 
-                v-on:softCenter="saveContact" 
-                v-on:softLeft="goback" 
+                v-on:softCenter="saveContact"
+                v-on:softLeft="goBack" 
             />
         </form>
 
-        <SoftKey :softkeys="{
-            left: $t('back')
-        }" v-on:softLeft="goback" />
+        <SoftKey 
+            :softkeys="{
+                left: $t('back')
+            }" 
+            v-on:softLeft="goBack"
+        />
     </kaiui-content>
 </template>
 
 <script>
 import SoftKey from "../SoftKey";
+import i18n from '@/lang/setup';
+import QrcodeDecoder from 'qrcode-decoder';
+import { normalizeAddress } from '@/lib/qr';
 
 export default {
     components: {
@@ -58,17 +64,21 @@ export default {
         }
     }),
     mounted() {
+        /**
+         * When the route query parameters contain an "address" key, prefill
+         * the contact address with it
+         */
         const { address } = this.$route.query;
-        if(address) {
+        if (address) {
             this.contact.address = address;
         }
     },
     methods: {
         async saveContact() {
-            if(!this.contact.name || this.contact.name.length < 1) {
+            if (!this.contact.name || this.contact.name.length < 1) {
                 return this.showDialog('', 'A name for this contact is required.');
             }
-            if(!this.contact.address || this.contact.address.length < 1) {
+            if (!this.contact.address || this.contact.address.length < 1) {
                 return this.showDialog('', 'An address for this contact is required.');
             }
 
@@ -80,7 +90,7 @@ export default {
                     address: this.contact.address,
                 });
 
-                return this.$router.push({ 
+                return this.$router.push({
                     name: "dashboard",
                     query: {
                         tab: 1,
@@ -95,18 +105,62 @@ export default {
             }
         },
 
-        openCam() {
-            this.$router.push({
-                name: "camera",
-                query: {
-                    type: "contact"
+        async pickImage() {
+            const vueCtx = this;
+
+            const qr = new QrcodeDecoder();
+            let activity = new window.MozActivity({
+                name: 'pick',
+                data: {
+                    type: 'image/*'
                 }
-            })
+            });
+
+            try {
+                vueCtx.showLoading();
+
+                activity.onsuccess = async function () {
+                    const blob = this.result.blob;
+
+                    if (!blob) {
+                        vueCtx.hideLoading();
+                        vueCtx.showNotice('', i18n.t('genericErrorTitle'), i18n.t('genericError'));
+                    }
+
+                    const reader = new FileReader();
+                    reader.addEventListener('load', async function () {
+                        const res = await qr.decodeFromImage(reader.result);
+                        const { data } = res;
+
+                        if (!data) {
+                            vueCtx.showNotice('', '', i18n.t('pages.contacts.scanFailed'));
+                        } else {
+                            vueCtx.contact.address = normalizeAddress(data);
+
+                            vueCtx.showNotice('', '', i18n.t('pages.contacts.scanQRSuccess'));
+                        }
+
+                        vueCtx.hideLoading();
+                    });
+                    reader.readAsDataURL(blob);
+                }
+
+                activity.onerror = function () {
+                    vueCtx.hideLoading();
+                    vueCtx.showNotice('', i18n.t('genericErrorTitle'), i18n.t('genericError'));
+                }
+            } catch (err) {
+                vueCtx.hideLoading();
+                vueCtx.showNotice('', i18n.t('genericErrorTitle'), i18n.t('genericError'));
+            }
         },
 
-        goback() {
+        goBack() {
             this.$router.push({
                 name: "dashboard",
+                query: {
+                    tab: 1
+                }
             });
         },
     }

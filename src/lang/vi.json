@@ -90,8 +90,8 @@
       },
       "makeTransaction": {
         "title": "thực hiện giao dịch",
-        "upload": "Tải lên hình ảnh (Mã QR)",
-        "scan": "Quét QR (Địa chỉ ví)",
+        "scanQR": "Tải lên hình ảnh (Mã QR)",
+        "scanQRSuccess": "QR Code scanned successfully.",
         "destination": "Địa chỉ ví đích",
         "amount": "số lượng",
         "pin": "Pin Code",
@@ -114,7 +114,9 @@
         "address": "Địa chỉ Ví tiền",
         "create": "Lưu liên hệ",
         "delete": "Xóa liên hệ",
-        "scan": "Quét mã QR",
+        "scanQR": "Upload QR Code",
+        "scanQRSuccess": "QR Code scanned successfully.",
+        "scanFailed": "Failed to scan QR Code",
         "saveRequest": "Bạn có muốn lưu địa chỉ này như một liên hệ không?"
       }
     },

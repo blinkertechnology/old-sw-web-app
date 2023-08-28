@@ -90,8 +90,8 @@
       },
       "makeTransaction": {
         "title": "لین دین کریں",
-        "upload": "تصویر اپ لوڈ کریں (QR کوڈ)",
-        "scan": "اسکین QR (والٹ ایڈریس)",
+        "scanQR": "تصویر اپ لوڈ کریں (QR کوڈ)",
+        "scanQRSuccess": "QR Code scanned successfully.",
         "destination": "پرس کی منزل کا پتہ",
         "amount": "رقم",
         "pin": "خفیہ نمبر",
@@ -114,7 +114,9 @@
         "address": "والٹ کا پتہ",
         "create": "رابطہ محفوظ کریں",
         "delete": "رابطہ حذف کریں",
-        "scan": "QR کوڈ اسکین کریں",
+        "scanQR": "Upload QR Code",
+        "scanQRSuccess": "QR Code scanned successfully.",
+        "scanFailed": "Failed to scan QR Code",
         "saveRequest": "کیا آپ اس پتے کو رابطہ کے طور پر محفوظ کرنا چاہتے ہیں؟"
       }
     },

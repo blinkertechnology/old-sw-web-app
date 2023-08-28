@@ -13,14 +13,8 @@
 
     <form method="POST">
       <kaiui-button 
-        :title="$t('pages.makeTransaction.upload')" 
+        :title="$t('pages.makeTransaction.scanQR')" 
         v-on:softCenter="pickImage" 
-        v-bind:softkeys="softkeysPhoneTwo" 
-        v-on:softLeft="goback" 
-      />
-      <kaiui-button 
-        :title="$t('pages.makeTransaction.scan')" 
-        v-on:softCenter="openCam" 
         v-bind:softkeys="softkeysPhoneTwo" 
         v-on:softLeft="goback" 
       />
@@ -61,8 +55,6 @@
         v-on:softCenter="submit" 
         v-on:softLeft="goback" 
       />
-
-      <img id="img1" src="" style="display:none" alt="qr code" />
     </form>
     
     <SoftKey 
@@ -76,6 +68,7 @@
 import SoftKey from "../SoftKey";
 import QrcodeDecoder from 'qrcode-decoder';
 import i18n from '@/lang/setup';
+import { normalizeAddress } from '@/lib/qr';
 
 export default {
   props: ["walletdata"],
@@ -109,15 +102,11 @@ export default {
     },
 
     closeGasFeesDialog($event) {
-      console.log('closeGasFeesDialog');
-      console.log($event);
-
       this.gasFeesDialogShowing = false;
       this.gasFee = null;
     },
 
     acceptGasFees() {
-      console.log('acceptGasFees');
       this.gasFeesDialogShowing = false;
     },
 
@@ -231,17 +220,6 @@ export default {
       }
     },
 
-    openCam() {
-      this.$router.push({
-        name: "camera",
-        query: {
-          type: "transaction",
-          id: this.$route.params.id,
-          ...(this.$route.params.token ? { token: this.$route.params.token } : {})
-        }
-      });
-    },
-
     selectContact() {
       this.$router.push({
         name: 'dashboard',
@@ -253,74 +231,57 @@ export default {
       })
     },
 
-    normalizeAddress(address) {
-      [
-        'ethereum:',
-      ].forEach(function(s) {
-        address = address.replace(s, '');
-      })
-      
-      return address;
-    },
+    async pickImage() {
+      const vueCtx = this;
 
-    pickImage() {
       const qr = new QrcodeDecoder();
       let activity = new window.MozActivity({
         name: 'pick',
         data: {
-          type: 'image/jpeg' // The type could be image/*, image/jpeg, image/png, dongle/image
+          type: 'image/*'
         }
       });
 
-      this.launchActivity = true;
-      let self = this;
+      try {
+        vueCtx.showLoading();
 
-      activity.onsuccess = function success() {
-        this.showLoading();
+        activity.onsuccess = async function() {
+          const blob = this.result.blob;
 
-        self.launchActivity = false;
-        let blob = this.result.blob;
-        if (blob) {
-          // Scan QR Code
-          const reader = new FileReader();
-          reader.onloadend = function () {
-            document.getElementById("img1").src = reader.result;
+          if(!blob) {
+            vueCtx.hideLoading();
+            vueCtx.showNotice('', i18n.t('genericErrorTitle'), i18n.t('genericError'));
           }
+
+          const reader = new FileReader();
+          reader.addEventListener('load', async function() {
+            const res = await qr.decodeFromImage(reader.result);
+            const { data } = res;
+
+            if(!data) {
+              vueCtx.showNotice('', '', i18n.t('pages.makeTransaction.scanFailed'));
+            } else {
+              vueCtx.transaction.toAddress = normalizeAddress(data);
+
+              vueCtx.showNotice('', '', i18n.t('pages.makeTransaction.scanQRSuccess'));
+            }
+
+            vueCtx.hideLoading();
+          });
           reader.readAsDataURL(blob);
-
-          setTimeout(() => {
-            const img1 = document.querySelector('#img1');
-            (async () => {
-              try {
-                await qr.decodeFromImage(img1).then((res) => {
-                  if (res.data === undefined) {
-                    alert("No QR code found. Please upload again.");
-                    this.hideLoading();
-                  } else {
-                    this.transaction.toAddress = this.normalizeAddress(res.data);
-                    alert("QR Data readed successfully.")
-                    this.hideLoading();
-                  }
-                }).catch((err) => {
-                  alert("Something went wrong. Please try again later.");
-                  this.hideLoading();
-                })
-              } catch (error) {
-                return error;
-              }
-            })();
-          }, 1500);
-
-        } else {
-          this.showNotice("", "Error", "Error scanning file.");
-          this.hideLoading();
         }
-      };
-      activity.onerror = () => {
-        // TODO
-      };
+
+        activity.onerror = function() {
+          vueCtx.hideLoading();
+          vueCtx.showNotice('', i18n.t('genericErrorTitle'), i18n.t('genericError'));
+        }
+      } catch(err) {
+        vueCtx.hideLoading();
+        vueCtx.showNotice('', i18n.t('genericErrorTitle'), i18n.t('genericError'));
+      }
     }
   },
+  
   mounted() {
     const givenToAddress = this.$route.query.toAddress;
     if(givenToAddress) {

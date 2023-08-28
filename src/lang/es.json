@@ -93,8 +93,8 @@
       },
       "makeTransaction": {
         "title": "Realizar transacción",
-        "upload": "Subir imagen (Código QR)",
-        "scan": "Escanear QR (Dirección de billetera)",
+        "scanQR": "Subir imagen (Código QR)",
+        "scanQRSuccess": "QR Code scanned successfully.",
         "destination": "Dirección de billetera de destino",
         "amount": "Monto",
         "pin": "Código PIN",
@@ -117,7 +117,9 @@
         "address": "Dirección de billetera",
         "create": "Guardar contacto",
         "delete": "Borrar contacto",
-        "scan": "Escanear código QR",
+        "scanQR": "Upload QR Code",
+        "scanQRSuccess": "QR Code scanned successfully.",
+        "scanFailed": "Failed to scan QR Code",
         "saveRequest": "¿Deseas guardar esta dirección como contacto?"
       }
     },

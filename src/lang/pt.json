@@ -95,8 +95,8 @@
     },
     "makeTransaction": {
       "title": "Realizar Transação",
-      "upload": "Enviar Código QR",
-      "scan": "Escanear Código QR",
+      "scanQR": "Enviar Código QR",
+      "scanQRSuccess": "QR Code scanned successfully.",
       "selectContact": "Selecionar Contato",
       "destination": "Endereço da Carteira de Destino",
       "amount": "Quantia",
@@ -120,7 +120,9 @@
       "address": "Endereço da Carteira",
       "create": "Salvar contato",
       "delete": "Excluir contato",
-      "scan": "Escanear Código QR",
+      "scanQR": "Upload QR Code",
+      "scanQRSuccess": "QR Code scanned successfully.",
+      "scanFailed": "Failed to scan QR Code",
       "saveRequest": "Deseja salvar este endereço como um contato?"
     }
   },

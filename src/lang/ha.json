@@ -90,8 +90,8 @@
       },
       "makeTransaction": {
         "title": "Yi Ma'amala",
-        "upload": "Loda Hoto (Lambar QR)",
-        "scan": "Duba QR (Adreshin Wallet)",
+        "scanQR": "Loda Hoto (Lambar QR)",
+        "scanQRSuccess": "QR Code scanned successfully.",
         "destination": "Adireshin walat ɗin zuwa",
         "amount": "Adadin",
         "pin": "Lambar Pin",
@@ -114,7 +114,9 @@
         "address": "Adireshin akwatin kudi",
         "create": "Enan mutane",
         "delete": "Kashe mutane",
-        "scan": "Gane lamba QR",
+        "scanQR": "Upload QR Code",
+        "scanQRSuccess": "QR Code scanned successfully.",
+        "scanFailed": "Failed to scan QR Code",
         "saveRequest": "Kuna so ku sake hannuwan wannan adireshi gaba daya?"
       }
     },

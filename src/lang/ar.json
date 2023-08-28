@@ -93,8 +93,8 @@
       },
       "makeTransaction": {
         "title": "إجراء المعاملة",
-        "upload": "رفع الصورة (رمز الاستجابة السريعة)",
-        "scan": "مسح رمز الاستجابة السريعة (عنوان المحفظة)",
+        "scanQR": "رفع الصورة (رمز الاستجابة السريعة)",
+        "scanQRSuccess": "QR Code scanned successfully.",
         "destination": "عنوان محفظة الوجهة",
         "amount": "المبلغ",
         "pin": "رمز الدخول (PIN)",
@@ -117,7 +117,9 @@
         "address": "عنوان المحفظة",
         "create": "حفظ الجهة الاتصال",
         "delete": "حذف الجهة الاتصال",
-        "scan": "مسح رمز الاستجابة السريعة (QR)",
+        "scanQR": "Upload QR Code",
+        "scanQRSuccess": "QR Code scanned successfully.",
+        "scanFailed": "Failed to scan QR Code",
         "saveRequest": "هل ترغب في حفظ هذا العنوان كجهة اتصال؟"
       }
     },

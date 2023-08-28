@@ -95,8 +95,9 @@
       },
       "makeTransaction": {
         "title": "Make Transaction",
-        "upload": "Upload Image (QR Code)",
-        "scan": "Scan QR (Wallet Address)",
+        "scanQR": "Upload QR Code",
+        "scanQRSuccess": "QR Code scanned successfully.",
+        "scanFailed": "Failed to scan QR Code",
         "selectContact": "Select contact",
         "destination": "Destination Wallet Address",
         "amount": "Amount",
@@ -121,7 +122,9 @@
         "address": "Address",
         "create": "Save contact",
         "delete": "Delete contact",
-        "scan": "Scan QR (Wallet Address)",
+        "scanQR": "Upload QR Code",
+        "scanQRSuccess": "QR Code scanned successfully.",
+        "scanFailed": "Failed to scan QR Code",
         "saveRequest": "Do you want to save this address as a contact?",
         "makeTransaction": "Make transaction"
       }
