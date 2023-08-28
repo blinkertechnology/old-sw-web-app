@@ -15,6 +15,8 @@ langFiles.forEach(function(file) {
 
     try {
         JSON.parse(data);
+
+        console.log(`${file} OK`)
     } catch(err) {
         core.setFailed(`Failed to parse ${file}`);
     }    
