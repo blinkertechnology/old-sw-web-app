@@ -6,6 +6,7 @@
     "serve": "env-cmd -f ./.env.js vue-cli-service serve",
     "serve:staging": "env-cmd -f ./.env.staging.js vue-cli-service serve",
     "serve:prod": "env-cmd -f ./.env.prod.js vue-cli-service serve",
+    "test:languages": "node tools/test-languages.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "publish": "env-cmd -f ./.env.js yarn build && npm run release",
@@ -44,6 +45,7 @@
     "vue-session": "^1.0.0"
   },
   "devDependencies": {
+    "@actions/core": "^1.10.0",
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
     "@types/js-md5": "^0.4.3",
