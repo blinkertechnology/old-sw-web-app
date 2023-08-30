@@ -24,7 +24,7 @@
           v-on:softLeft="goBack"
           v-on:softCenter="$event => viewDetails(item)"
           :key="item['hash']"
-          :primaryText="`${item['date']}`"
+          :primaryText="`${new Date(item['date'] * 1000).toLocaleString()}`"
           :secondaryText="`Amount: ${item['amount']}`"
           :tertiaryText="item['status']"
         />
@@ -40,7 +40,7 @@
       <div v-if="selectedTransaction">
         <div class="transaction-value" v-bind:nav-selectable="true" >
           <div class="transaction-value--t">Date</div>
-          <div class="transaction-value--v">{{ selectedTransaction['date'] }}</div>
+          <div class="transaction-value--v">{{ new Date(selectedTransaction['date'] * 1000).toLocaleString() }}</div>
         </div>
 
         <div class="transaction-value" v-bind:nav-selectable="true">
